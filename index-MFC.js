@@ -1,12 +1,13 @@
 //console.log("Hola Mundo");
 
 
-/*
-let country = ["Portugal","China"," Denmark","France","France","United States","France","Poland","China","France",
-"China","Denmark","Philippines","France","Iran","Canada","Denmark","Armenia","China"];
+let express = require("express");
 
-let hours = [17, 14, 1, 22, 5, 9, 23, 21, 18, 10, 11, 22, 13, 4, 11, 3, 1, 1, 7, 9, 7];
-*/
+let app = express();
+
+const PORT = 10015;
+
+
 
   
   const datos = [
@@ -182,7 +183,21 @@ let hours = [17, 14, 1, 22, 5, 9, 23, 21, 18, 10, 11, 22, 13, 4, 11, 3, 1, 1, 7,
     return { pais, mediaHorasEstudio };
   });
   
+  app.get("/samples/MFC", (req,res) => {
+    res.send(`<html><body><h1> ${horasDeEstudio()}</h1></body></html>`);
+  });
+
+  /*
+  app.get("/samples/MFC", (req, res) => {
+  const horasDeEstudioString = JSON.stringify(horasDeEstudio, null, 2);
+  res.send(`<html><body><pre>${horasDeEstudioString}</pre></body></html>`);
+});
+
+  */
   
+  app.listen(10015);
+  
+  console.log(`Server listening on port ${PORT}.`);
 
   
   
