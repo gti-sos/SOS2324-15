@@ -183,17 +183,24 @@ const PORT = 10015;
     return { pais, mediaHorasEstudio };
   });
   
-  app.get("/samples/MFC", (req,res) => {
-    res.send(`<html><body><h1> ${horasDeEstudio()}</h1></body></html>`);
-  });
 
   /*
+  app.get("/samples/MFC", (req,res) => {
+    res.send(`<html><body><h1> ${horasDeEstudio(datos)}</h1></body></html>`);
+  });
+
+  
   app.get("/samples/MFC", (req, res) => {
   const horasDeEstudioString = JSON.stringify(horasDeEstudio, null, 2);
   res.send(`<html><body><pre>${horasDeEstudioString}</pre></body></html>`);
 });
 
   */
+app.get("/samples/MFC", (req,res) => {
+  const htmlResult = horasDeEstudio.map(resultado => `<p>País: ${resultado.pais}, Media de horas de estudio: ${resultado.mediaHorasEstudio}</p>`).join('');
+  res.send(`<html><body>${htmlResult}</body></html>`);
+});
+
   
   app.listen(10015);
   
