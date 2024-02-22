@@ -23,6 +23,8 @@ app.listen(PORT,()=>{
 });
 
 //Oscar Garcia
+
+/*
 function calcularMediaMathScore(datos) {
     const valorNumerico = 'math_score';
     const repeticionesPorPais = datos.reduce((acc, fila) => {
@@ -47,8 +49,38 @@ function calcularMediaMathScore(datos) {
     const media = totalSumaRecuento.suma / totalSumaRecuento.recuento;
     return media;
   }
+  */
   
 app.get("/samples/OGG", (req,res)=>{
     const result = calcularMediaMathScore(data_OGG); 
     res.send(`<html> <body> <h1> La media total del campo numérico ${valorNumerico} es: ${mediaTotalMathScores} </h1> </body> </html>`)
 });
+
+
+//Marta Fernández Carmona
+/*
+// Filtrar países que aparecen más de una vez
+const paisesRepetidos = datos.reduce((acc, dato) => {
+  if (acc[dato.country]) {
+    acc[dato.country]++;
+  } else {
+    acc[dato.country] = 1;
+  }
+  return acc;
+}, {});
+
+const paisesConMasDeUnaAparicion = Object.keys(paisesRepetidos).filter(pais => paisesRepetidos[pais] > 1);
+
+// Calcular la media de las horas de estudio para los países seleccionados
+const horasDeEstudio = paisesConMasDeUnaAparicion.map(pais => {
+  const filasFiltradas = datos.filter((fila) => fila.country === pais);
+  const horasEstudio = filasFiltradas.map((fila) => fila.weekly_study_hours);
+  const mediaHorasEstudio = horasEstudio.reduce((acc, valor) => acc + valor, 0) / horasEstudio.length;
+  return { pais, mediaHorasEstudio };
+});
+
+app.get("/samples/MFC", (req,res) => {
+  const resultado = horasDeEstudio(data_MFC);
+  res.send(`<html><body>${resultado}</body></html>`);
+});
+*/

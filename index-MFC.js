@@ -1,13 +1,13 @@
 //console.log("Hola Mundo");
 
-
+/*
 let express = require("express");
 
 let app = express();
 
 const PORT = 10015;
 
-
+*/
 
   
   const datos = [
@@ -195,7 +195,7 @@ const PORT = 10015;
   res.send(`<html><body><pre>${horasDeEstudioString}</pre></body></html>`);
 });
 
-  */
+  
 app.get("/samples/MFC", (req,res) => {
   const htmlResult = horasDeEstudio.map(resultado => `<p>País: ${resultado.pais}, Media de horas de estudio: ${resultado.mediaHorasEstudio}</p>`).join('');
   res.send(`<html><body>${htmlResult}</body></html>`);
@@ -205,9 +205,11 @@ app.get("/samples/MFC", (req,res) => {
   app.listen(10015);
   
   console.log(`Server listening on port ${PORT}.`);
-
+*/
   
   
 console.log(horasDeEstudio);
 
 //https://sos2324-15-mfc.ew.r.appspot.com
+
+module.exports = datos;
