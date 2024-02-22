@@ -1,3 +1,4 @@
+let cool=requiere("cool-ascii-faces");
 let express = require("express");
 
 let app = express();
