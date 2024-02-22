@@ -11,6 +11,8 @@ const datos = [
   { gender: 'female', race_ethnicity: 'group B', parental_level_of_education: 'high school', lunch: 'free/reduced', test_preparation_course: 'none', math_score: 38, reading_score: 60, writing_score: 50, country: 'China', date: '5/17/2023' }
 ];
 
+module.exports = datos;
+
 
 //   // Valor a buscar en el campo de información geográfica
 //   const valorGeografico = 'China'; 
@@ -46,7 +48,7 @@ const sumasYRecuentosPorPais = {};
 paisesRepetidos.forEach((pais) => {
   const filasFiltradas = datos.filter((fila) => fila.country === pais);
   sumasYRecuentosPorPais[pais] = filasFiltradas.reduce((acc, fila) => {
-    acc.suma = (acc.suma || 0) + fila.math_score;
+    acc.suma = (acc.suma || 0) + fila.math_scoreu;
     acc.recuento = (acc.recuento || 0) + 1;
     return acc;
   }, {});
