@@ -90,3 +90,67 @@ app.get("/samples/MFC", (req,res) => {
 
 
 // Sergio Kenzo Cortés González
+
+function calculaActFisicaPorPais(datos){
+
+  const valorNumerico = 'physical_activity_level'
+  const resultadosPorPais = {};
+
+  // Obtén la cuenta de repeticiones de cada país
+  const repeticionesPorPais = datos.reduce((acc, fila) => {
+    acc[fila.country] = (acc[fila.country] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Filtra los países que se repiten dos veces o más
+  const paisesRepetidos = Object.keys(repeticionesPorPais).filter((pais) => repeticionesPorPais[pais] >= 2);
+
+  // Inicializa un objeto para almacenar las sumas y recuentos de valores numéricos por país
+  const sumasYRecuentosPorPais = {};
+
+  // Calcula la suma y recuento de valores numéricos para cada país repetido
+  paisesRepetidos.forEach((pais) => {
+    const filasFiltradas = datos.filter((fila) => fila.country === pais);
+    const suma = filasFiltradas.reduce((acc, fila) => acc + fila[valorNumerico], 0);
+    const recuento = filasFiltradas.length;
+    const media = suma / recuento;
+
+    resultadosPorPais[pais] = {
+      media,
+      recuento,
+    };
+  });
+
+  return resultadosPorPais;
+}
+
+// app.get("/samples/SCG", (req, res) => {
+//   const valorNumerico = 'physical_activity_level'
+//   const resultado = calculaActFisicaPorPais(data_SCG);
+//   res.send(`<html> <body> <h1> Medias del campo ${valorNumerico} para todos los países con repeticiones: 
+//     ${resultado} </h1> </body> </html>`)
+// });
+
+app.get("/samples/SCG", (req, res) => {
+  const valorNumerico = 'physical_activity_level';
+  const resultado = calculaActFisicaPorPais(data_SCG);
+
+  // Itera sobre las propiedades del objeto resultado
+  const resultadosHTML = Object.keys(resultado).map((pais) => {
+    const media = resultado[pais].media;
+    const recuento = resultado[pais].recuento;
+
+    return `<p>País: ${pais}, Media: ${media}, Recuento: ${recuento}</p>`;
+  }).join('');
+
+  res.send(`
+    <html>
+      <body>
+        <h1>Medias del campo ${valorNumerico} para todos los países con repeticiones:</h1>
+        ${resultadosHTML}
+      </body>
+    </html>
+  `);
+});
+
+
