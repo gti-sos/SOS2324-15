@@ -11,7 +11,15 @@ let data_MFC= require('../index-MFC');
   
         res.send(JSON.stringify(data_MFC));
       });
+
+      /*
+
+    app.get(API_BASE+"/data_MFC/student_age", (req,res) => {
+  
+        res.send(JSON.stringify(data_MFC));
+      });
       
+      */
       app.post(API_BASE+"/data_MFC",(req,res)=>{
         let datos = req.body;
         data_MFC.push(datos);

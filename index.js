@@ -4,6 +4,7 @@ let app = express();
 let bodyParser=require("body-parser");
 
 let API_MFC=require("./API-MFC");
+let API_OGG=require("./API-OGG");
 
 
 
@@ -30,6 +31,7 @@ app.listen(PORT,()=>{
 });
 
 API_MFC(app);
+API_OGG(app);
 
 app.use(bodyParser.json());
 
