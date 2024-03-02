@@ -2,10 +2,21 @@ let cool = require("cool-ascii-faces");
 let express = require("express")
 let app = express();
 
+let bodyParser=require("body-parser");
+
+let API_MFC=require("./API-MFC");
+let API_OGG=require("./API-OGG");
+
+
+API_MFC(app);
+API_OGG(app);
+
 let data_OGG= require('./index-OGG');
 let data_MFC= require('./index-MFC');
 let data_SCG= require('./index-SCG');
 
+// Configurar body-parser
+app.use(bodyParser.json());
 
 const path = require('path');
 app.get('/', (req, res) => {
@@ -21,6 +32,8 @@ const PORT = (process.env.PORT || 10000);
 app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}.`);
 });
+
+
 
 //Oscar Garcia
 
@@ -87,6 +100,8 @@ app.get("/samples/MFC", (req,res) => {
   const resultado = calcularMediaHorasEstudio(data_MFC);
   res.send(`<html><body>${resultado}</body></html>`);
 });
+
+
 
 
 // Sergio Kenzo Cortés González
