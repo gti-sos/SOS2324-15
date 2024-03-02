@@ -9,10 +9,11 @@ let API_MFC=require("./API-MFC");
 let API_OGG=require("./API-OGG");
 
 let dbStudents= new dataStore();
+let dbExams= new dataStore();
 
 
 API_MFC(app,dbStudents);
-API_OGG(app);
+API_OGG(app,dbExams);
 
 let data_OGG= require('./index-OGG');
 let data_MFC= require('./index-MFC');
