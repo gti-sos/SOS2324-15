@@ -1,14 +1,17 @@
 let cool = require("cool-ascii-faces");
 let express = require("express")
 let app = express();
+let dataStore= require("nedb");
 
 let bodyParser=require("body-parser");
 
 let API_MFC=require("./API-MFC");
 let API_OGG=require("./API-OGG");
 
+let dbStudents= new dataStore();
 
-API_MFC(app);
+
+API_MFC(app,dbStudents);
 API_OGG(app);
 
 let data_OGG= require('./index-OGG');
