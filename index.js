@@ -14,10 +14,11 @@ let API_SCG=require("./API-SCG");
 
 let dbStudents= new dataStore();
 let dbExams= new dataStore();
+let dbSleep = new dataStore(); 
 
 API_MFC(app,dbStudents);
 API_OGG(app,dbExams);
-API_SCG(app);
+API_SCG(app,dbSleep);
 
 let data_OGG= require('./index-OGG');
 let data_MFC= require('./index-MFC');
