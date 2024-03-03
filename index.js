@@ -5,11 +5,16 @@ let dataStore= require("nedb");
 
 let bodyParser=require("body-parser");
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 let API_MFC=require("./API-MFC");
 let API_OGG=require("./API-OGG");
 
 let dbStudents= new dataStore();
 let dbExams= new dataStore();
+
+
 
 
 API_MFC(app,dbStudents);
