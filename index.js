@@ -6,10 +6,12 @@ let bodyParser=require("body-parser");
 
 let API_MFC=require("./API-MFC");
 let API_OGG=require("./API-OGG");
+let API_SCG=require("./API-SCG");
 
 
 API_MFC(app);
 API_OGG(app);
+API_SCG(app);
 
 let data_OGG= require('./index-OGG');
 let data_MFC= require('./index-MFC');
