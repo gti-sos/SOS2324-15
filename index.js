@@ -16,7 +16,7 @@ let dbStudents= new dataStore();
 let dbExams= new dataStore();
 
 API_MFC(app,dbStudents);
-API_OGG(app);
+API_OGG(app,dbExams);
 API_SCG(app);
 
 let data_OGG= require('./index-OGG');
