@@ -1,7 +1,7 @@
 const API_BASE="/api/v1/students-sleep-health";
 
 
-let data_SCG = require('../index-SCG');
+let data_SCG=require('../index-SCG');
 
 
 let datosSleep = [];
