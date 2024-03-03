@@ -10,15 +10,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let API_MFC=require("./API-MFC");
 let API_OGG=require("./API-OGG");
+let API_SCG=require("./API-SCG");
 
 let dbStudents= new dataStore();
 let dbExams= new dataStore();
 
+<<<<<<< HEAD
 
 
 
 API_MFC(app,dbStudents);
 API_OGG(app,dbExams);
+=======
+API_MFC(app);
+API_OGG(app);
+API_SCG(app);
+>>>>>>> f21d1022c0569f8e8794a56eb9fff9a2f2a92b80
 
 let data_OGG= require('./index-OGG');
 let data_MFC= require('./index-MFC');
