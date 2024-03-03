@@ -36,7 +36,7 @@ let datosStudents= [];
   });
 
 
-dbStudents
+
 
   // POST general
   app.post(API_BASE, (req, res) => {
