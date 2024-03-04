@@ -43,7 +43,7 @@ let datosStudents= [];
     const newData = req.body;
 
     // Verificar si el JSON recibido contiene los campos esperados
-    const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'year'];
+  const expectedFields = ['gender','race_ethnicity','parental_level_of_education','lunch','test_preparation_course','math_score','reading_score','writing_score','country','date'];
     const receivedFields = Object.keys(newData);
 
     const isValidData = expectedFields.every(field => receivedFields.includes(field));
