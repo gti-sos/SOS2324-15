@@ -30,10 +30,32 @@ let data_MFC = require('../index-MFC');
    
     //Get crea datos si esta vacio en loadInitialData
 
-    app.get(API_BASE+"/loadInitialData",(req,res)=>{
-      dbStudents.insert(data_MFC);
-      res.sendStatus(200,"Ok");
+    app.get(API_BASE + "/loadInitialData", (req, res) => {
+      // Verificar si la colección está vacía
+      dbStudents.count({}, (err, count) => {
+          if (err) {
+              console.error("Error al verificar si la base de datos está vacía:", err);
+              res.sendStatus(500); // Error interno del servidor
+          } else {
+              if (count === 0) {
+                  // Insertar datos iniciales solo si la colección está vacía
+                  dbStudents.insert(data_MFC, (err, docs) => {
+                      if (err) {
+                          console.error("Error al insertar datos iniciales:", err);
+                          res.sendStatus(500); // Error interno del servidor
+                      } else {
+                          console.log("Datos iniciales insertados correctamente.");
+                          res.sendStatus(200); // Ok
+                      }
+                  });
+              } else {
+                  console.log("La base de datos ya contiene datos, no se insertarán datos iniciales.");
+                  res.sendStatus(200); // Ok
+              }
+          }
+      });
   });
+  
 
 
 
