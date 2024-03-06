@@ -10,7 +10,9 @@
 
 **Repository**: [gti-sos/SOS2324-15](https://github.com/gti-sos/SOS2324-15)
 
+**URL**: (http://sos2324-15.appspot.com/)
+
 **APIs**
-  - [sos2324-15.appspot.com/samples/SCG](https://sos2324-15.appspot.com/samples/SCG)
-  - [sos2324-15.appspot.com/samples/MFC](https://sos2324-15.appspot.com/samples/MFC)
-  - [sos2324-15.appspot.com/samples/OGG](https://sos2324-15.appspot.com/samples/OGG)
+  - [hhttps://sos2324-15.appspot.com/api/v1/students-performance-dataset](developed by Marta Fernández Carmona)
+  - [hhttps://sos2324-15.appspot.com/api/v1/students-performance-in-exams](developed by Óscar García Gonzáz)
+  - [hhttps://sos2324-15.appspot.com/api/v1/students-sleep-health](developed by Sergio Kenzo Cortes González)
