@@ -9,21 +9,48 @@ let data_MFC = require('../index-MFC');
 
 
     
-    // Get Todos los datos general
-    app.get(API_BASE,(req,res)=>{
+  // Búsqueda de datos con parámetros específicos y paginación
+app.get(API_BASE, (req, res) => {
+  // Obtenemos los parámetros de búsqueda y paginación de la solicitud
+  const queryParameters = req.query;
+  const limit = parseInt(queryParameters.limit) || 10; // Tamaño de página predeterminado: 10
+  const offset = parseInt(queryParameters.offset) || 0; // Offset predeterminado: 0
 
-      dbStudents.find({},(err,datosStudents)=>{
+  // Construimos la consulta de búsqueda basada en los parámetros proporcionados
+  let query = {};
 
-          if(err){
-              res.sendStatus(500,"Internal Error");
-          }else{
-            res.send(JSON.stringify(datosStudents.map((c)=>{
-              delete c._id;
-              return c;
-                })));  
-          }
-      });
+  // Iteramos sobre cada parámetro de búsqueda
+  Object.keys(queryParameters).forEach(key => {
+    // Si el parámetro no es "limit", "offset" u otros parámetros de paginación, lo consideramos como un atributo de búsqueda
+    if (key !== 'limit' && key !== 'offset') {
+      // Convertimos el valor a minúsculas para una búsqueda insensible a mayúsculas/minúsculas
+      const value = queryParameters[key].toLowerCase();
+      // Creamos una expresión regular para buscar el valor en cualquier parte del atributo
+      const regex = new RegExp(value, 'i');
+      // Agregamos el atributo y su valor a la consulta
+      query[key] = regex;
+    }
   });
+
+  // Ejecutamos la consulta en la base de datos con paginación
+  dbStudents.find(query).skip(offset).limit(limit).exec((err, datosStudents) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Error' });
+    } else {
+      // Eliminamos el campo _id de los resultados
+      const resultsWithoutId = datosStudents.map(student => {
+        const { _id, ...studentWithoutId } = student;
+        return studentWithoutId;
+      });
+      res.status(200).json(resultsWithoutId);
+    }
+  });
+});
+
+
+
+
+
 
 
  
@@ -60,12 +87,16 @@ let data_MFC = require('../index-MFC');
 
 
 
+
+
+
+
   // POST general
   app.post(API_BASE, (req, res) => {
     const newData = req.body;
 
     // Verificar si el JSON recibido contiene los campos esperados
-    const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'year'];
+    const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'date'];
     const receivedFields = Object.keys(newData);
 
     const isValidData = expectedFields.every(field => receivedFields.includes(field));
@@ -97,10 +128,23 @@ let data_MFC = require('../index-MFC');
   });
 
 
-//POST PARA PAIS CONCRETO
+
+
+
+
+
+
+
+//POST PARA PAIS CONCRETO (metodo no permitido)
   app.post(API_BASE + "/:country", (req, res) => {
     res.status(405).json({ error: 'Method not allowed,405' });
   })
+
+
+
+
+
+
 
 
  // Get Pais especifico
@@ -119,6 +163,11 @@ let data_MFC = require('../index-MFC');
     }
   });
 });
+
+
+
+
+
 
 
 
@@ -144,6 +193,12 @@ let data_MFC = require('../index-MFC');
 
  
 
+
+
+
+
+
+
 // Delete general
 app.delete(API_BASE + "/", (req, res) => {
   dbStudents.remove({}, { multi: true }, (err, numRemoved) => {
@@ -154,6 +209,11 @@ app.delete(API_BASE + "/", (req, res) => {
     }
   });
 });
+
+
+
+
+
 
 
 
@@ -192,7 +252,9 @@ app.put(API_BASE + "/:country", (req, res) => {
 
 
 
-//Put general mal (no se permite)
+
+
+//Put general mal (metodo no permitido)
 
 
 app.put(API_BASE, (req, res) => {
