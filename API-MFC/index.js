@@ -10,42 +10,41 @@ let data_MFC = require('../index-MFC');
 
     
   // Búsqueda de datos con parámetros específicos y paginación
-app.get(API_BASE, (req, res) => {
-  // Obtenemos los parámetros de búsqueda y paginación de la solicitud
-  const queryParameters = req.query;
-  const limit = parseInt(queryParameters.limit) || 10; // Tamaño de página predeterminado: 10
-  const offset = parseInt(queryParameters.offset) || 0; // Offset predeterminado: 0
+    app.get(API_BASE, (req, res) => {
+      // Obtenemos los parámetros de búsqueda y paginación de la solicitud
+      const queryParameters = req.query;
+      const limit = parseInt(queryParameters.limit) || 10; // Tamaño de página predeterminado: 10
+      const offset = parseInt(queryParameters.offset) || 0; // Offset predeterminado: 0
 
-  // Construimos la consulta de búsqueda basada en los parámetros proporcionados
-  let query = {};
+      // Construimos la consulta de búsqueda basada en los parámetros proporcionados
+      let query = {};
 
-  // Iteramos sobre cada parámetro de búsqueda
-  Object.keys(queryParameters).forEach(key => {
-    // Si el parámetro no es "limit", "offset" u otros parámetros de paginación, lo consideramos como un atributo de búsqueda
-    if (key !== 'limit' && key !== 'offset') {
-      // Convertimos el valor a minúsculas para una búsqueda insensible a mayúsculas/minúsculas
-      const value = queryParameters[key].toLowerCase();
-      // Creamos una expresión regular para buscar el valor en cualquier parte del atributo
-      const regex = new RegExp(value, 'i');
-      // Agregamos el atributo y su valor a la consulta
-      query[key] = regex;
-    }
-  });
-
-  // Ejecutamos la consulta en la base de datos con paginación
-  dbStudents.find(query).skip(offset).limit(limit).exec((err, datosStudents) => {
-    if (err) {
-      res.status(500).json({ message: 'Internal Error' });
-    } else {
-      // Eliminamos el campo _id de los resultados
-      const resultsWithoutId = datosStudents.map(student => {
-        const { _id, ...studentWithoutId } = student;
-        return studentWithoutId;
+      // Iteramos sobre cada parámetro de búsqueda
+      Object.keys(queryParameters).forEach(key => {
+          // Si el parámetro no es "limit", "offset" u otros parámetros de paginación, lo consideramos como un atributo de búsqueda
+          if (key !== 'limit' && key !== 'offset') {
+              // Verificamos si el valor es numérico
+              const value = !isNaN(queryParameters[key]) ? parseInt(queryParameters[key]) : queryParameters[key];
+              // Si es numérico, agregamos un filtro de igualdad, de lo contrario, realizamos la búsqueda de texto como antes
+              query[key] = !isNaN(value) ? value : new RegExp(value, 'i');
+          }
       });
-      res.status(200).json(resultsWithoutId);
-    }
+
+      // Ejecutamos la consulta en la base de datos con paginación
+      dbStudents.find(query).skip(offset).limit(limit).exec((err, datosStudents) => {
+          if (err) {
+              res.status(500).json({ message: 'Internal Error' });
+          } else {
+              // Eliminamos el campo _id de los resultados
+              const resultsWithoutId = datosStudents.map(student => {
+                  const { _id, ...studentWithoutId } = student;
+                  return studentWithoutId;
+              });
+              res.status(200).json(resultsWithoutId);
+          }
+      });
   });
-});
+
 
 
 
