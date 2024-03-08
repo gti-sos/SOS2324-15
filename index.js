@@ -1,4 +1,4 @@
-let cool = require("cool-ascii-faces");
+
 let express = require("express")
 let app = express();
 let dataStore= require("nedb");
@@ -69,14 +69,7 @@ function calcularMediaMathScore(datos) {
     }, { suma: 0, recuento: 0 });
     const media = totalSumaRecuento.suma / totalSumaRecuento.recuento;
     return media;
-  }
-  
-  
-app.get("/samples/OGG", (req,res)=>{
-    const valorNumerico = 'math_score';
-    const result = calcularMediaMathScore(data_OGG); 
-    res.send(`<html> <body> <h1> La media total del campo numérico ${valorNumerico} es: ${result} </h1> </body> </html>`)
-});
+  };
 
 
 //Marta Fernández Carmona
@@ -102,13 +95,7 @@ function calcularMediaHorasEstudio(datos) {
   });
 
   return horasDeEstudio.map(resultado => `<p>País: ${resultado.pais}, Media de horas de estudio: ${resultado.mediaHorasEstudio}</p>`).join('');
-}
-
-
-app.get("/samples/MFC", (req,res) => {
-  const resultado = calcularMediaHorasEstudio(data_MFC);
-  res.send(`<html><body>${resultado}</body></html>`);
-});
+};
 
 
 
