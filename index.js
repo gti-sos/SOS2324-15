@@ -148,33 +148,28 @@ function calculaActFisicaPorPais(datos){
   return resultadosPorPais;
 }
 
+
+
 // app.get("/samples/SCG", (req, res) => {
-//   const valorNumerico = 'physical_activity_level'
+//   const valorNumerico = 'physical_activity_level';
 //   const resultado = calculaActFisicaPorPais(data_SCG);
-//   res.send(`<html> <body> <h1> Medias del campo ${valorNumerico} para todos los países con repeticiones: 
-//     ${resultado} </h1> </body> </html>`)
+
+//   // Itera sobre las propiedades del objeto resultado
+//   const resultadosHTML = Object.keys(resultado).map((pais) => {
+//     const media = resultado[pais].media;
+//     const recuento = resultado[pais].recuento;
+
+//     return `<p>País: ${pais}, Media: ${media}, Recuento: ${recuento}</p>`;
+//   }).join('');
+
+//   res.send(`
+//     <html>
+//       <body>
+//         <h1>Medias del campo ${valorNumerico} para todos los países con repeticiones:</h1>
+//         ${resultadosHTML}
+//       </body>
+//     </html>
+//   `);
 // });
-
-app.get("/samples/SCG", (req, res) => {
-  const valorNumerico = 'physical_activity_level';
-  const resultado = calculaActFisicaPorPais(data_SCG);
-
-  // Itera sobre las propiedades del objeto resultado
-  const resultadosHTML = Object.keys(resultado).map((pais) => {
-    const media = resultado[pais].media;
-    const recuento = resultado[pais].recuento;
-
-    return `<p>País: ${pais}, Media: ${media}, Recuento: ${recuento}</p>`;
-  }).join('');
-
-  res.send(`
-    <html>
-      <body>
-        <h1>Medias del campo ${valorNumerico} para todos los países con repeticiones:</h1>
-        ${resultadosHTML}
-      </body>
-    </html>
-  `);
-});
 
 
