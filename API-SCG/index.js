@@ -1,28 +1,95 @@
+
 const API_BASE = "/api/v1/students-sleep-health";
 let data_SCG = require('../index-SCG');
-
 
 
   module.exports= (app,dbSleep) =>{
 
 
     
-    // Get sobre api
+  //   // Get sobre api
 
-    app.get(API_BASE,(req,res)=>{
+  //   app.get(API_BASE,(req,res)=>{
 
-      dbSleep.find({},(err,datosSleep)=>{
+  //     dbSleep.find({},(err,datosSleep)=>{
 
-          if(err){
-              res.sendStatus(500,"Internal Error");
-          }else{
-            res.send(JSON.stringify(datosSleep.map((c)=>{
-              delete c._id;
-              return c;
-                })));  
-          }
-      });
+  //         if(err){
+  //             res.sendStatus(500,"Internal Error");
+  //         }else{
+  //           res.send(JSON.stringify(datosSleep.map((c)=>{
+  //             delete c._id;
+  //             return c;
+  //               })));  
+  //         }
+  //     });
+  // });
+
+
+
+
+//   // Get sobre api con paginación y filtros
+// app.get(API_BASE, (req, res) => {
+//   // Obtener parámetros de consulta
+//   const filters = req.query;
+//   const limit = parseInt(filters.limit) || 10;  // Valor por defecto de 10 si no se proporciona
+
+//   // Construir el objeto de filtro basado en los parámetros de consulta
+//   const filterObject = {};
+
+//   // Iterar sobre los parámetros de la consulta y agregarlos al objeto de filtro
+//   Object.keys(filters).forEach(key => {
+//     if (key !== 'limit') {
+//       filterObject[key] = filters[key];
+//     }
+//   });
+
+//   // Realizar la búsqueda en la base de datos con los filtros y paginación
+//   dbSleep.find(filterObject)
+//     .limit(limit)
+//     .exec((err, filteredData) => {
+//       if (err) {
+//         res.status(500).json({ message: 'Internal Error' });
+//       } else {
+//         // Si no hay error, devolver los datos filtrados
+//         res.status(200).json(filteredData);
+//       }
+//     });
+// });
+
+  
+// Get sobre api con paginación y filtros
+app.get(API_BASE, (req, res) => {
+  // Obtener parámetros de consulta
+  const filters = req.query;
+  const limit = parseInt(filters.limit) || 10;  // Valor por defecto de 10 si no se proporciona
+
+  // Construir el objeto de filtro basado en los parámetros de consulta
+  const filterObject = {};
+
+  // Iterar sobre los parámetros de la consulta y agregarlos al objeto de filtro
+  Object.keys(filters).forEach(key => {
+    if (key !== 'limit') {
+      // Verificar si el valor es numérico
+      const value = isNaN(filters[key]) ? filters[key] : parseInt(filters[key]);
+
+      filterObject[key] = value;
+    }
   });
+
+  // Realizar la búsqueda en la base de datos con los filtros y paginación
+  dbSleep.find(filterObject)
+    .limit(limit)
+    .exec((err, filteredData) => {
+      if (err) {
+        res.status(500).json({ message: 'Internal Error' });
+      } else {
+        // Si no hay error, devolver los datos filtrados
+        res.status(200).json(filteredData);
+      }
+    });
+});
+
+  
 
 
  
