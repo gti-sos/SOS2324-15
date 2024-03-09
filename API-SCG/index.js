@@ -106,7 +106,7 @@ app.get(API_BASE, (req, res) => {
 
   app.get(API_BASE+"/docs",(req,res) => {
 
-    res.status(301).redirect("https://web.postman.co/workspace/My-Workspace~2683c66d-7c8e-49dd-8aa0-43e167bd3b4d/documentation/33032447-5cb32c41-ddc6-457d-b0d5-ce57ce6f5e64")
+    res.status(301).redirect("https://documenter.getpostman.com/view/33032447/2sA2xh3DCL")
 
   });
 

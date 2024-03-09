@@ -34,9 +34,7 @@ app.get('/', (req, res) => {
 
 app.use("/",express.static("./public"));
 
-app.get("/cool",(req ,res)=>{
-    res.send(`<html><body><h1>${cool()}</h1></body></html>`)
-});
+
 const PORT = (process.env.PORT || 10000);
 app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}.`);
@@ -136,27 +134,5 @@ function calculaActFisicaPorPais(datos){
 }
 
 
-
-// app.get("/samples/SCG", (req, res) => {
-//   const valorNumerico = 'physical_activity_level';
-//   const resultado = calculaActFisicaPorPais(data_SCG);
-
-//   // Itera sobre las propiedades del objeto resultado
-//   const resultadosHTML = Object.keys(resultado).map((pais) => {
-//     const media = resultado[pais].media;
-//     const recuento = resultado[pais].recuento;
-
-//     return `<p>País: ${pais}, Media: ${media}, Recuento: ${recuento}</p>`;
-//   }).join('');
-
-//   res.send(`
-//     <html>
-//       <body>
-//         <h1>Medias del campo ${valorNumerico} para todos los países con repeticiones:</h1>
-//         ${resultadosHTML}
-//       </body>
-//     </html>
-//   `);
-// });
 
 
