@@ -13,6 +13,6 @@
 **URL**: (http://sos2324-15.appspot.com/)
 
 **APIs**
-  - [hhttps://sos2324-15.appspot.com/api/v1/students-performance-dataset](developed by Marta Fernández Carmona)
-  - [hhttps://sos2324-15.appspot.com/api/v1/students-performance-in-exams](developed by Óscar García Gonzáz)
-  - [hhttps://sos2324-15.appspot.com/api/v1/students-sleep-health](developed by Sergio Kenzo Cortes González)
+  - [https://sos2324-15.appspot.com/api/v1/students-performance-dataset/docs](developed by Marta Fernández Carmona)
+  - [https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/docs](developed by Óscar García Gonzáz)
+  - [https://sos2324-15.appspot.com/api/v1/students-sleep-health/docs](developed by Sergio Kenzo Cortes González)

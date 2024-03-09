@@ -8,7 +8,8 @@ let data_MFC = require('../index-MFC');
   module.exports= (app,dbStudents) =>{
 
 
-    
+    //GET GENERAL 
+
   // Búsqueda de datos con parámetros específicos y paginación
     app.get(API_BASE, (req, res) => {
       // Obtenemos los parámetros de búsqueda y paginación de la solicitud
@@ -87,7 +88,7 @@ let data_MFC = require('../index-MFC');
 
 app.get(API_BASE+"/docs",(req,res) => {
 
-  res.status(301).redirect("https://web.postman.co/workspace/My-Workspace~2683c66d-7c8e-49dd-8aa0-43e167bd3b4d/documentation/33032447-5cb32c41-ddc6-457d-b0d5-ce57ce6f5e64")
+  res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xh3D3Z")
 
 });
 
