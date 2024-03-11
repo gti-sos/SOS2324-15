@@ -81,7 +81,7 @@ let datosStudents= [];
 
 app.get(API_BASE+"/docs",(req,res) => {
 
-  res.status(301).redirect("https://sos2324-15.postman.co/workspace/SOS2324-15-Workspace~85c3d2f2-c3f2-42c2-8ca4-bf8b88c88b8e/documentation/33477031-1dc02386-61ed-4229-8211-47721e436adf")
+  res.status(301).redirect("https://documenter.getpostman.com/view/33477031/2sA2xiVWmN")
 
 });
 
