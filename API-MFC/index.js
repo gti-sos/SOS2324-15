@@ -41,7 +41,7 @@ let data_MFC = require('../index-MFC');
                   const { _id, ...studentWithoutId } = student;
                   return studentWithoutId;
               });
-              res.status(800).json(resultsWithoutId);
+              res.status(200).json(resultsWithoutId);
           }
       });
   });
