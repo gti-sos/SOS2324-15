@@ -31,8 +31,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health",
 						"loadInitialData"
 					]
@@ -65,8 +63,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -98,8 +94,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health",
 						"china"
 					]
@@ -141,8 +135,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -183,8 +175,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -216,8 +206,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health",
 						"china"
 					]
@@ -259,8 +247,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -301,8 +287,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health",
 						"france"
 					]
@@ -335,8 +319,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health",
 						"Taipei"
 					]
@@ -369,8 +351,6 @@
 						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-sleep-health"
 					]
 				}
