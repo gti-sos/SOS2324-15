@@ -16,6 +16,7 @@ app.get(API_BASE+"/docs",(req,res) => {
 
 });
 
+//(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json) &&
 
 
 
