@@ -202,35 +202,34 @@ app.get(`${API_BASE}/year/:year`, (req, res) => {
 
 
 
-// GET PAIS Y AÑO CONCRETO
-app.get(`${API_BASE}/:country/:year`, (req, res) => {
-  const countryName = req.params.country;
-  const year = parseInt(req.params.year); // Parsear el año como un número entero
 
-  // Verificar si el año es válido
-  if (isNaN(year)) {
-      res.status(400).json({ error: 'Invalid year' });
-      return;
+
+// GET PAIS Y EDAD DEL ESTUDIANTE CONCRETA
+
+app.get(`${API_BASE}/:country/:student_age`, (req, res) => {
+  const countryName = req.params.country;
+  const studentAge = parseInt(req.params.student_age); // Parsear la edad como un número entero
+
+  // Verificar si la edad es válida
+  if (isNaN(studentAge)) {
+    res.status(400).json({ error: 'Invalid student age' });
+    return;
   }
 
-  // Verificar si los parámetros de la URL llegan correctamente
-  console.log("Country:", countryName);
-  console.log("Year:", year);
-
-  // Verificar la existencia de datos para el país y el año especificado
-  dbStudents.findOne({ country: countryName, year: year }, (err, datosMental) => {
-      if (err) {
-          res.status(500).json({ error: 'Internal Server Error' });
-          return;
-      }
-      if (datosMental) {
-          delete datosMental._id;
-          res.status(200).json(datosMental); // Devuelve un solo objeto
-      } else {
-          res.status(404).json({ message: 'Data not found for the specified country and year' });
-      }
+  // Verificar la existencia de datos para el país y edad del estudiante especificada
+  dbStudents.find({ country: countryName, student_age: studentAge }, (err, datosMental) => {
+    if (err) {
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+    if (datosMental.length > 0) {
+      res.status(200).json(datosMental); // Devuelve un array de objetos
+    } else {
+      res.status(404).json({ message: 'Data not found for the specified country and student age' });
+    }
   });
 });
+
 
 
 
