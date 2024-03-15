@@ -12,7 +12,7 @@ let data_MFC = require('../index-MFC');
 
 app.get(API_BASE+"/docs",(req,res) => {
 
-  res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xh3D3Z")
+  res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xnwUY5")
 
 });
 
