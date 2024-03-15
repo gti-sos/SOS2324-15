@@ -26,7 +26,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/loadInitialData",
+					"raw": "{{SERVER}}/students-sleep-health/loadInitialData",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health",
+					"raw": "{{SERVER}}/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -93,7 +93,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/china",
+					"raw": "{{SERVER}}/students-sleep-health/china",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -136,7 +136,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health",
+					"raw": "{{SERVER}}/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -178,7 +178,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health",
+					"raw": "{{SERVER}}/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -211,7 +211,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/china",
+					"raw": "{{SERVER}}/students-sleep-health/china",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -254,7 +254,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health",
+					"raw": "{{SERVER}}/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -296,7 +296,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/france",
+					"raw": "{{SERVER}}/students-sleep-health/france",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -330,7 +330,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/Taipei",
+					"raw": "{{SERVER}}/students-sleep-health/Taipei",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -364,7 +364,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health",
+					"raw": "{{SERVER}}/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
