@@ -8,6 +8,19 @@ let data_MFC = require('../index-MFC');
   module.exports= (app,dbStudents) =>{
 
 
+// Get con redirección a doc Postman
+
+app.get(API_BASE+"/docs",(req,res) => {
+
+  res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xh3D3Z")
+
+});
+
+
+
+
+
+
     //GET GENERAL 
 
   // Búsqueda de datos con parámetros específicos y paginación
@@ -84,13 +97,7 @@ let data_MFC = require('../index-MFC');
   });
   
 
-// Get con redirección a doc Postman
 
-app.get(API_BASE+"/docs",(req,res) => {
-
-  res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xh3D3Z")
-
-});
 
 
 
@@ -102,7 +109,7 @@ app.get(API_BASE+"/docs",(req,res) => {
     const newData = req.body;
 
     // Verificar si el JSON recibido contiene los campos esperados
-    const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'date'];
+    const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'year'];
     const receivedFields = Object.keys(newData);
 
     const isValidData = expectedFields.every(field => receivedFields.includes(field));
@@ -152,6 +159,29 @@ app.get(API_BASE+"/docs",(req,res) => {
 
 
 
+  // Get datos para un año específico
+app.get(`${API_BASE}/year/:year`, (req, res) => {
+  const year = req.params.year;
+  dbStudents.find({ year: year }, (err, yearData) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Error' });
+    } else {
+      if (yearData.length > 0) {
+        res.status(200).json(yearData);
+      } else {
+        res.status(404).json({ message: 'Data not found for the specified year' });
+      }
+    }
+  });
+});
+
+
+
+
+
+
+
+
 
  // Get Pais especifico
 
@@ -167,6 +197,38 @@ app.get(API_BASE+"/docs",(req,res) => {
         res.status(404).json({ message: 'Country not found' });
       }
     }
+  });
+});
+
+
+
+// GET PAIS Y AÑO CONCRETO
+app.get(`${API_BASE}/:country/:year`, (req, res) => {
+  const countryName = req.params.country;
+  const year = parseInt(req.params.year); // Parsear el año como un número entero
+
+  // Verificar si el año es válido
+  if (isNaN(year)) {
+      res.status(400).json({ error: 'Invalid year' });
+      return;
+  }
+
+  // Verificar si los parámetros de la URL llegan correctamente
+  console.log("Country:", countryName);
+  console.log("Year:", year);
+
+  // Verificar la existencia de datos para el país y el año especificado
+  dbStudents.findOne({ country: countryName, year: year }, (err, datosMental) => {
+      if (err) {
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+      }
+      if (datosMental) {
+          delete datosMental._id;
+          res.status(200).json(datosMental); // Devuelve un solo objeto
+      } else {
+          res.status(404).json({ message: 'Data not found for the specified country and year' });
+      }
   });
 });
 
