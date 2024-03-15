@@ -1,0 +1,763 @@
+{
+	"info": {
+		"_postman_id": "79910d48-67c4-4c42-98f2-3af8786b15cd",
+		"name": "test run",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33030259"
+	},
+	"item": [
+		{
+			"name": "datos general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 datos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/loadInitialData",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cargar datos con paginacion y busquedas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?country=china&weekly_study_hours=14",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "china"
+						},
+						{
+							"key": "weekly_study_hours",
+							"value": "14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pais especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/china",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"china"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 no existe recurso brasil Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/Brasil",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"Brasil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pais y edad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/france/24",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"france",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get por sex",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?sex=female",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "sex",
+							"value": "female"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pais concreto con periodo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?to=25&from=21",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "25"
+						},
+						{
+							"key": "from",
+							"value": "21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get por periodo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?to=25&from=21&country=china",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "25"
+						},
+						{
+							"key": "from",
+							"value": "21"
+						},
+						{
+							"key": "country",
+							"value": "china"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "general armenia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"armenia\",\r\n    \"student_age\": 24,\r\n    \"sex\": \"Male\",\r\n    \"additional_work\": \"No\",\r\n    \"sports_activity\": \"No\",\r\n    \"transportation\": \"Bus\",\r\n    \"weekly_study_hours\": 9,\r\n    \"reading\": \"No\",\r\n    \"listening_in_class\": \"Yes\",\r\n    \"project_work\": \"No\",\r\n    \"attendance_percentage\": 78,\r\n    \"calification_average\": 2,\r\n    \"date\": \"27/07/2003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 post especifico error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"student_age\": 2509,\r\n  \"sex\": \"Male\",\r\n  \"additional_work\": \"Yes\",\r\n  \"sports_activity\": \"No\",\r\n  \"transportation\": \"Private\",\r\n  \"weekly_study_hours\": 17,\r\n  \"reading\": \"Yes\",\r\n  \"listening_in_class\": \"No\",\r\n  \"project_work\": \"No\",\r\n  \"attendance_percentage\": 84,\r\n  \"calification_average\": 3.5,\r\n  \"year\": \"2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/China",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"China"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "general 409 armenia por segunda vez",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"armenia\",\r\n    \"student_age\": 24,\r\n    \"sex\": \"Male\",\r\n    \"additional_work\": \"No\",\r\n    \"sports_activity\": \"No\",\r\n    \"transportation\": \"Bus\",\r\n    \"weekly_study_hours\": 9,\r\n    \"reading\": \"No\",\r\n    \"listening_in_class\": \"Yes\",\r\n    \"project_work\": \"No\",\r\n    \"attendance_percentage\": 78,\r\n    \"calification_average\": 2,\r\n    \"date\": \"27/07/2003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 falta campos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"mauricio\",\r\n    \"student_age\": 24\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 general error (no permitido)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"Armenia\",\r\n    \"student_age\": 2497,\r\n    \"sex\": \"Male\",\r\n    \"additional_work\": \"No\",\r\n    \"sports_activity\": \"No\",\r\n    \"transportation\": \"Bus\",\r\n    \"weekly_study_hours\": 9,\r\n    \"reading\": \"No\",\r\n    \"listening_in_class\": \"Yes\",\r\n    \"project_work\": \"No\",\r\n    \"attendance_percentage\": 78,\r\n    \"calification_average\": 2,\r\n    \"date\": \"27/07/2003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset",
+					"protocol": "https",
+					"host": [
+						"sos2324-15",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 especifico mismo id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"armenia\",\r\n    \"student_age\": 27456,\r\n    \"sex\": \"Male\",\r\n    \"additional_work\": \"No\",\r\n    \"sports_activity\": \"No\",\r\n    \"transportation\": \"Bus\",\r\n    \"weekly_study_hours\": 9,\r\n    \"reading\": \"No\",\r\n    \"listening_in_class\": \"Yes\",\r\n    \"project_work\": \"No\",\r\n    \"attendance_percentage\": 78,\r\n    \"calification_average\": 2,\r\n    \"date\": \"27/07/2003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/armenia",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"armenia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "especifico pais y edad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"china\",\r\n\"student_age\": 20,\r\n\"sex\": \"Female\",\r\n\"additional_work\": \"Yes\",\r\n\"sports_activity\": \"No\",\r\n\"transportation\": \"Bus\",\r\n\"weekly_study_hours\": 22,\r\n\"reading\": \"No\",\r\n\"listening_in_class\": \"No\",\r\n\"project_work\": \"No\",\r\n\"attendance_percentage\": 40000000,\r\n\"calification_average\": 4,\r\n\"date\": \"02/03/2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/china/20",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"china",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 especifico distinto id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"armenia\",\r\n    \"student_age\": 27456,\r\n    \"sex\": \"Male\",\r\n    \"additional_work\": \"No\",\r\n    \"sports_activity\": \"No\",\r\n    \"transportation\": \"Bus\",\r\n    \"weekly_study_hours\": 9,\r\n    \"reading\": \"No\",\r\n    \"listening_in_class\": \"Yes\",\r\n    \"project_work\": \"No\",\r\n    \"attendance_percentage\": 78,\r\n    \"calification_average\": 2,\r\n    \"date\": \"27/07/2003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset/china",
+					"protocol": "https",
+					"host": [
+						"sos2324-15",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"students-performance-dataset",
+						"china"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "armenia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/armenia",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"armenia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "por pais y edad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/china/20",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						"china",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

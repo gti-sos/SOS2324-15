@@ -16,7 +16,7 @@ app.get(API_BASE+"/docs",(req,res) => {
 
 });
 
-//(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json) &&
+
 
 
 
@@ -24,41 +24,88 @@ app.get(API_BASE+"/docs",(req,res) => {
 
     //GET GENERAL 
 
-  // Búsqueda de datos con parámetros específicos y paginación
-    app.get(API_BASE, (req, res) => {
-      // Obtenemos los parámetros de búsqueda y paginación de la solicitud
+    app.get(API_BASE + "/", (req, res) => {
       const queryParameters = req.query;
-      const limit = parseInt(queryParameters.limit) || 10; // Tamaño de página predeterminado: 10
-      const offset = parseInt(queryParameters.offset) || 0; // Offset predeterminado: 0
-
-      // Construimos la consulta de búsqueda basada en los parámetros proporcionados
+      const limit = parseInt(queryParameters.limit) || 10;
+      const offset = parseInt(queryParameters.offset) || 0;
+      let from = req.query.from;
+      let to = req.query.to;
+  
       let query = {};
-
-      // Iteramos sobre cada parámetro de búsqueda
+  
+      // Verifica si hay parámetros 'from' y 'to'
+      if (from !== undefined && to !== undefined) {
+          const fromAge = parseInt(from);
+          const toAge = parseInt(to);
+          if (isNaN(fromAge) || isNaN(toAge)) {
+              return res.status(400).send("Invalid age format. Please provide valid age values.");
+          }
+          // Si las edades son válidas, construye la consulta para filtrar por el rango de edades
+          query.student_age = { $gte: fromAge, $lte: toAge };
+      }
+  
+      // Construir la consulta basada en los parámetros proporcionados
       Object.keys(queryParameters).forEach(key => {
-          // Si el parámetro no es "limit", "offset" u otros parámetros de paginación, lo consideramos como un atributo de búsqueda
-          if (key !== 'limit' && key !== 'offset') {
-              // Verificamos si el valor es numérico
-              const value = !isNaN(queryParameters[key]) ? parseInt(queryParameters[key]) : queryParameters[key];
-              // Si es numérico, agregamos un filtro de igualdad, de lo contrario, realizamos la búsqueda de texto como antes
-              query[key] = !isNaN(value) ? value : new RegExp(value, 'i');
+          if (key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to') {
+              const value = !isNaN(queryParameters[key]) ? parseFloat(queryParameters[key]) : queryParameters[key];
+              if (typeof value === 'string') {
+                  query[key] = new RegExp(value, 'i');
+              } else {
+                  query[key] = value;
+              }
           }
       });
-
-      // Ejecutamos la consulta en la base de datos con paginación
-      dbStudents.find(query).skip(offset).limit(limit).exec((err, datosStudents) => {
-          if (err) {
-              res.status(500).json({ message: 'Internal Error' });
-          } else {
-              // Eliminamos el campo _id de los resultados
-              const resultsWithoutId = datosStudents.map(student => {
-                  const { _id, ...studentWithoutId } = student;
-                  return studentWithoutId;
-              });
-              res.status(200).json(resultsWithoutId);
-          }
-      });
+  
+      // Verificar si se proporcionaron parámetros de búsqueda
+      const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
+  
+      if (!hasSearchParameters) {
+          dbStudents.count({}, (err, count) => {
+              if (err) {
+                  res.sendStatus(500);
+              } else {
+                  if (count === 0) {
+                      res.status(200).json([]);
+                  } else {
+                      dbStudents.find({}).skip(offset).limit(limit).exec((err, data) => {
+                          if (err) {
+                              res.sendStatus(500);
+                          } else {
+                              const resultsWithoutId = data.map(d => {
+                                  const { _id, ...datWithoutId } = d;
+                                  return datWithoutId;
+                              });
+                              res.status(200).json(resultsWithoutId);
+                          }
+                      });
+                  }
+              }
+          });
+      } else {
+          dbStudents.find(query).skip(offset).limit(limit).exec((err, data) => {
+              if (err) {
+                  res.status(500).send("Internal Server Error");
+                  return;
+              }
+              if (data.length > 0) {
+                  const formattedData = data.map((d) => {
+                      const { _id, ...formatted } = d;
+                      return formatted;
+                  });
+                  res.status(200).json(formattedData);
+              } else {
+                  res.status(404).send("Not Found");
+              }
+          });
+      }
   });
+  
+  
+
+
+
+
+
 
 
 
@@ -231,6 +278,91 @@ app.get(`${API_BASE}/:country/:student_age`, (req, res) => {
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+// PUT para actualizar datos de un país y una edad específica
+
+
+app.put(`${API_BASE}/:country/:student_age`, (req, res) => {
+  const countryName = req.params.country;
+  const studentAge = parseInt(req.params.student_age);
+  const newData = req.body;
+
+  // Verificar si la edad es un número válido
+  if (isNaN(studentAge)) {
+      res.status(400).json({ message: 'Invalid student age' });
+      return;
+  }
+
+  // Verificar si el JSON recibido contiene los campos esperados
+  const expectedFields = ['country', 'student_age', 'sex', 'additional_work', 'sports_activity', 'transportation', 'weekly_study_hours', 'reading', 'listening_in_class', 'project_work', 'attendance_percentage', 'calification_average', 'date'];
+  const receivedFields = Object.keys(newData);
+
+  const isValidData = expectedFields.every(field => receivedFields.includes(field));
+
+  if (!isValidData) {
+      // Si no contiene los campos esperados, devolver un código de estado 400
+      res.status(400).json({ message: 'Bad request - Missing or unexpected fields' });
+  } else {
+      // Actualizar el documento en la base de datos
+      dbStudents.update({ country: countryName, student_age: studentAge }, newData, {}, (err, numUpdated) => {
+          if (err) {
+              res.status(500).json({ message: 'Internal Error' });
+          } else {
+              if (numUpdated === 1) {
+                  res.status(200).json({ message: 'Updated', updatedData: newData });
+              } else {
+                  res.status(404).json({ message: 'Data not found for the specified country and student age' });
+              }
+          }
+      });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+// DELETE para eliminar datos de un país y una edad específica
+
+
+app.delete(`${API_BASE}/:country/:student_age`, (req, res) => {
+  const countryName = req.params.country;
+  const studentAge = parseInt(req.params.student_age);
+
+  // Verificar si la edad es un número válido
+  if (isNaN(studentAge)) {
+      res.status(400).json({ message: 'Invalid student age' });
+      return;
+  }
+
+  // Eliminar el documento de la base de datos
+  dbStudents.remove({ country: countryName, student_age: studentAge }, { multi: true }, (err, numRemoved) => {
+      if (err) {
+          res.status(500).json({ message: 'Internal Error' });
+      } else {
+          if (numRemoved >= 1) {
+              res.status(200).json({ message: 'Deleted' });
+          } else {
+              res.status(404).json({ message: 'Data not found for the specified country and student age' });
+          }
+      }
+  });
+});
 
 
 
