@@ -1,28 +1,37 @@
 {
 	"info": {
-		"_postman_id": "7ee6344c-4142-49c0-8d9a-7d6fe59b22eb",
+		"_postman_id": "ad2f79e9-01c3-4af5-86b6-17a185c5b696",
 		"name": "Cloud Oscar testing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33477031",
-		"_collection_link": "https://sos2324-15.postman.co/workspace/My-Workspace~9122328a-2da7-487f-87ab-5b0d92473a46/collection/33477031-7ee6344c-4142-49c0-8d9a-7d6fe59b22eb?action=share&source=collection_link&creator=33477031"
+		"_collection_link": "https://sos2324-15.postman.co/workspace/My-Workspace~9122328a-2da7-487f-87ab-5b0d92473a46/collection/33477031-ad2f79e9-01c3-4af5-86b6-17a185c5b696?action=share&source=collection_link&creator=33477031"
 	},
 	"item": [
 		{
-			"name": "General todos los datos",
+			"name": "datos general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-performance-in-exams"
 					]
 				}
@@ -30,21 +39,30 @@
 			"response": []
 		},
 		{
-			"name": "cargar 10 datos",
+			"name": "10 datos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/loadInitialData",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams/loadInitialData",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-performance-in-exams",
 						"loadInitialData"
 					]
@@ -53,21 +71,72 @@
 			"response": []
 		},
 		{
-			"name": "Especifico china",
+			"name": "Cargar datos con paginacion y busquedas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams/?country=china&math_score=71",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
+						"students-performance-in-exams",
+						""
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "china"
+						},
+						{
+							"key": "math_score",
+							"value": "71"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pais especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/china",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
 						"students-performance-in-exams",
 						"china"
 					]
@@ -76,12 +145,387 @@
 			"response": []
 		},
 		{
-			"name": "general (no permitido)",
+			"name": "404 no existe recurso brasil Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/Brasil",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"Brasil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pais y math score",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/china/71",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"china",
+						"71"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get por gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/?gender=female",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						""
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "female"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get por periodo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/?to=90&from=70",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						""
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "90"
+						},
+						{
+							"key": "from",
+							"value": "70"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pais concreto con periodo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/?to=60&from=10&country=china",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						""
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "60"
+						},
+						{
+							"key": "from",
+							"value": "10"
+						},
+						{
+							"key": "country",
+							"value": "china"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "general armenia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 40,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"armenia\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 post especifico error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 40,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/China",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"China"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "general 409 armenia por segunda vez",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 40,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"armenia\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 falta campos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 general error (no permitido)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 4000000,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"armenia\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
+					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset",
 					"protocol": "https",
 					"host": [
 						"sos2324-15",
@@ -91,358 +535,161 @@
 					"path": [
 						"api",
 						"v1",
-						"students-performance-in-exams"
+						"students-performance-dataset"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "borrar china",
+			"name": "200 especifico mismo id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 400000000,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"philippines\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/philippines",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"philippines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "especifico pais y edad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group Oscar\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 38,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"china\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/china/38",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"china",
+						"38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 especifico distinto id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 400000000,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"philippines\",\r\n\"date\": \"6/18/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/students-performance-in-exams/china",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-in-exams",
+						"china"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "armenia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams/armenia",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"china"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "General todos los datos 2",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "crear polonia",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "distinto id error",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"china"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "especifico error (no permitido)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"china"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "mismo id ",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 4098,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/polonia",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"polonia"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "400 distinto id error",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"china"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "400 crear polonia (falta campo)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "200 mismo id",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 4098,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/polonia",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"polonia"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "409 crear polonia(2 veces)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"country\": \"polonia\",\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "405 especifico error (no permitido)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"gender\": \"male\",\r\n        \"race_ethnicity\": \"group B\",\r\n        \"parental_level_of_education\": \"some college\",\r\n        \"lunch\": \"free/reduced\",\r\n        \"test_preparation_course\": \"none\",\r\n        \"math_score\": 40,\r\n        \"reading_score\": 43,\r\n        \"writing_score\": 39,\r\n        \"date\": \"6/18/2023\"\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/china",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams",
-						"china"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "404 No existe recurso armenia",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/armenia",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
 						"students-performance-in-exams",
 						"armenia"
 					]
@@ -451,65 +698,63 @@
 			"response": []
 		},
 		{
-			"name": "405 general (no permitido)",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
-					]
+			"name": "por pais y edad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "todos los datos",
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams/china/38",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"students-performance-in-exams"
+						"students-performance-in-exams",
+						"china",
+						"38"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "General todos los datos 3",
+			"name": "Delete general",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-in-exams",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-in-exams",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-performance-in-exams"
 					]
 				}

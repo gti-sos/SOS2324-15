@@ -127,7 +127,7 @@ let data_OGG=require('../index-OGG');
 
 app.get(API_BASE+"/docs",(req,res) => {
 
-  res.status(301).redirect("https://documenter.getpostman.com/view/33477031/2sA2xiVWmN")
+  res.status(301).redirect("https://documenter.getpostman.com/view/33477031/2sA2xnxABg")
 
 });
 
