@@ -234,7 +234,7 @@ app.put(`${API_BASE}/:country/:math_score`, (req, res) => {
   }
 
   // Verificar si el JSON recibido contiene los campos esperados
-  const expectedFields = [gender, race_ethnicity, parental_level_of_education, lunch, test_preparation_course, math_score, reading_score, writing_score, country, date];
+  const expectedFields = ['gender', 'race_ethnicity', 'parental_level_of_education', 'lunch', 'test_preparation_course', 'math_score', 'reading_score', 'writing_score', 'country', 'date'];
   const receivedFields = Object.keys(newData);
 
   const isValidData = expectedFields.every(field => receivedFields.includes(field));
