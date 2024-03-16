@@ -15,9 +15,12 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -62,6 +65,44 @@
 					"path": [
 						"students-performance-dataset",
 						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "datos general (comprueba array con tamaño 10)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar que el tamaño del array es 10\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array'); \r",
+							"    pm.expect(jsonData).to.have.length(10); \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset"
 					]
 				}
 			},
@@ -182,7 +223,16 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"pm.test(\"La edad es 24\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.student_age).to.eql(24);\r",
+							"});\r",
+							"pm.test(\"El pais es france\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.country).to.eql(\"france\");\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -215,6 +265,13 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Contiene sex\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"sex\");\r",
+							"});\r",
+							"pm.test(\"sex es female\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.sex).to.eql(\"Female\");\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -333,6 +390,99 @@
 			"response": []
 		},
 		{
+			"name": "get limit offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?limit=5&offset=2",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "busqueda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El pais es china\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.country).to.eql(\"china\");\r",
+							"});\r",
+							"pm.test(\"las horas de estudio son 14\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.weekly_study_hours).to.eql(14);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/students-performance-dataset/?country=china&weekly_study_hours=14",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-performance-dataset",
+						""
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "china"
+						},
+						{
+							"key": "weekly_study_hours",
+							"value": "14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "general armenia",
 			"event": [
 				{
@@ -341,9 +491,12 @@
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
-							"});"
+							"});\r",
+							"\r",
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -546,9 +699,16 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
