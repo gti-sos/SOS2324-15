@@ -69,7 +69,7 @@ let data_SCG = require('../index-SCG');
 
 
   // Get para buscar por país y sexo
-  app.get("/api/v1/students-sleep-health/:country/:gender", (req, res) => {
+  app.get(API_BASE+"/:country/:gender", (req, res) => {
     const country = req.params.country;
     const gender = req.params.gender;
 
