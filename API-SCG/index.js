@@ -6,92 +6,9 @@ let data_SCG = require('../index-SCG');
   module.exports= (app,dbSleep) =>{
 
 
-    
-  //   // Get sobre api
-
-  //   app.get(API_BASE,(req,res)=>{
-
-  //     dbSleep.find({},(err,datosSleep)=>{
-
-  //         if(err){
-  //             res.sendStatus(500,"Internal Error");
-  //         }else{
-  //           res.send(JSON.stringify(datosSleep.map((c)=>{
-  //             delete c._id;
-  //             return c;
-  //               })));  
-  //         }
-  //     });
-  // });
-
-
-
-
-//   // Get sobre api con paginación y filtros
-// app.get(API_BASE, (req, res) => {
-//   // Obtener parámetros de consulta
-//   const filters = req.query;
-//   const limit = parseInt(filters.limit) || 10;  // Valor por defecto de 10 si no se proporciona
-
-//   // Construir el objeto de filtro basado en los parámetros de consulta
-//   const filterObject = {};
-
-//   // Iterar sobre los parámetros de la consulta y agregarlos al objeto de filtro
-//   Object.keys(filters).forEach(key => {
-//     if (key !== 'limit') {
-//       filterObject[key] = filters[key];
-//     }
-//   });
-
-//   // Realizar la búsqueda en la base de datos con los filtros y paginación
-//   dbSleep.find(filterObject)
-//     .limit(limit)
-//     .exec((err, filteredData) => {
-//       if (err) {
-//         res.status(500).json({ message: 'Internal Error' });
-//       } else {
-//         // Si no hay error, devolver los datos filtrados
-//         res.status(200).json(filteredData);
-//       }
-//     });
-// });
-
   
 // Get sobre api con paginación y filtros
 
-
-// app.get(API_BASE, (req, res) => {
-//   // Obtener parámetros de consulta
-//   const filters = req.query;
-//   const limit = parseInt(filters.limit) || 10;  // Valor por defecto de 10 si no se proporciona
-
-//   // Construir el objeto de filtro basado en los parámetros de consulta
-//   const filterObject = {};
-
-//   // Iterar sobre los parámetros de la consulta y agregarlos al objeto de filtro
-//   Object.keys(filters).forEach(key => {
-//     if (key !== 'limit') {
-//       // Verificar si el valor es numérico
-//       const value = isNaN(filters[key]) ? filters[key] : parseInt(filters[key]);
-
-//       filterObject[key] = value;
-//     }
-//   });
-
-//   // Realizar la búsqueda en la base de datos con los filtros y paginación
-//   dbSleep.find(filterObject)
-//     .limit(limit)
-//     .exec((err, filteredData) => {
-//       if (err) {
-//         res.status(500).json({ message: 'Internal Error' });
-//       } else {
-//         // Si no hay error, devolver los datos filtrados
-//         res.status(200).json(filteredData);
-//       }
-//     });
-// });
-
-  
   //GET GENERAL 
 
   // Búsqueda de datos con parámetros específicos y paginación
@@ -133,12 +50,6 @@ let data_SCG = require('../index-SCG');
 
 
 
-
-
-
-
-
- 
    
     //Get crea datos si esta vacio en loadInitialData
 
@@ -156,27 +67,26 @@ let data_SCG = require('../index-SCG');
 
   });
 
-  //Post sobre api
 
-  // app.post(API_BASE, (req, res) => {
-  //   try {
-  //     const nuevoDato = req.body;
-  
-  //     // Verificar si los datos requeridos están presentes
-  //     if (!nuevoDato || !nuevoDato.country) {
-  //       throw new Error("Datos incompletos. Se requiere 'country'.");
-  //     }
-  
-  //     // Insertar el nuevo dato en la base de datos
-  //     dbSleep.insert(nuevoDato);
-  
-  //     // Responder con el estado 201 Created
-  //     res.status(201).json({ message: 'Created', nuevoDato });
-  //   } catch (error) {
-  //     console.error("Error en la solicitud POST:", error);
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // }); 
+  // Get para buscar por país y sexo
+  app.get("/api/v1/students-sleep-health/:country/:gender", (req, res) => {
+    const country = req.params.country;
+    const gender = req.params.gender;
+
+    // Realizar la búsqueda en la base de datos con los parámetros proporcionados
+    dbSleep.find({ country: country, gender: gender }, (err, searchData) => {
+      if (err) {
+        res.status(500).json({ message: 'Internal Error' });
+      } else {
+        res.status(200).json(searchData);
+      }
+    });
+  });
+
+
+
+
+  //Post sobre api
 
 
   app.post(API_BASE, (req, res) => {
@@ -271,32 +181,7 @@ let data_SCG = require('../index-SCG');
     res.status(405).json({ error: 'Method not allowed,405' });
   })
 
-  //Put sobre un valor de country
-
-  // app.put(API_BASE + "/:country", (req, res) => {
-  //   const countryNameURL = req.params.country;
-  //   const newData = req.body;
-  //   const countryNameBody = newData.country;
   
-  //   // Verifica si la country en la URL coincide con la del body
-  //   if (countryNameURL !== countryNameBody) {
-  //     res.status(400).json({ message: 'Country mismatch between URL and body' });
-  //     return;
-  //   }
-    
-  //   // Actualiza el documento en la base de datos
-  //   dbSleep.update({ country: countryNameURL }, newData, {}, (err, numUpdated) => {
-  //     if (err) {
-  //       res.status(500).json({ message: 'Internal Error' });
-  //     } else {
-  //       if (numUpdated === 1) {
-  //         res.status(200).json({ message: 'Updated', updatedData: newData });
-  //       } else {
-  //         res.status(404).json({ message: 'Country not found' });
-  //       }
-  //     }
-  //   });
-  // });
 
   // PUT para actualizar datos de un país específico
 app.put(API_BASE + "/:country", (req, res) => {

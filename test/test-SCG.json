@@ -102,6 +102,82 @@
 			"response": []
 		},
 		{
+			"name": "GET - offset&limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/?offset=2&limit=4",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-sleep-health",
+						""
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - country / gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/china/Male",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"students-sleep-health",
+						"china",
+						"Male"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST api",
 			"event": [
 				{
