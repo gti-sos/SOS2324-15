@@ -185,20 +185,20 @@ app.get(API_BASE+"/docs",(req,res) => {
 });
 
 
-// GET PAIS Y FECHA DE EXAMEN DE ESTUDIANTE CONCRETO
+// GET PAIS Y NOTA DE EXAMEN DE ESTUDIANTE CONCRETO
 
-app.get(`${API_BASE}/:country/:date`, (req, res) => {
+app.get(`${API_BASE}/:country/:math_score`, (req, res) => {
   const countryName = req.params.country;
-  const examDate = req.params.date; 
+  const mathScore = parseInt(req.params.math_score); 
 
-  // Verificar si la fecha es válida
-  if (isNaN(examDate)) {
-    res.status(400).json({ error: 'Invalid exam date' });
+  // Verificar si la nota es válida
+  if (isNaN(mathScore)) {
+    res.status(400).json({ error: 'Invalid math score' });
     return;
   }
 
-  // Verificar la existencia de datos para el país y fecha del estudiante especificada
-  dbExams.find({ country: countryName, date: examDate }, (err, datosMental) => {
+  // Verificar la existencia de datos para el país y nota del estudiante especificada
+  dbExams.find({ country: countryName, math_score: mathScore }, (err, datosMental) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
       return;
@@ -206,22 +206,22 @@ app.get(`${API_BASE}/:country/:date`, (req, res) => {
     if (datosMental.length > 0) {
       res.status(200).json(datosMental); // Devuelve un array de objetos
     } else {
-      res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+      res.status(404).json({ message: 'Data not found for the specified country and math score' });
     }
   });
 });
 
-// PUT para actualizar datos de un país y una date específico
+// PUT para actualizar datos de un país y una nota específica
 
 
-app.put(`${API_BASE}/:country/:date`, (req, res) => {
+app.put(`${API_BASE}/:country/:math_score`, (req, res) => {
   const countryName = req.params.country;
-  const examDate = req.params.date;
+  const mathScore = parseInt(req.params.math_score);
   const newData = req.body;
 
-  // Verificar si la edad es un número válido
-  if (isNaN(examDate)) {
-      res.status(400).json({ message: 'Invalid exam date' });
+  // Verificar si la nota es un número válido
+  if (isNaN(mathScore)) {
+      res.status(400).json({ message: 'Invalid math score' });
       return;
   }
 
@@ -236,14 +236,14 @@ app.put(`${API_BASE}/:country/:date`, (req, res) => {
       res.status(400).json({ message: 'Bad request - Missing or unexpected fields' });
   } else {
       // Actualizar el documento en la base de datos
-      dbExams.update({ country: countryName, date: examDate }, newData, {}, (err, numUpdated) => {
+      dbExams.update({ country: countryName, math_score: mathScore }, newData, {}, (err, numUpdated) => {
           if (err) {
               res.status(500).json({ message: 'Internal Error' });
           } else {
               if (numUpdated === 1) {
                   res.status(200).json({ message: 'Updated', updatedData: newData });
               } else {
-                  res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+                  res.status(404).json({ message: 'Data not found for the specified country and math score' });
               }
           }
       });
@@ -251,28 +251,28 @@ app.put(`${API_BASE}/:country/:date`, (req, res) => {
 });
 
 
-// DELETE para eliminar datos de un país y una fecha específica
+// DELETE para eliminar datos de un país y una nota específica
 
 
-app.delete(`${API_BASE}/:country/:date`, (req, res) => {
+app.delete(`${API_BASE}/:country/:math_score`, (req, res) => {
   const countryName = req.params.country;
-  const examDate = req.params.date;
+  const mathScore = parseInt(req.params.math_score);
 
-  // Verificar si la fecha es válidad
-  if (isNaN(examDate)) {
-      res.status(400).json({ message: 'Invalid exam date' });
+  // Verificar si la nota es válida
+  if (isNaN(mathScore)) {
+      res.status(400).json({ message: 'Invalid math Score' });
       return;
   }
 
   // Eliminar el documento de la base de datos
-  dbExams.remove({ country: countryName, date: examDate }, { multi: true }, (err, numRemoved) => {
+  dbExams.remove({ country: countryName, math_score: mathScore }, { multi: true }, (err, numRemoved) => {
       if (err) {
           res.status(500).json({ message: 'Internal Error' });
       } else {
           if (numRemoved >= 1) {
               res.status(200).json({ message: 'Deleted' });
           } else {
-              res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+              res.status(404).json({ message: 'Data not found for the specified country and math score' });
           }
       }
   });
