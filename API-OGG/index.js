@@ -3,51 +3,46 @@ const API_BASE="/api/v1/students-performance-in-exams";
 
 let data_OGG=require('../index-OGG');
 
-
-let datosStudents= [];
-
-
   module.exports= (app,dbExams) =>{
 
-    //GET GENERAL
-    app.get(API_BASE, (req, res) => {
-      // Obtenemos los parámetros de búsqueda y paginación de la solicitud
-      const queryParameters = req.query;
-      const limit = parseInt(queryParameters.limit) || 10; // Tamaño de página predeterminado: 10
-      const offset = parseInt(queryParameters.offset) || 0; // Offset predeterminado: 0
-      let from = req.query.from;
-      let to = req.query.to;
-  
-      // Construimos la consulta de búsqueda basada en los parámetros proporcionados
-      let query = {};
+  //GET GENERAL 
 
-      //Verifica si hay parámetros 'from' y 'to'
-      if (from !== undefined && to !== undefined) {
+  app.get(API_BASE + "/", (req, res) => {
+    const queryParameters = req.query;
+    const limit = parseInt(queryParameters.limit) || 10;
+    const offset = parseInt(queryParameters.offset) || 0;
+    let from = req.query.from;
+    let to = req.query.to;
+
+    let query = {};
+
+    // Verifica si hay parámetros 'from' y 'to'
+    if (from !== undefined && to !== undefined) {
         const fromMathScore = parseInt(from);
         const toMathScore = parseInt(to);
-        if (isNaN(fromAge) || isNaN(toAge)) {
-            return res.status(400).send("Invalid math score format. Please provide valid math score values.");
+        if (isNaN(fromMathScore) || isNaN(toMathScore)) {
+            return res.status(400).send("Invalid age format. Please provide valid age values.");
         }
-        // Si las edades son válidas, construye la consulta para filtrar por el rango de edades
+        // Si las notas son válidas, construye la consulta para filtrar por el rango de notas
         query.math_score = { $gte: fromMathScore, $lte: toMathScore };
     }
-  
-      // Construir la consulta basada en los parámetros proporcionados
-      Object.keys(queryParameters).forEach(key => {
+
+    // Construir la consulta basada en los parámetros proporcionados
+    Object.keys(queryParameters).forEach(key => {
         if (key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to') {
-          const value = !isNaN(queryParameters[key]) ? parseFloat(queryParameters[key]) : queryParameters[key];
-          if (typeof value === 'string') {
-              query[key] = new RegExp(value, 'i');
-          } else {
-              query[key] = value;
-          }
-      }
-  });
+            const value = !isNaN(queryParameters[key]) ? parseFloat(queryParameters[key]) : queryParameters[key];
+            if (typeof value === 'string') {
+                query[key] = new RegExp(value, 'i');
+            } else {
+                query[key] = value;
+            }
+        }
+    });
 
-      // Verificar si se proporcionaron parámetros de búsqueda
-      const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
+    // Verificar si se proporcionaron parámetros de búsqueda
+    const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
 
-      if (!hasSearchParameters) {
+    if (!hasSearchParameters) {
         dbExams.count({}, (err, count) => {
             if (err) {
                 res.sendStatus(500);
@@ -55,7 +50,7 @@ let datosStudents= [];
                 if (count === 0) {
                     res.status(200).json([]);
                 } else {
-                    dbStudents.find({}).skip(offset).limit(limit).exec((err, data) => {
+                    dbExams.find({}).skip(offset).limit(limit).exec((err, data) => {
                         if (err) {
                             res.sendStatus(500);
                         } else {
@@ -86,7 +81,7 @@ let datosStudents= [];
             }
         });
     }
-  });
+});
   
 
    
@@ -186,6 +181,100 @@ app.get(API_BASE+"/docs",(req,res) => {
         res.status(404).json({ message: 'Country not found' });
       }
     }
+  });
+});
+
+
+// GET PAIS Y FECHA DE EXAMEN DE ESTUDIANTE CONCRETO
+
+app.get(`${API_BASE}/:country/:date`, (req, res) => {
+  const countryName = req.params.country;
+  const examDate = req.params.date; 
+
+  // Verificar si la fecha es válida
+  if (isNaN(examDate)) {
+    res.status(400).json({ error: 'Invalid exam date' });
+    return;
+  }
+
+  // Verificar la existencia de datos para el país y fecha del estudiante especificada
+  dbExams.find({ country: countryName, date: examDate }, (err, datosMental) => {
+    if (err) {
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+    if (datosMental.length > 0) {
+      res.status(200).json(datosMental); // Devuelve un array de objetos
+    } else {
+      res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+    }
+  });
+});
+
+// PUT para actualizar datos de un país y una date específico
+
+
+app.put(`${API_BASE}/:country/:date`, (req, res) => {
+  const countryName = req.params.country;
+  const examDate = req.params.date;
+  const newData = req.body;
+
+  // Verificar si la edad es un número válido
+  if (isNaN(examDate)) {
+      res.status(400).json({ message: 'Invalid exam date' });
+      return;
+  }
+
+  // Verificar si el JSON recibido contiene los campos esperados
+  const expectedFields = [gender, race_ethnicity, parental_level_of_education, lunch, test_preparation_course, math_score, reading_score, writing_score, country, date];
+  const receivedFields = Object.keys(newData);
+
+  const isValidData = expectedFields.every(field => receivedFields.includes(field));
+
+  if (!isValidData) {
+      // Si no contiene los campos esperados, devolver un código de estado 400
+      res.status(400).json({ message: 'Bad request - Missing or unexpected fields' });
+  } else {
+      // Actualizar el documento en la base de datos
+      dbExams.update({ country: countryName, date: examDate }, newData, {}, (err, numUpdated) => {
+          if (err) {
+              res.status(500).json({ message: 'Internal Error' });
+          } else {
+              if (numUpdated === 1) {
+                  res.status(200).json({ message: 'Updated', updatedData: newData });
+              } else {
+                  res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+              }
+          }
+      });
+  }
+});
+
+
+// DELETE para eliminar datos de un país y una fecha específica
+
+
+app.delete(`${API_BASE}/:country/:date`, (req, res) => {
+  const countryName = req.params.country;
+  const examDate = req.params.date;
+
+  // Verificar si la fecha es válidad
+  if (isNaN(examDate)) {
+      res.status(400).json({ message: 'Invalid exam date' });
+      return;
+  }
+
+  // Eliminar el documento de la base de datos
+  dbExams.remove({ country: countryName, date: examDate }, { multi: true }, (err, numRemoved) => {
+      if (err) {
+          res.status(500).json({ message: 'Internal Error' });
+      } else {
+          if (numRemoved >= 1) {
+              res.status(200).json({ message: 'Deleted' });
+          } else {
+              res.status(404).json({ message: 'Data not found for the specified country and exam date' });
+          }
+      }
   });
 });
 
