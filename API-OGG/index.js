@@ -6,27 +6,26 @@ let data_OGG=require('../index-OGG');
   module.exports= (app,dbExams) =>{
 
   //GET GENERAL 
-
   app.get(API_BASE + "/", (req, res) => {
     const queryParameters = req.query;
     const limit = parseInt(queryParameters.limit) || 10;
     const offset = parseInt(queryParameters.offset) || 0;
     let from = req.query.from;
     let to = req.query.to;
-
+  
     let query = {};
-
-    // Verifica si hay parámetros 'from' y 'to'
+  
+    // Verifica si hay parámetros 'from' y 'to' para math_score
     if (from !== undefined && to !== undefined) {
-        const fromMathScore = parseInt(from);
-        const toMathScore = parseInt(to);
-        if (isNaN(fromMathScore) || isNaN(toMathScore)) {
-            return res.status(400).send("Invalid age format. Please provide valid age values.");
-        }
-        // Si las notas son válidas, construye la consulta para filtrar por el rango de notas
-        query.math_score = { $gte: fromMathScore, $lte: toMathScore };
+      const fromMathScore = parseInt(from);
+      const toMathScore = parseInt(to);
+      if (isNaN(fromMathScore) || isNaN(toMathScore)) {
+          return res.status(400).send("Invalid math_score format. Please provide valid values.");
+      }
+      // Si los valores son válidos, construye la consulta para filtrar por el rango de math_score
+      query.math_score = { $gte: fromMathScore, $lte: toMathScore };
     }
-
+  
     // Construir la consulta basada en los parámetros proporcionados
     Object.keys(queryParameters).forEach(key => {
         if (key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to') {
@@ -38,10 +37,10 @@ let data_OGG=require('../index-OGG');
             }
         }
     });
-
+  
     // Verificar si se proporcionaron parámetros de búsqueda
     const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
-
+  
     if (!hasSearchParameters) {
         dbExams.count({}, (err, count) => {
             if (err) {
@@ -50,7 +49,7 @@ let data_OGG=require('../index-OGG');
                 if (count === 0) {
                     res.status(200).json([]);
                 } else {
-                    dbExams.find({}).skip(offset).limit(limit).exec((err, data) => {
+                    dbExams.find(query).skip(offset).limit(limit).exec((err, data) => {
                         if (err) {
                             res.sendStatus(500);
                         } else {
@@ -81,7 +80,16 @@ let data_OGG=require('../index-OGG');
             }
         });
     }
-});
+  });
+  
+
+
+
+               
+
+
+
+
   
 
    
