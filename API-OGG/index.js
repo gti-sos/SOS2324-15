@@ -184,13 +184,19 @@ app.get(API_BASE+"/docs",(req,res) => {
       res.status(500).json({ message: 'Internal Error' });
     } else {
       if (countryData.length > 0) {
-        res.status(200).json(countryData);
+        // Eliminar el campo '_id' de cada objeto en el array
+        const dataWithoutId = countryData.map(item => {
+          const { _id, ...data } = item;
+          return data;
+        });
+        res.status(200).json(dataWithoutId);
       } else {
         res.status(404).json({ message: 'Country not found' });
       }
     }
   });
 });
+
 
 
 // GET PAIS Y NOTA DE EXAMEN DE ESTUDIANTE CONCRETO
@@ -211,12 +217,15 @@ app.get(`${API_BASE}/:country/:math_score`, (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
-    if (datosMental.length > 0) {
-      res.status(200).json(datos[0]); // Devuelve un array de objetos
+    if (datos.length > 0) {
+      // Elimina el campo '_id' del objeto
+      const { _id, ...dataWithoutId } = datos[0];
+      res.status(200).json(dataWithoutId); // Devuelve un array de objetos
     } else {
       res.status(404).json({ message: 'Data not found for the specified country and math score' });
     }
   });
+  
 });
 
 // PUT para actualizar datos de un país y una nota específica
