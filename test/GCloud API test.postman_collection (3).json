@@ -26,11 +26,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/loadInitialData",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/loadInitialData",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"loadInitialData"
 					]
@@ -58,11 +60,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -94,11 +98,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/china",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/china",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"china"
 					]
@@ -127,11 +133,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/taipei",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/taipei",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"taipei"
 					]
@@ -171,6 +179,8 @@
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						""
 					],
@@ -220,6 +230,8 @@
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"china",
 						"Female"
@@ -257,11 +269,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -269,7 +283,7 @@
 			"response": []
 		},
 		{
-			"name": "POST - Conflicto",
+			"name": "POST - conflicto",
 			"event": [
 				{
 					"listen": "test",
@@ -297,11 +311,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -328,11 +344,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/china",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/china",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"china"
 					]
@@ -369,11 +387,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -401,7 +421,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"person_id\": 1,\r\n        \"gender\": \"Male\",\r\n        \"age\": 18,\r\n        \"bachelor_degree\": \"Nurse\",\r\n        \"quality_of_sleep\": 7,\r\n        \"physical_activity_level\": 75,\r\n        \"stress_level\": 6,\r\n        \"bmi_category\": \"Normal\",\r\n        \"daily_steps\": 8000,\r\n        \"sleep_disorder\": \"None\",\r\n        \"country\": \"france\",\r\n        \"date\": \"17/03/2023\"\r\n    }",
+					"raw": "{\r\n        \"person_id\": 1,\r\n        \"gender\": \"Male\",\r\n        \"age\": 18,\r\n        \"bachelor_degree\": \"Doctor\",\r\n        \"quality_of_sleep\": 7,\r\n        \"physical_activity_level\": 75,\r\n        \"stress_level\": 6,\r\n        \"bmi_category\": \"Normal\",\r\n        \"daily_steps\": 8000,\r\n        \"sleep_disorder\": \"None\",\r\n        \"country\": \"france\",\r\n        \"date\": \"17/03/2023\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -409,11 +429,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/france",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/france",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"france"
 					]
@@ -450,11 +472,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/france/Male",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/france/Male",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"france",
 						"Male"
@@ -497,6 +521,8 @@
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"france"
 					]
@@ -524,11 +550,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/Taipei",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/Taipei",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"Taipei"
 					]
@@ -556,11 +584,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health/china/Male",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/china/Male",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health",
 						"china",
 						"Male"
@@ -589,11 +619,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/students-sleep-health",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}
@@ -625,6 +657,8 @@
 						"{{SERVER}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"students-sleep-health"
 					]
 				}

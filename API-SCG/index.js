@@ -209,6 +209,36 @@ app.put(API_BASE + "/:country", (req, res) => {
   });
 });
 
+  // Put sobre pais y gender
+
+  app.put(`${API_BASE}/:country/:gender`, (req, res) => {
+    const countryURL = req.params.country;
+    const genderURL = req.params.gender;
+    const newData = req.body;
+    const countryBody = newData.country;
+    const genderBody = newData.gender;
+
+    // Verificar si el país y el sexo en la URL coinciden con los del cuerpo de la solicitud
+    if (countryURL !== countryBody || genderURL !== genderBody) {
+        res.status(400).json({ message: 'Country or gender mismatch between URL and body' });
+        return;
+    }
+
+    // Actualizar el objeto en la base de datos
+    dbSleep.update({ country: countryURL, gender: genderURL }, newData, {}, (err, numUpdated) => {
+        if (err) {
+            res.status(500).json({ message: 'Internal Error' });
+        } else {
+            if (numUpdated === 1) {
+                res.status(200).json({ message: 'Object updated successfully', updatedData: newData });
+            } else {
+                res.status(404).json({ message: 'Object not found' });
+            }
+        }
+    });
+});
+
+
 
   //Delete sobre valor de country
 
@@ -230,6 +260,25 @@ app.put(API_BASE + "/:country", (req, res) => {
   });
 
 
+  //Delete por pais y genero
+
+  app.delete(`${API_BASE}/:country/:gender`, (req, res) => {
+    const country = req.params.country;
+    const gender = req.params.gender;
+
+    // Eliminar el objeto que coincide con el país y el sexo
+    dbSleep.remove({ country: country, gender: gender }, { multi: true }, (err, numRemoved) => {
+        if (err) {
+            res.status(500).json({ message: 'Internal Error' });
+        } else {
+            if (numRemoved >= 1) {
+                res.status(200).json({ message: 'Object deleted successfully' });
+            } else {
+                res.status(404).json({ message: 'Object not found' });
+            }
+        }
+    });
+});
   
 
 
