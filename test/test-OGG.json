@@ -236,11 +236,11 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"pm.test(\"El pais es china\", function () {\r",
-							"    var jsonData = pm.response.json()[0]; \r",
+							"    var jsonData = pm.response.json(); \r",
 							"    pm.expect(jsonData.country).to.eql(\"china\");\r",
 							"});\r",
 							"pm.test(\"math score es 71\", function () {\r",
-							"    var jsonData = pm.response.json()[0]; \r",
+							"    var jsonData = pm.response.json(); \r",
 							"    pm.expect(jsonData.math_score).to.eql(71);\r",
 							"});"
 						],
@@ -696,7 +696,7 @@
 			"response": []
 		},
 		{
-			"name": "especifico pais y edad",
+			"name": "especifico pais y math score",
 			"event": [
 				{
 					"listen": "test",
@@ -811,7 +811,7 @@
 			"response": []
 		},
 		{
-			"name": "por pais y edad",
+			"name": "por pais y math score",
 			"event": [
 				{
 					"listen": "test",
