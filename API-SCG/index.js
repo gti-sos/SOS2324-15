@@ -68,22 +68,48 @@ let data_SCG = require('../index-SCG');
   });
 
 
-  // Get para buscar por país y sexo
-  app.get(API_BASE+"/:country/:gender", (req, res) => {
-    const country = req.params.country;
-    const gender = req.params.gender;
-
-    // Realizar la búsqueda en la base de datos con los parámetros proporcionados
-    dbSleep.find({ country: country, gender: gender }, (err, searchData) => {
+  // // Get para buscar por país y sexo
+ 
+  app.get(API_BASE + "/:country/:gender", (req, res) => {
+    const countryName = req.params.country;
+    const gender = req.params.gender; // Parsear la edad como un número entero
+  
+  
+    // Verificar la existencia de datos para el país y edad del estudiante especificada
+    dbSleep.find({ country: countryName, gender: gender }, (err, datos) => {
       if (err) {
-        res.status(500).json({ message: 'Internal Error' });
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      if (datos.length > 0) {
+        // Eliminar el campo _id de cada objeto en el array
+        const datosSinID = datos.map(({ _id, ...rest }) => rest);
+        res.status(200).json(datosSinID[0]); // Devuelve un array de objetos sin el campo _id
       } else {
-        res.status(200).json(searchData[0]);
+        res.status(404).json({ message: 'Data not found for the specified country and student age' });
       }
     });
   });
 
 
+// Get Pais especifico
+
+app.get(API_BASE + "/:country", (req, res) => {
+  const countryName = req.params.country;
+  dbSleep.find({ country: countryName }, (err, countryData) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Error' });
+    } else {
+      if (countryData.length > 0) {
+        // Eliminar el campo _id de cada objeto en el array
+        const countryDataSinID = countryData.map(({ _id, ...rest }) => rest);
+        res.status(200).json(countryDataSinID);
+      } else {
+        res.status(404).json({ message: 'Country not found' });
+      }
+    }
+  });
+});
 
 
   //Post sobre api
