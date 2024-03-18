@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json) && (npx newman run ./test/test-OGG.json -e ./test/environments/gcloud.json) && (npx newman run ./test/test-SCG.json -e ./test/environments/local.json)",
-    "test-students-performance-dataset":"npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json",
-    "test-students-performance-in-exams":"npx newman run ./test/test-OGG.json -e ./test/environments/gcloud.json",
+    "test": "(npx newman run ./test/test-MFC.json -e ./test/environments/local.json) && (npx newman run ./test/test-OGG.json -e ./test/environments/local.json) && (npx newman run ./test/test-SCG.json -e ./test/environments/local.json)",
+    "test-students-performance-dataset":"npx newman run ./test/test-MFC.json -e ./test/environments/local.json",
+    "test-students-performance-in-exams":"npx newman run ./test/test-OGG.json -e ./test/environments/local.json",
     "test-students-sleep-health":"npx newman run ./test/test-SCG.json -e ./test/environments/local.json"
   },
   "repository": {
