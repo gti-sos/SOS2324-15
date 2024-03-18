@@ -202,7 +202,7 @@
 							"    pm.expect(pm.response.text()).to.include(\"gender\");\r",
 							"});\r",
 							"pm.test(\"gender equals female\", function () {\r",
-							"    var jsonData = pm.response.json()[0]; \r",
+							"    var jsonData = pm.response.json(); \r",
 							"    pm.expect(jsonData.gender).to.eql(\"Female\");\r",
 							"});"
 						],

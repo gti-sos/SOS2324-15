@@ -78,7 +78,7 @@ let data_SCG = require('../index-SCG');
       if (err) {
         res.status(500).json({ message: 'Internal Error' });
       } else {
-        res.status(200).json(searchData);
+        res.status(200).json(searchData[0]);
       }
     });
   });
