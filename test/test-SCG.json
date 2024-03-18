@@ -153,6 +153,13 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"contains gender\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"gender\");\r",
+							"});\r",
+							"pm.test(\"gender equals female\", function () {\r",
+							"    var jsonData = pm.response.json()[0]; \r",
+							"    pm.expect(jsonData.gender).to.eql(\"Female\");\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -164,14 +171,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/students-sleep-health/china/Male",
+					"raw": "{{SERVER}}/api/v1/students-sleep-health/china/Female",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"students-sleep-health",
 						"china",
-						"Male"
+						"Female"
 					]
 				}
 			},
