@@ -265,13 +265,13 @@ app.get(`${API_BASE}/:country/:student_age`, (req, res) => {
   }
 
   // Verificar la existencia de datos para el país y edad del estudiante especificada
-  dbStudents.find({ country: countryName, student_age: studentAge }, (err, datosMental) => {
+  dbStudents.find({ country: countryName, student_age: studentAge }, (err, datos) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
-    if (datosMental.length > 0) {
-      res.status(200).json(datosMental); // Devuelve un array de objetos
+    if (datos.length > 0) {
+      res.status(200).json(datos[0]); // Devuelve un array de objetos
     } else {
       res.status(404).json({ message: 'Data not found for the specified country and student age' });
     }

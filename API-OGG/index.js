@@ -206,13 +206,13 @@ app.get(`${API_BASE}/:country/:math_score`, (req, res) => {
   }
 
   // Verificar la existencia de datos para el país y nota del estudiante especificada
-  dbExams.find({ country: countryName, math_score: mathScore }, (err, datosMental) => {
+  dbExams.find({ country: countryName, math_score: mathScore }, (err, datos) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
     if (datosMental.length > 0) {
-      res.status(200).json(datosMental); // Devuelve un array de objetos
+      res.status(200).json(datos[0]); // Devuelve un array de objetos
     } else {
       res.status(404).json({ message: 'Data not found for the specified country and math score' });
     }
