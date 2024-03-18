@@ -240,13 +240,16 @@ app.get(`${API_BASE}/year/:year`, (req, res) => {
       res.status(500).json({ message: 'Internal Error' });
     } else {
       if (countryData.length > 0) {
-        res.status(200).json(countryData);
+        // Eliminar el campo _id de cada objeto en el array
+        const countryDataSinID = countryData.map(({ _id, ...rest }) => rest);
+        res.status(200).json(countryDataSinID);
       } else {
         res.status(404).json({ message: 'Country not found' });
       }
     }
   });
 });
+
 
 
 
@@ -271,12 +274,15 @@ app.get(`${API_BASE}/:country/:student_age`, (req, res) => {
       return;
     }
     if (datos.length > 0) {
-      res.status(200).json(datos[0]); // Devuelve un array de objetos
+      // Eliminar el campo _id de cada objeto en el array
+      const datosSinID = datos.map(({ _id, ...rest }) => rest);
+      res.status(200).json(datosSinID[0]); // Devuelve un array de objetos sin el campo _id
     } else {
       res.status(404).json({ message: 'Data not found for the specified country and student age' });
     }
   });
 });
+
 
 
 

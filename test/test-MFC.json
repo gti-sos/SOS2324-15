@@ -239,11 +239,11 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"pm.test(\"La edad es 24\", function () {\r",
-							"    var jsonData = pm.response.json()[0]; \r",
+							"    var jsonData = pm.response.json(); \r",
 							"    pm.expect(jsonData.student_age).to.eql(24);\r",
 							"});\r",
 							"pm.test(\"El pais es france\", function () {\r",
-							"    var jsonData = pm.response.json()[0]; \r",
+							"    var jsonData = pm.response.json(); \r",
 							"    pm.expect(jsonData.country).to.eql(\"france\");\r",
 							"});\r",
 							""
