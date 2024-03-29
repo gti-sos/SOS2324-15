@@ -24,4 +24,4 @@ const datos = [
 
 
 
-module.exports = datos;
+export default datos;

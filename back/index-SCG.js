@@ -16,7 +16,7 @@ const datos = [
     { person_id: 36, gender: 'Male', age: 29, bachelor_degree: 'Doctor', quality_of_sleep: 6, physical_activity_level: 30, stress_level: 8, bmi_category: 'Normal', daily_steps: 5000, sleep_disorder: 'None', country: 'china', date: '1/19/2024' }
   ];
   
-  module.exports = datos;
+  export default datos;
 
 
 
