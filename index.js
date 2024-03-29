@@ -31,7 +31,7 @@ loadBackendOGG(app, dbExams);
 //Llamar a la api de Marta Fernández
 loadBackendMFC(app, dbStudents);
 //Llamar a la api de Sergio Cortés 
-loadBackendOGG(app, dbSleep);
+loadBackendSCG(app, dbSleep);
 
 app.use(handler);
 
