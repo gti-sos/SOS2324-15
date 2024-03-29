@@ -1,43 +1,44 @@
+import express from "express";
+import dataStore from "nedb";
+import bodyParser from "body-parser";
+import { handler } from "./front/build/handler.js";
 
-let express = require("express")
-let app = express();
-let dataStore= require("nedb");
 
-let bodyParser=require("body-parser");
+import {loadBackendMFC} from './API-MFC/index-v2.js';
+const API_OGG = require("./API-OGG/index.js");
+const API_SCG = require("./API-SCG/index.js");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-let API_MFC=require("./API-MFC");
-let API_OGG=require("./API-OGG");
-let API_SCG=require("./API-SCG");
-
-let dbStudents= new dataStore();
-let dbExams= new dataStore();
-let dbSleep = new dataStore(); 
-
-API_MFC(app,dbStudents);
-API_OGG(app,dbExams);
-API_SCG(app,dbSleep);
-
+const app = express();
+const PORT = process.env.PORT || 10000;
 
 // Configurar body-parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const path = require('path');
+
+
+app.use("/", express.static("./public"));
+
+// API
+const dbStudents = new dataStore();
+const dbExams = new dataStore();
+const dbSleep = new dataStore();
+
+loadBackendMFC(app, dbStudents);
+API_OGG(app, dbExams);
+API_SCG(app, dbSleep);
+
+
+// Ruta principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.use("/",express.static("./public"));
 
+app.use(handler);
 
-const PORT = (process.env.PORT || 10000);
-app.listen(PORT,()=>{
-    console.log(`Server listening on port ${PORT}.`);
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}.`);
 });
-
-
-
-
-

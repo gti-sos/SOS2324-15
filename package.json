@@ -29,5 +29,6 @@
   "homepage": "https://github.com/gti-sos/SOS2324-15#readme",
   "directories": {
     "test": "test"
-  }
+  },
+  "type": "module"
 }
