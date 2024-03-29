@@ -30,5 +30,5 @@
   "directories": {
     "test": "test"
   },
-  "type": "module"
+  "type":"module"
 }

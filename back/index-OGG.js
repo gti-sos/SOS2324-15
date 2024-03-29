@@ -11,7 +11,7 @@ const datos = [
   { gender: 'female', race_ethnicity: 'group B', parental_level_of_education: 'high school', lunch: 'free/reduced', test_preparation_course: 'none', math_score: 38, reading_score: 60, writing_score: 50, country: 'china', date: '5/17/2023' }
 ];
 
-module.exports = datos;
+export default datos;
 
 
 //   // Valor a buscar en el campo de información geográfica

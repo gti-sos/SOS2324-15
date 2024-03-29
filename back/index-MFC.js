@@ -24,4 +24,8 @@ const data_MFC = [
 
 
 
+<<<<<<< HEAD:index-MFC.js
 module.exports = data_MFC;
+=======
+export default datos;
+>>>>>>> e82dd063001c13f0f32ac2f7dfb7151ee50a1580:back/index-MFC.js
