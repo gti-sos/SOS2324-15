@@ -3,7 +3,7 @@ const API_BASE = "/api/v1/students-sleep-health";
 import datos from "../index-SCG.js";
 let data_SCG = datos;
 
-function loadBackendSCG(app,dbExams){
+function loadBackendSCG(app,dbSleep){
   // Get sobre api con paginación y filtros
 
     //GET GENERAL 
@@ -306,6 +306,6 @@ function loadBackendSCG(app,dbExams){
 
 
 
-    }
+}
 
-    export {loadBackendSCG};
+  export {loadBackendSCG};
