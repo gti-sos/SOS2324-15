@@ -37,6 +37,6 @@
     }
 
     .nav-link:hover {
-        color: #f0f0f0; /* Cambio de color al pasar el ratón */
+        color: #000000; /* Cambio de color al pasar el ratón */
     }
 </style>
