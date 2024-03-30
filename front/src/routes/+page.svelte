@@ -21,7 +21,7 @@
 </ul>
 <style>
     * {
-      font-family: 'Georgia', sans-serif; /* Fuente */
+      font-family: 'Cambria', sans-serif; /* Fuente */
       margin: 0; /* Eliminar margen predeterminado */
       padding: 4px; /* Espaciado interno */
     }
@@ -36,7 +36,7 @@
     }
 
     a {
-      color: #337ab7; /* Color del enlace */
+      color: #02b073; /* Color del enlace */
       text-decoration: none; /* Sin subrayado */
     }
 

@@ -9,7 +9,7 @@
 <hr>
 <style>
   * {
-    font-family: 'Georgia', sans-serif; /* Fuente */
+    font-family: 'Cambria', sans-serif; /* Fuente */
     margin: 0; /* Eliminar margen predeterminado */
     padding: 5px; /* Espaciado interno */
   }
