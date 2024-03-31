@@ -5,9 +5,9 @@
     import Mensaje from "../Mensaje.svelte";
     
     
-    let API="/api/v1/students-performance-in-exams";
+    let API="/api/v2/students-performance-in-exams";
         if(dev){
-            API="http://localhost:10000/api/v1/students-performance-in-exams";
+            API="https://sos2324-15.ew.r.appspot.com/api/v2/students-performance-in-exams";
         }
     
     
