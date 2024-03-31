@@ -5,9 +5,9 @@ import {dev} from "$app/environment";
 import Mensaje from "../Mensaje.svelte";
 
 
-let API="/api/v2/students-performance-dataset";
+let API="/api/v1/students-performance-dataset";
     if(dev){
-        API="http://localhost:10000/api/v2/students-performance-dataset";
+        API="http://localhost:10000/api/v1/students-performance-dataset";
     }
 
 
@@ -50,9 +50,7 @@ async function getStudents(){
     console.log(data);
     }
 
-    async function deleteStudents(id,n){
-        console.log(`Deleting student number${id}`);
-
+    async function deleteStudents(n){
         try{
             let response=await fetch(API+"/"+n,{
                                 method:"DELETE"
@@ -235,7 +233,7 @@ try{
 
 <ul>
     {#each Students as Student }
-    <li> <a href="/performance-dataset/{Student.country}/{Student.sex}">{Student.country} - {Student.age}</a>  <button on:click="{deleteStudents(Student.person_id,Student.country+"/"+Student.sex)}">Borrar</button> </li>
+    <li> <a href="/performance-dataset/{Student.country}/{Student.sex}">{Student.country} - {Student.age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.student_age)}">Borrar</button> </li>
     
     {/each}
     <button on:click="{createStudent}">Crear datos académicos</button>
