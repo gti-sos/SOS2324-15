@@ -6,7 +6,7 @@ let data_MFC = datos;
 
 
 
-function loadBackendMFC(app,dbStudents){
+function loadBackendMFC1(app,dbStudents){
   // Get con redirección a doc Postman
 
   app.get(API_BASE+"/docs",(req,res) => {
@@ -468,4 +468,4 @@ function loadBackendMFC(app,dbStudents){
     
 
   }
-export {loadBackendMFC};
+export {loadBackendMFC1};
