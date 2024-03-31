@@ -26,7 +26,7 @@
       padding: 4px; /* Espaciado interno */
     }
 
-    h2, h3 {
+    h2 {
       margin-top: 10px; /* Espacio entre títulos */
     }
 
