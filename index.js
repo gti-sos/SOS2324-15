@@ -7,8 +7,8 @@ import {handler} from "./front/build/handler.js";
 
 import {loadBackendOGG} from './back/API-OGG/index.js';
 import {loadBackendSCG} from './back/API-SCG/index-v2.js';
-//import {loadBackendMFC} from './back/API-MFC/index-v1.js';
-import {loadBackendMFC} from './back/API-MFC/index-v2.js';
+
+import {loadBackendMFC} from './back/API-MFC/index.js';
 
 let app = express();
 app.use(cors());
