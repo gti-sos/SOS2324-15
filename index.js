@@ -5,7 +5,7 @@ import cors from "cors";
 //Svelte
 import {handler} from "./front/build/handler.js";
 
-import {loadBackendOGG} from './back/API-OGG/index.js';
+import {loadBackendOGG} from './back/API-OGG/index-v2.js';
 import {loadBackendSCG} from './back/API-SCG/index-v2.js';
 
 import {loadBackendMFC} from './back/API-MFC/index.js';

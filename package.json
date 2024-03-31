@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json) && (npx newman run ./test/test-OGG.json -e ./test/environments/gcloud.json) && (npx newman run ./test/test-SCG.json -e ./test/environments/local2.json)",
+    "test": "(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json) && (npx newman run ./test/test-OGG.json -e ./test/environments/local2.json) && (npx newman run ./test/test-SCG.json -e ./test/environments/gcloud2.json)",
     "test-students-performance-dataset": "npx newman run ./test/test-MFC.json -e ./test/environments/gcloud.json",
-    "test-students-performance-in-exams": "npx newman run ./test/test-OGG.json -e ./test/environments/gcloud.json",
-    "test-students-sleep-health": "npx newman run ./test/test-SCG.json -e ./test/environments/local2.json"
+    "test-students-performance-in-exams": "npx newman run ./test/test-OGG.json -e ./test/environments/local2.json",
+    "test-students-sleep-health": "npx newman run ./test/test-SCG.json -e ./test/environments/gcloud2.json"
   },
   "repository": {
     "type": "git",

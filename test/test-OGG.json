@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ad2f79e9-01c3-4af5-86b6-17a185c5b696",
-		"name": "Cloud Oscar testing",
+		"_postman_id": "ad90e6ab-ab39-4239-940a-c891855e5111",
+		"name": "Cloud Oscar testing v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33477031",
-		"_collection_link": "https://sos2324-15.postman.co/workspace/My-Workspace~9122328a-2da7-487f-87ab-5b0d92473a46/collection/33477031-ad2f79e9-01c3-4af5-86b6-17a185c5b696?action=share&source=collection_link&creator=33477031"
+		"_collection_link": "https://sos2324-15.postman.co/workspace/My-Workspace~9122328a-2da7-487f-87ab-5b0d92473a46/collection/33477031-ad90e6ab-ab39-4239-940a-c891855e5111?action=share&source=collection_link&creator=33477031"
 	},
 	"item": [
 		{
@@ -604,51 +604,6 @@
 					],
 					"path": [
 						"students-performance-in-exams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "405 general error (no permitido)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 405\", function () {\r",
-							"    pm.response.to.have.status(405);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\"gender\": \"male\",\r\n\"race_ethnicity\": \"group B\",\r\n\"parental_level_of_education\": \"some college\",\r\n\"lunch\": \"free/reduced\",\r\n\"test_preparation_course\": \"none\",\r\n\"math_score\": 4000000,\r\n\"reading_score\": 43,\r\n\"writing_score\": 39,\r\n\"country\": \"armenia\",\r\n\"date\": \"6/18/2023\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset",
-					"protocol": "https",
-					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"students-performance-dataset"
 					]
 				}
 			},

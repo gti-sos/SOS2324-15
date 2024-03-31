@@ -1,5 +1,5 @@
 
-const API_BASE="/api/v1/students-performance-in-exams";
+const API_BASE="/api/v2/students-performance-in-exams";
 import datos from "../index-OGG.js";
 let data_OGG= datos;
 
@@ -126,7 +126,7 @@ function loadBackendOGG(app,dbExams){
 
     app.get(API_BASE+"/docs",(req,res) => {
 
-      res.status(301).redirect("https://documenter.getpostman.com/view/33477031/2sA2xnxABg")
+      res.status(301).redirect("https://documenter.getpostman.com/view/33477031/2sA35G53J8")
 
     });
 
