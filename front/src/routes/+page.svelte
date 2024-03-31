@@ -6,14 +6,14 @@
 </ul>
 <h2>API's </h2>
 <ul>
-    <li><a href="/sleep-health">Datos del sueño</a> (desarrollado por Sergio Kenzo Cortés González)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health">Datos del sueño</a> (desarrollado por Sergio Kenzo Cortés González)</li>
     <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-in-exams">Datos de exámenes</a> (desarrollado por Oscar García González)</li>
-    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-dataset">Datos de rendimiento</a> (desarrollado por Marta Fernández Carmona)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-dataset">Datos de rendimiento</a> (desarrollado por Marta Fernández Carmona)</li>
 </ul>
-<h3>Repositorio Github</h3>
+<h2>Repositorio Github</h2>
 <a href="https://github.com/gti-sos/SOS2324-15">gti-sos/SOS2324-15</a>
 
-<h3>Miembros del grupo</h3>
+<h2>Miembros del grupo</h2>
 <ul>
     <li><a href="https://github.com/SergioKenz0">Sergio Kenzo Cortés González</a> (students-sleep-health)</li>
     <li><a href="https://github.com/oscgargon2">Oscar García González</a> (students-performance-in-exams)</li>
