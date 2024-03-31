@@ -1,5 +1,5 @@
 
-const API_BASE = "/api/v1/students-sleep-health";
+const API_BASE = "/api/v2/students-sleep-health";
 import datos from "../index-SCG.js";
 let data_SCG = datos;
 
@@ -60,7 +60,7 @@ function loadBackendSCG(app,dbSleep){
 
     app.get(API_BASE+"/docs",(req,res) => {
 
-      res.status(301).redirect("https://documenter.getpostman.com/view/33032447/2sA2xh3DCL")
+      res.status(301).redirect("https://documenter.getpostman.com/view/33032447/2sA35G534q")
 
     });
 
