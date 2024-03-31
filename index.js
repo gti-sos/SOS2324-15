@@ -32,6 +32,10 @@ app.get(API_BASE_v1+"/students-sleep-health/docs", (req,res) => {
     res.redirect('https://documenter.getpostman.com/view/33032447/2sA2xh3DCL');
 });
 
+app.get(API_BASE_v1+"/students-performance-in-exams/docs", (req,res) => {
+    res.redirect('https://documenter.getpostman.com/view/33477031/2sA35HVzdi');
+});
+
 //Recurso html principal
 // app.use("/", express.static("./public"));
 
