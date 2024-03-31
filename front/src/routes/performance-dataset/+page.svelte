@@ -5,9 +5,9 @@ import {dev} from "$app/environment";
 import Mensaje from "../Mensaje.svelte";
 
 
-let API="/api/v1/students-performance-dataset";
+let API="/api/v2/students-performance-dataset";
     if(dev){
-        API="http://localhost:10000/api/v1/students-performance-dataset";
+        API="http://localhost:10000/api/v2/students-performance-dataset";
     }
 
 

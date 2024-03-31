@@ -8,7 +8,7 @@ import {handler} from "./front/build/handler.js";
 import {loadBackendOGG} from './back/API-OGG/index-v2.js';
 import {loadBackendSCG} from './back/API-SCG/index-v2.js';
 
-import {loadBackendMFC} from './back/API-MFC/index.js';
+import {loadBackendMFC} from './back/API-MFC/index-v2.js';
 
 let app = express();
 app.use(cors());
@@ -34,6 +34,10 @@ app.get(API_BASE_v1+"/students-sleep-health/docs", (req,res) => {
 
 app.get(API_BASE_v1+"/students-performance-in-exams/docs", (req,res) => {
     res.redirect('https://documenter.getpostman.com/view/33477031/2sA35HVzdi');
+});
+
+app.get(API_BASE_v1+"/students-performance-dataset/docs", (req,res) => {
+    res.redirect('https://documenter.getpostman.com/view/33030259/2sA2xnwUY5');
 });
 
 //Recurso html principal
