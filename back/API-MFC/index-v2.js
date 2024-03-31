@@ -14,7 +14,7 @@ function loadBackendMFC(app,dbStudents){
 
   app.get(API_BASE+"/docs",(req,res) => {
 
-    res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA2xnwUY5")
+    res.status(301).redirect("https://documenter.getpostman.com/view/33030259/2sA35HVzry")
 
   });
 
