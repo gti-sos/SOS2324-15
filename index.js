@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dataStore from "nedb";
-//import cors from "cors";
+import cors from "cors";
 //Svelte
 import {handler} from "./front/build/handler.js";
 
@@ -11,7 +11,7 @@ import {loadBackendSCG} from './back/API-SCG/index.js';
 import {loadBackendMFC} from './back/API-MFC/index-v2.js';
 
 let app = express();
-//app.use(cors());
+app.use(cors());
 
 //creacion de bases de datos
 let dbStudents = new dataStore();
