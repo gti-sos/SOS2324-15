@@ -21,8 +21,16 @@ let dbSleep = new dataStore();
 //Variables constantes
 const PORT = (process.env.PORT || 10000);
 const API_BASE_v1 = "/api/v1";
+const API_BASE_v2 = "/api/v2";
+
 
 app.use(bodyParser.json());
+
+// llamadas postman apis v1
+
+app.get(API_BASE_v1+"/students-sleep-health/docs", (req,res) => {
+    res.redirect('https://documenter.getpostman.com/view/33032447/2sA2xh3DCL');
+});
 
 //Recurso html principal
 // app.use("/", express.static("./public"));
