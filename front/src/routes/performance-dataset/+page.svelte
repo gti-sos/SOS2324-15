@@ -233,7 +233,7 @@ try{
 
 <ul>
     {#each Students as Student }
-    <li> <a href="/performance-dataset/{Student.country}/{Student.sex}">{Student.country} - {Student.age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.student_age)}">Borrar</button> </li>
+    <li> <a href="/performance-dataset/{Student.country}/{Student.age}">{Student.country} - {Student.age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.student_age)}">Borrar</button> </li>
     
     {/each}
     <button on:click="{createStudent}">Crear datos académicos</button>
