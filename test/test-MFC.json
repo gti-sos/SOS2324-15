@@ -642,16 +642,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-dataset",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-performance-dataset"
 					]
 				}
@@ -776,16 +771,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2324-15.appspot.com/api/v1/students-performance-dataset/china",
-					"protocol": "https",
+					"raw": "{{SERVER}}/students-performance-dataset/china",
 					"host": [
-						"sos2324-15",
-						"appspot",
-						"com"
+						"{{SERVER}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"students-performance-dataset",
 						"china"
 					]
