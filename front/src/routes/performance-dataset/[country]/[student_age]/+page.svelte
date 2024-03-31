@@ -42,10 +42,10 @@
         datos=data
         datos.forEach((s) => {
             if(s.country===pais && s.student_age===Number(edad)){
-                jElegido=j;
+                paisElegido=s;
             }
         });
-        if(paisElegido.short_name===undefined || paisElegido===null ){
+        if(paisElegido.country===undefined || paisElegido===null ){
             errorMsg="code: "+404;
         }
     }
@@ -128,7 +128,7 @@
                 <input bind:value={paisElegido.country}>
             </td>
             <td>
-                <input type="number" bind:value={paisElegido.age}>
+                <input type="number" bind:value={paisElegido.student_age}>
             </td>
             <td>
                 <input bind:value={paisElegido.sex}>
