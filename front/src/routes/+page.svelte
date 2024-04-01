@@ -1,9 +1,15 @@
 <h2>Documentación Postman</h2>
 <ul>
-    <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health/docs">Documentación sueño</a></li>
-    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-in-exams/docs">Documentación exámenes</a></li>
-    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-dataset/docs">Documentación rendimiento</a></li>
-</ul>
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-sleep-health/docs">Documentación sueño v1</a></li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health/docs">Documentación sueño v2</a></li>
+
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/docs">Documentación exámenes v1</a></li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-in-exams/docs">Documentación exámenes v2</a></li>
+
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-dataset/docs">Documentación rendimiento v1</a></li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-dataset/docs">Documentación rendimiento v2</a></li>
+    
+  </ul>
 <h2>API's </h2>
 <ul>
     <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health">Datos del sueño</a> (desarrollado por Sergio Kenzo Cortés González)</li>
