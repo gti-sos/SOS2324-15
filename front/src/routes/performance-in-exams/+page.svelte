@@ -7,7 +7,7 @@
     
     let API="/api/v2/students-performance-in-exams";
         if(dev){
-            API="https://sos2324-15.ew.r.appspot.com/api/v2/students-performance-in-exams";
+            API="http://localhost:10000/api/v2/students-performance-in-exams";
         }
     
     
@@ -210,7 +210,7 @@
     
     <ul>
         {#each Students as Student }
-        <li> <a href="/students-performance-in-exams/{Student.country}/{Student.math_score}">{Student.country} - {Student.age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.math_score)}">Borrar</button> </li>
+        <li> <a href="/performance-in-exams/{Student.country}/{Student.math_score}">{Student.country} - {Student.math_score}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.math_score)}">Borrar</button> </li>
         
         {/each}
         <button on:click="{createStudent}">Crear datos académicos</button>

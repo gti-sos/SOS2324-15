@@ -16,7 +16,7 @@
   - [https://sos2324-15.appspot.com/api/v1/students-performance-dataset/docs] v1 (developed by Marta Fernández Carmona)
   - [https://sos2324-15.appspot.com/api/v2/students-performance-dataset/docs] v2 (developed by Marta Fernández Carmona)
   - [https://sos2324-15.appspot.com/api/v1/students-performance-in-exams/docs] v1 (developed by Óscar García González)
-  - [https://sos2324-15.appspot.com/api/v2/students-performance-in-exams/docs]  v2(developed by Óscar García González)
+  - [https://sos2324-15.appspot.com/api/v2/students-performance-in-exams/docs] v2(developed by Óscar García González)
   - [https://sos2324-15.appspot.com/api/v1/students-sleep-health/docs] v1 (developed by Sergio Kenzo Cortes González) 
   - [https://sos2324-15.appspot.com/api/v2/students-sleep-health/docs] v2 (developed by Sergio Kenzo Cortes González)
  
