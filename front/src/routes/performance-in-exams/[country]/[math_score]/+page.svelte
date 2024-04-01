@@ -61,7 +61,7 @@
             let status=await response.status;
             console.log(`Creation response status ${status}`);
             if(status===200){
-                getStudent();
+                await getStudent();
                 msg="Cambios actualizados correctamente";
             }else{
                 errorMsg="code: "+status;
@@ -177,6 +177,6 @@
 
 </table>
 
-<form action="/performance-dataset/{paisElegido.country}/{paisElegido.math_score}">
+<form action="/performance-in-exams/{paisElegido.country}/{paisElegido.math_score}">
     <button type="submit"  on:click="{putStudent(paisAnt,notaAnt)}" on:click="{actualizaDatos}">Guardar cambios</button> 
 </form>
