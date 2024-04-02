@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "(npx newman run ./test/test-MFC.json -e ./test/environments/gcloud2.json) && (npx newman run ./test/test-OGG.json -e ./test/environments/gcloud2.json) && (npx newman run ./test/test-SCG.json -e ./test/environments/gcloud2.json)",
-    "test-students-performance-dataset": "npx newman run ./test/test-MFC.json -e ./test/environments/gcloud2.json",
-    "test-students-performance-in-exams": "npx newman run ./test/test-OGG.json -e ./test/environments/gcloud2.json",
-    "test-students-sleep-health": "npx newman run ./test/test-SCG.json -e ./test/environments/gcloud2.json"
+    "test": "(npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/gcloud2.json) && (npx newman run ./test/integration/test-OGG.json -e ./test/integration/environments/gcloud2.json) && (npx newman run ./test/integration/test-SCG.json -e ./test/integration/environments/gcloud2.json)",
+    "test-students-performance-dataset": "npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/gcloud2.json",
+    "test-students-performance-in-exams": "npx newman run ./test/integration/test-OGG.json -e ./test/integration/environments/gcloud2.json",
+    "test-students-sleep-health": "npx newman run ./test/integration/test-SCG.json -e ./test/integration/environments/gcloud2.json"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,9 @@
   "directories": {
     "test": "test"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.12.2"
+  }
 }
