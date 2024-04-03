@@ -8,7 +8,7 @@ let data_MFC = datos;
 
 function loadBackendMFC(app,dbStudents){
  
- 
+ dbStudents.insert(data_MFC);
  
   // Get con redirección a doc Postman
 

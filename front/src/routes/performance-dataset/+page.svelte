@@ -16,8 +16,8 @@ let Students = [];
 let errorMsg = "";
 let msg = "";
 let newStudent = {
-    country: "china",
-    student_age: 25,
+    country: "peru",
+    student_age: 27,
     sex: "Male",
     additional_work: "Yes",
     sports_activity: "No",
@@ -49,6 +49,28 @@ async function getStudents(){
     Students=data;
     console.log(data);
     }
+
+    async function loadInitialData() {
+    try {
+        if (Students.length === 0) {
+            let response = await fetch(API + '/loadInitialData', {
+                method: 'GET'
+            });
+
+            if (response.status === 200) {
+                getStudents();
+                msg = "Datos cargados correctamente";
+            } else {
+                errorMsg = "code: " + response.status;
+            }
+        } else {
+            errorMsg = "La base de datos no está vacía";
+        }
+    } catch (e) {
+        errorMsg = e;
+    }
+}
+
 
     async function deleteStudents(n){
         try{
@@ -115,17 +137,19 @@ try{
 
 </script>
 
-{#if msg!=""}
+{#if msg !== ""}
 <div>
-    <Mensaje tipo="exito" mensaje={msg} />
+  <Mensaje tipo="exito" mensaje={msg} />
 </div>
 {/if}
-{#if errorMsg!=""}
-    <div>
-    {#if errorMsg=="code: 409"}
-        <Mensaje tipo="error" mensaje={`Existe un dato con país ${newStudent.country}`}/>
-    {/if}
-    </div>
+{#if errorMsg !== ""}
+<div>
+  {#if errorMsg === "code: 409"}
+  <Mensaje tipo="error" mensaje={`Existe un dato con país ${newStudent.country}`} />
+  {:else}
+  <Mensaje tipo="error" mensaje={errorMsg} />
+  {/if}
+</div>
 {/if}
 <table>
     <thead>
@@ -233,11 +257,13 @@ try{
 
 <ul>
     {#each Students as Student }
-    <li> <a href="/performance-dataset/{Student.country}/{Student.student_age}">{Student.country} - {Student.student_age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.student_age)}">Borrar</button> </li>
+    <li class="studentItem"> <a href="/performance-dataset/{Student.country}/{Student.student_age}">{Student.country} - {Student.student_age}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.student_age)}">Borrar</button> </li>
     
     {/each}
     <button on:click="{createStudent}">Crear datos académicos</button>
     <button on:click="{deleteGeneralStudents}">Eliminar lista</button>
+    <button on:click="{loadInitialData}">Cargar datos</button>
+    
 </ul>
 
 
