@@ -2,6 +2,10 @@
   import Header from "./Header.svelte";
 </script>
 
+<svelte:head>
+  <title>API Rest Grupo 15</title>
+</svelte:head>
+
 <Header/>
 <h1>API Rest Grupo 15</h1>
 <hr>
