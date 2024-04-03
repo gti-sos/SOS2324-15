@@ -11,7 +11,7 @@ test('has title', async ({ page }) => {
 test('list countries and age', async ({ page }) => {
   await page.goto('http://localhost:10000/performance-dataset/');
 
-  //await page.waitForTimeout(2000);
+  await page.waitForTimeout(2000);
 
   // Expects the number of students to be more than 0
   let studentCount =  (await page.locator('.studentItem').all()).length;  
