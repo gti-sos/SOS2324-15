@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index.js",
     
-    "test-integration": "(npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/local2.json) && (npx newman run ./test/integration/test-OGG.json -e ./test/integration/environments/gcloud2.json) && (npx newman run ./test/integration/test-SCG.json -e ./test/integration/environments/gcloud2.json)",
-    "test-students-performance-dataset-integrations": "npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/local2.json",
+    "test-integration": "(npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/gcloud2.json) && (npx newman run ./test/integration/test-OGG.json -e ./test/integration/environments/gcloud2.json) && (npx newman run ./test/integration/test-SCG.json -e ./test/integration/environments/gcloud2.json)",
+    "test-students-performance-dataset-integrations": "npx newman run ./test/integration/test-MFC.json -e ./test/integration/environments/gcloud2.json",
     "test-students-performance-in-exams-integrations": "npx newman run ./test/integration/test-OGG.json -e ./test/integration/environments/gcloud2.json",
     "test-students-sleep-health-integrations": "npx newman run ./test/integration/test-SCG.json -e ./test/integration/environments/gcloud2.json",
     "test-e2e":"npx playwright test",
