@@ -17,3 +17,8 @@ test('list countries and age', async ({ page }) => {
   let studentCount =  (await page.locator('.studentItem').all()).length;  
   expect(studentCount).toBeGreaterThan(0);
 });
+
+
+//package
+//"pretest": "npm start &",
+// "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`"
