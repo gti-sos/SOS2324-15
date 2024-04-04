@@ -32,75 +32,73 @@ function loadBackendMFC(app,dbStudents){
         const offset = parseInt(queryParameters.offset) || 0;
         let from = req.query.from;
         let to = req.query.to;
-    
+
         let query = {};
     
-        // Verifica si hay parámetros 'from' y 'to'
-        if (from !== undefined && to !== undefined) {
-            const fromAge = parseInt(from);
-            const toAge = parseInt(to);
-            if (isNaN(fromAge) || isNaN(toAge)) {
-                return res.status(400).send("Invalid age format. Please provide valid age values.");
-            }
-            // Si las edades son válidas, construye la consulta para filtrar por el rango de edades
-            query.student_age = { $gte: fromAge, $lte: toAge };
-        }
-    
         // Construir la consulta basada en los parámetros proporcionados
-        Object.keys(queryParameters).forEach(key => {
-            if (key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to') {
-                const value = !isNaN(queryParameters[key]) ? parseFloat(queryParameters[key]) : queryParameters[key];
-                if (typeof value === 'string') {
-                    query[key] = new RegExp(value, 'i');
-                } else {
-                    query[key] = value;
-                }
-            }
-        });
-    
-        // Verificar si se proporcionaron parámetros de búsqueda
-        const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
-    
-        if (!hasSearchParameters) {
-            dbStudents.count({}, (err, count) => {
-                if (err) {
-                    res.sendStatus(500);
-                } else {
-                    if (count === 0) {
-                        res.status(200).json([]);
-                    } else {
-                        dbStudents.find({}).skip(offset).limit(limit).exec((err, data) => {
-                            if (err) {
-                                res.sendStatus(500);
-                            } else {
-                                const resultsWithoutId = data.map(d => {
-                                    const { _id, ...datWithoutId } = d;
-                                    return datWithoutId;
-                                });
-                                res.status(200).json(resultsWithoutId);
-                            }
-                        });
-                    }
-                }
-            });
-        } else {
-            dbStudents.find(query).skip(offset).limit(limit).exec((err, data) => {
-                if (err) {
-                    res.status(500).send("Internal Server Error");
-                    return;
-                }
-                if (data.length > 0) {
-                    const formattedData = data.map((d) => {
-                        const { _id, ...formatted } = d;
-                        return formatted;
-                    });
-                    res.status(200).json(formattedData);
-                } else {
-                    res.status(404).send("Not Found");
-                }
-            });
-        }
-    });
+Object.keys(queryParameters).forEach(key => {
+  if (key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to') {
+      const value = !isNaN(queryParameters[key]) ? parseFloat(queryParameters[key]) : queryParameters[key];
+      if (typeof value === 'string') {
+          query[key] = new RegExp(value, 'i');
+      } else {
+          query[key] = value;
+      }
+  }
+});
+
+// Verificar si se proporcionaron parámetros de búsqueda
+const hasSearchParameters = Object.keys(queryParameters).some(key => key !== 'limit' && key !== 'offset' && key !== 'from' && key !== 'to');
+
+if (!hasSearchParameters || (from !== undefined && to !== undefined) || (from === undefined && to === undefined)) {
+
+  // Si no se proporcionan parámetros de búsqueda o se proporciona un rango de edades, aplicar el filtro de rango de edades
+  if (from !== undefined && to !== undefined) {
+      const fromAge = parseInt(from);
+      const toAge = parseInt(to);
+      if (isNaN(fromAge) || isNaN(toAge)) {
+          return res.status(400).send("Invalid age format. Please provide valid age values.");
+      }
+      // Si las edades son válidas, construye la consulta para filtrar por el rango de edades
+      query.student_age = { $gte: fromAge, $lte: toAge };
+  }
+
+  if (!hasSearchParameters) {
+      // Si no se proporcionan otros parámetros de búsqueda, devolver todos los datos sin filtrar
+      dbStudents.find({}).skip(offset).limit(limit).exec((err, data) => {
+          if (err) {
+              res.sendStatus(500);
+          } else {
+              const resultsWithoutId = data.map(d => {
+                  const { _id, ...datWithoutId } = d;
+                  return datWithoutId;
+              });
+              res.status(200).json(resultsWithoutId);
+          }
+      });
+  } else {
+      // Si se proporcionan otros parámetros de búsqueda, aplicar el filtro correspondiente
+      dbStudents.find(query).skip(offset).limit(limit).exec((err, data) => {
+          if (err) {
+              res.status(500).send("Internal Server Error");
+              return;
+          }
+          if (data.length > 0) {
+              const formattedData = data.map((d) => {
+                  const { _id, ...formatted } = d;
+                  return formatted;
+              });
+              res.status(200).json(formattedData);
+          } else {
+              res.status(404).send("Not Found");
+          }
+      });
+  }
+} else {
+  // Si se proporcionan otros parámetros de búsqueda pero no el rango de edades, devolver un error
+  res.status(400).send("Age range filtering requires both 'from' and 'to' parameters.");
+}
+});
     
     
 

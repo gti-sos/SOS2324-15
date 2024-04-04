@@ -76,6 +76,10 @@ onMount(()=>{
         if (country !== "") {
             parametros += `&country=${country}`;
         }
+        // Agregar verificación para from y to
+        if (from !== "" && to !== "") {
+            parametros += `&from=${from}&to=${to}`;
+        }
         if (student_age !== "") {
             parametros += `&student_age=${student_age}`;
         }
@@ -124,6 +128,7 @@ onMount(()=>{
         errorMsg = e;
     }
 }
+
 
 
 
@@ -240,6 +245,31 @@ function limpiarCampos() {
     date = "";
     getStudents();
 }
+
+function nextPage() {
+    if (Students.length >= pageSize) {
+        currentPage++;
+        getData();
+    } else {
+        errorMsg = "No hay más datos disponibles en la página siguiente.";
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        getData();
+    } else {
+        errorMsg = "Ya estás en la primera página.";
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
+
 
 
 
@@ -376,8 +406,15 @@ function limpiarCampos() {
     <button on:click="{loadInitialData}">Cargar datos</button>
     <button on:click={toggleTabla}>Filtrar</button>
 
-    
+
 </ul>
+<div>
+    <button id="pagAv" on:click={prevPage}>Página anterior</button>
+        Página: {currentPage}
+    <button id="pagNe" on:click={nextPage}>Página siguiente</button>
+</div>
+    
+
 {#if mostrarTabla}
 <div class="container">
 <div class="tabla-container">
@@ -434,6 +471,7 @@ function limpiarCampos() {
                 <th> Proyecto de trabajo </th>
                 <th> Porcentaje de Asistencia </th>
                 <th> Calificación media </th>
+                <th> Fecha </th>
             </tr>
             <tr>
                 <td>
@@ -448,21 +486,20 @@ function limpiarCampos() {
                 <td>
                     <input id="calificationAverageFilter" bind:value={calification_average} />
                 </td>
-            </tr>
-            <tr>
-                <th> Fecha </th>
-                <th> Desde el año </th>
-                <th> Hasta el año </th>
-            </tr>
-            <tr>
                 <td>
                     <input id="dateFilter" bind:value={date} />
                 </td>
+            </tr>
+            <tr>
+                <th> Desde la edad </th>
+                <th> Hasta la edad </th>
+            </tr>
+            <tr>
                 <td>
-                    <input id="fromFilter" bind:value={from} />
+                    <input type="number" id="fromFilter" bind:value={from} />
                 </td>
                 <td>
-                    <input id="toFilter" bind:value={to} />
+                    <input type="number" id="toFilter" bind:value={to} />
                 </td>
             </tr>
             <tr>
@@ -494,7 +531,7 @@ function limpiarCampos() {
   
     /* Estilos para el cuadro del texto "Menú de búsqueda" */
     .search-menu-title {
-      background-color: green;
+      background-color: #02b073;
       color: white;
       padding: 20px; /* Aumenta el padding */
       border-radius: 10px; /* Aumenta el radio del borde */
@@ -505,7 +542,7 @@ function limpiarCampos() {
       text-align: center; /* Centra el texto horizontalmente */
     }
     button {
-    background-color: green;
+    background-color:#02b073;
     color: white;
     padding: 10px 20px; /* Ajusta el padding según sea necesario */
     border: none;
