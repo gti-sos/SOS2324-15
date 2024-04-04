@@ -22,3 +22,4 @@ test('list countries and age', async ({ page }) => {
 //package
 //"pretest": "npm start &",
 // "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`"
+//me tiro por un puente
