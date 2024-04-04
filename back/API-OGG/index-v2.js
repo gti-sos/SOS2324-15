@@ -4,6 +4,9 @@ import datos from "../index-OGG.js";
 let data_OGG= datos;
 
 function loadBackendOGG(app,dbExams){
+
+      dbExams.insert(data_OGG);
+
       //GET GENERAL 
       app.get(API_BASE + "/", (req, res) => {
         const queryParameters = req.query;

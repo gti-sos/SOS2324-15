@@ -8,12 +8,12 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/API Rest Grupo 15/);
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('list countries and math score', async ({ page }) => {
+  await page.goto('http://localhost:10000/performance-in-exams/');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  await page.waitForTimeout(2000);
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  // Expects the number of students to be more than 0
+  let studentCount =  (await page.locator('.studentItem').all()).length;  
+  expect(studentCount).toBeGreaterThan(0);
 });

@@ -37,32 +37,55 @@
     
         
     
-    async function getStudents(){
-        let response = await fetch(API,{
-                            method:"GET"
-                        })
     
-        let data = await response.json();
-        Students=data;
-        console.log(data);
-        }
-    
-        async function deleteStudents(n){
-            try{
-                let response=await fetch(API+"/"+n,{
-                                    method:"DELETE"
-                                })
-    
-                if(response.status===200){
-                    getStudents();
-                    msg="Estudiante borrado";
-                }else{
-                    errorMsg="code: "+response.status;
-                }
-            }catch(e){
-                errorMsg=e;
+        async function getStudents(){
+    let response = await fetch(API,{
+                        method:"GET"
+                    })
+
+    let data = await response.json();
+    Students=data;
+    console.log(data);
+    }
+
+    async function loadInitialData() {
+    try {
+        if (Students.length === 0) {
+            let response = await fetch(API + '/loadInitialData', {
+                method: 'GET'
+            });
+
+            if (response.status === 200) {
+                getStudents();
+                msg = "Datos cargados correctamente";
+            } else {
+                errorMsg = "code: " + response.status;
             }
+        } else {
+            errorMsg = "La base de datos no está vacía";
         }
+    } catch (e) {
+        errorMsg = e;
+    }
+}
+
+async function deleteStudents(n){
+        try{
+            let response=await fetch(API+"/"+n,{
+                                method:"DELETE"
+                            })
+
+            if(response.status===200){
+                getStudents();
+                msg="Estudiante borrado";
+            }else{
+                errorMsg="code: "+response.status;
+            }
+        }catch(e){
+            errorMsg=e;
+        }
+    }
+
     
     
     async function deleteGeneralStudents(){
@@ -210,11 +233,12 @@
     
     <ul>
         {#each Students as Student }
-        <li> <a href="/performance-in-exams/{Student.country}/{Student.math_score}">{Student.country} - {Student.math_score}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.math_score)}">Borrar</button> </li>
+        <li class="studentItem"> <a href="/performance-in-exams/{Student.country}/{Student.math_score}">{Student.country} - {Student.math_score}</a>  <button on:click="{deleteStudents(Student.country+"/"+Student.math_score)}">Borrar</button> </li>
         
         {/each}
         <button on:click="{createStudent}">Crear datos académicos</button>
         <button on:click="{deleteGeneralStudents}">Eliminar lista</button>
+        <button on:click="{loadInitialData}">Cargar datos</button>
     </ul>
     
     
