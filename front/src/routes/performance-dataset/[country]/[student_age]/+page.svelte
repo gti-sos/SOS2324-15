@@ -200,3 +200,15 @@
 <form action="/performance-dataset/{paisElegido.country}/{paisElegido.student_age}">
     <button type="submit"  on:click="{putStudent(paisAnt,edadAnt)}" on:click="{actualizaDatos}">Guardar cambios</button> 
 </form>
+<style>
+button {
+    background-color:#02b073;
+    color: white;
+    padding: 10px 20px; /* Ajusta el padding según sea necesario */
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Ajusta el margen entre botones */
+    margin-bottom: 10px; /* Ajusta el margen inferior de los botones */
+  }
+
+</style>
