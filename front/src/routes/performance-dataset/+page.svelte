@@ -58,10 +58,13 @@ let date="";
 
 onMount(()=>{
         mostrarTabla = false;
+        filterApplied = false;
         getStudents();
         
     })
 
+
+    let filterApplied = false; // Variable para controlar si se ha aplicado un filtro
 
     async function getStudents() {
     try {
@@ -117,22 +120,40 @@ onMount(()=>{
             method: "GET",
         });
 
-        let data = await response.json();
-         // Verificar si la respuesta contiene datos después de aplicar los filtros
-         if (data.length === 0) {
-            errorMsg = "No quedan más datos después de aplicar el filtro.";
+        if (response.status === 404) {
+            errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+            Students = []; // Limpiar el arreglo de estudiantes
             return;
         }
+
+        let data = await response.json();
+
+        // Verificar si la respuesta contiene datos después de aplicar los filtros
+        if (data.length === 0 && filterApplied) {
+            errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+            
+            Students = []; // Limpiar el arreglo de estudiantes
+            return;
+        } else if (data.length > 0 && filterApplied) {
+            errorMsg = "La búsqueda se ha realizado con éxito.";
+        }
+
+
         // Filtrar por rango de edad si se especifica
         if (from !== "" && to !== "") {
             data = data.filter(student => student.student_age >= from && student.student_age <= to);
         }
+
         Students = data;
         console.log(data);
     } catch (e) {
         errorMsg = e;
     }
 }
+
+
+
+
 
 
 
@@ -185,23 +206,24 @@ async function deleteStudents(n) {
 
 
 async function deleteGeneralStudents(){
-        console.log(`Deleting all`);
-
-        try{
-            let response=await fetch(API+"/",{
-                                method:"DELETE"
-                            })
-
-            if(response.status===200){
-                getStudents();
-                msg="Borrado general completado";
-            }else{
-                errorMsg="code: "+response.status;
+            console.log(`Deleting all`);
+    
+            try{
+                let response=await fetch(API+"/",{
+                                    method:"DELETE"
+                                })
+    
+                if(response.status===200){
+                    getStudents();
+                    msg="Borrado general completado";
+                }else{
+                    errorMsg="code: "+response.status;
+                }
+            }catch(e){
+                errorMsg=e;
             }
-        }catch(e){
-            errorMsg=e;
         }
-    }
+
 
     async function createStudent(){
 
@@ -252,29 +274,29 @@ function limpiarCampos() {
     getStudents();
 }
 
-function nextPage() {
+async function nextPage() {
     if (Students.length >= pageSize) {
-        currentPage++;
-        getData();
+      currentPage++;
+      await getStudents();
     } else {
-        errorMsg = "No hay más datos disponibles en la página siguiente.";
-        setTimeout(() => {
-            errorMsg = "";
-        }, 5000);
+      errorMsg = "No hay más datos disponibles en la página siguiente.";
+      setTimeout(() => {
+        errorMsg = "";
+      }, 5000);
     }
-}
+  }
 
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        getData();
+  async function prevPage() {
+    if (currentPage > 0) {
+      currentPage--;
+      await getStudents();
     } else {
-        errorMsg = "Ya estás en la primera página.";
-        setTimeout(() => {
-            errorMsg = "";
-        }, 5000);
+      errorMsg = "Ya estás en la primera página.";
+      setTimeout(() => {
+        errorMsg = "";
+      }, 5000);
     }
-}
+  }
 
 
 
@@ -517,6 +539,11 @@ function prevPage() {
     </div>
 </div>
 </div>
+{/if}
+
+{#if filterApplied}
+<!-- Aquí puedes colocar tu anuncio -->
+<div>Anuncio: Los datos se han filtrado exitosamente.</div>
 {/if}
 
 <style>
