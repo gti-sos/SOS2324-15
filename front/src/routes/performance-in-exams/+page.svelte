@@ -28,124 +28,278 @@
         date: "09/04/2023"
     };
     
+    //offset
+    let currentPage = 0;
+    //limit
+    const pageSize = 10;
+    
+    let mostrarTabla = false;
+    
+    let from = "";
+    let to = "";
+    let gender= "";
+    let race_ethnicity=  "";
+    let parental_level_of_education= "";
+    let lunch= "";
+    let test_preparation_course= "";
+    let math_score= "";
+    let reading_score="";
+    let writing_score= "";
+    let country="";
+    let date= "";
     
     
     
     onMount(()=>{
+            mostrarTabla = false;
+            filterApplied = false;
             getStudents();
+            
         })
     
-        
     
+        let filterApplied = false; // Variable para controlar si se ha aplicado un filtro
     
-        async function getStudents(){
-    let response = await fetch(API,{
-                        method:"GET"
-                    })
-
-    let data = await response.json();
-    Students=data;
-    console.log(data);
-    }
-
-    async function loadInitialData() {
-    try {
-        if (Students.length === 0) {
-            let response = await fetch(API + '/loadInitialData', {
-                method: 'GET'
+        async function getStudents() {
+        try {
+            let response;
+            let parametros = `?limit=${pageSize}`;
+            if (currentPage > 0) {
+                const offset = currentPage * pageSize;
+                parametros += `&offset=${offset}`;
+            }
+    
+            // Verificamos si se han introducido parámetros de búsqueda
+            if (gender !== "") {
+                parametros += `&gender=${gender}`;
+            }
+            if (race_ethnicity !== "") {
+                parametros += `&race_ethnicity=${race_ethnicity}`;
+            }
+            if (parental_level_of_education !== "") {
+                parametros += `&parental_level_of_education=${parental_level_of_education}`;
+            }
+            if (lunch !== "") {
+                parametros += `&lunch=${lunch}`;
+            }
+            if (test_preparation_course !== "") {
+                parametros += `&test_preparation_course=${test_preparation_course}`;
+            }
+            if (math_score !== "") {
+                parametros += `&math_score=${math_score}`;
+            }
+            if (reading_score !== "") {
+                parametros += `&reading_score=${reading_score}`;
+            }
+            if (writing_score !== "") {
+                parametros += `&writing_score=${writing_score}`;
+            }
+            if (country !== "") {
+                parametros += `&country=${country}`;
+            }
+            if (date !== "") {
+                parametros += `&date=${date}`;
+            }
+    
+            response = await fetch(API + parametros, {
+                method: "GET",
             });
-
+    
+            if (response.status === 404) {
+                errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+                Students = []; // Limpiar el arreglo de estudiantes
+                return;
+            }
+    
+            let data = await response.json();
+    
+            // Verificar si la respuesta contiene datos después de aplicar los filtros
+            if (data.length === 0 && filterApplied) {
+                errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+                
+                Students = []; // Limpiar el arreglo de estudiantes
+                return;
+            } else if (data.length > 0 && filterApplied) {
+                errorMsg = "La búsqueda se ha realizado con éxito.";
+            }
+    
+    
+            // Filtrar por rango de nota matemática si se especifica
+            if (from !== "" && to !== "") {
+                data = data.filter(student => student.math_score >= from && student.math_score <= to);
+            }
+    
+            Students = data;
+            console.log(data);
+        } catch (e) {
+            errorMsg = e;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        async function loadInitialData() {
+        try {
+            if (Students.length === 0) {
+                let response = await fetch(API + '/loadInitialData', {
+                    method: 'GET'
+                });
+    
+                if (response.status === 200) {
+                    getStudents();
+                    msg = "Datos cargados correctamente";
+                } else {
+                    errorMsg = "code: " + response.status;
+                }
+            } else {
+                errorMsg = "La base de datos no está vacía";
+            }
+        } catch (e) {
+            errorMsg = e;
+        }
+    }
+    
+    
+    async function deleteStudents(n) {
+        try {
+            let response = await fetch(API + "/" + n, {
+                method: "DELETE"
+            });
+    
             if (response.status === 200) {
                 getStudents();
-                msg = "Datos cargados correctamente";
+                msg = "Estudiante borrado";
+            } else if (response.status === 404) {
+                // Recurso no encontrado
+                errorMsg = "El recurso no existe";
             } else {
-                errorMsg = "code: " + response.status;
+                // Otro código de estado
+                errorMsg = "Error al eliminar el estudiante: " + response.statusText;
             }
-        } else {
-            errorMsg = "La base de datos no está vacía";
+        } catch (e) {
+            errorMsg = e.message;
         }
-    } catch (e) {
-        errorMsg = e;
     }
-}
-
-async function deleteStudents(n){
+    
+    
+    
+    
+    async function deleteGeneralStudents(){
+                console.log(`Deleting all`);
+        
+                try{
+                    let response=await fetch(API+"/",{
+                                        method:"DELETE"
+                                    })
+        
+                    if(response.status===200){
+                        getStudents();
+                        msg="Borrado general completado";
+                    }else{
+                        errorMsg="code: "+response.status;
+                    }
+                }catch(e){
+                    errorMsg=e;
+                }
+            }
+    
+    
+    async function createStudent(){
+    
         try{
-            let response=await fetch(API+"/"+n,{
-                                method:"DELETE"
+            let response=await fetch(API,{
+                                method:"POST",
+                                headers:{
+                                    "Content-Type":"application/json"
+                                },
+                                body:JSON.stringify(newStudent,null,2)
                             })
-
-            if(response.status===200){
+        
+            let status=await response.status;
+            console.log(`Creation response status ${status}`);
+            if(status===201){
                 getStudents();
-                msg="Estudiante borrado";
+                msg="Estudiante creado correctamente";
             }else{
-                errorMsg="code: "+response.status;
+                errorMsg="code: "+status;
             }
         }catch(e){
             errorMsg=e;
         }
+    
     }
-
+    
+    //ocultamos y mostramos la tabla
+    function toggleTabla() {
+        mostrarTabla = !mostrarTabla;
+    }
     
     
-    async function deleteGeneralStudents(){
-            console.log(`Deleting all`);
+    // Vaciar todos los campos de la tabla de filtrado
+    function limpiarCampos() {
+        gender = "";
+        race_ethnicity = "";
+        parental_level_of_education = "";
+        lunch = "";
+        test_preparation_course = "";
+        math_score = "";
+        reading_score = "";
+        writing_score = "";
+        country = "";
+        date = "";
+        from = "";
+        to = "";
+        getStudents();
+    }
     
-            try{
-                let response=await fetch(API+"/",{
-                                    method:"DELETE"
-                                })
-    
-                if(response.status===200){
-                    getStudents();
-                    msg="Borrado general completado";
-                }else{
-                    errorMsg="code: "+response.status;
-                }
-            }catch(e){
-                errorMsg=e;
-            }
+    async function nextPage() {
+        if (Students.length >= pageSize) {
+          currentPage++;
+          await getStudents();
+        } else {
+          errorMsg = "No hay más datos disponibles en la página siguiente.";
+          setTimeout(() => {
+            errorMsg = "";
+          }, 5000);
         }
+      }
     
-        async function createStudent(){
-    
-    try{
-        let response=await fetch(API,{
-                            method:"POST",
-                            headers:{
-                                "Content-Type":"application/json"
-                            },
-                            body:JSON.stringify(newStudent,null,2)
-                        })
-    
-        let status=await response.status;
-        console.log(`Creation response status ${status}`);
-        if(status===201){
-            getStudents();
-            msg="Estudiante creado correctamente";
-        }else{
-            errorMsg="code: "+status;
+      async function prevPage() {
+        if (currentPage > 0) {
+          currentPage--;
+          await getStudents();
+        } else {
+          errorMsg = "Ya estás en la primera página.";
+          setTimeout(() => {
+            errorMsg = "";
+          }, 5000);
         }
-    }catch(e){
-        errorMsg=e;
-    }
+      }
     
-    }
+    
     
     
     </script>
     
-    {#if msg!=""}
+    {#if msg !== ""}
     <div>
-        <Mensaje tipo="exito" mensaje={msg} />
+      <Mensaje tipo="exito" mensaje={msg} />
     </div>
     {/if}
-    {#if errorMsg!=""}
-        <div>
-        {#if errorMsg=="code: 409"}
-            <Mensaje tipo="error" mensaje={`Existe un dato con país ${newStudent.country}`}/>
-        {/if}
-        </div>
+    {#if errorMsg !== ""}
+    <div>
+      {#if errorMsg === "code: 409"}
+      <Mensaje tipo="error" mensaje={`Existe un dato con país ${newStudent.country}`} />
+      {:else}
+      <Mensaje tipo="error" mensaje={errorMsg} />
+      {/if}
+    </div>
     {/if}
     <table>
         <thead>
@@ -239,7 +393,142 @@ async function deleteStudents(n){
         <button on:click="{createStudent}">Crear datos académicos</button>
         <button on:click="{deleteGeneralStudents}">Eliminar lista</button>
         <button on:click="{loadInitialData}">Cargar datos</button>
+        <button on:click={toggleTabla}>Filtrar</button>
+
     </ul>
+    <div>
+        <button id="pagAv" on:click={prevPage}>Página anterior</button>
+            Página: {currentPage}
+        <button id="pagNe" on:click={nextPage}>Página siguiente</button>
+    </div>
+        
+    
+    {#if mostrarTabla}
+    <div class="container">
+    <div class="tabla-container">
+        <div class="search-menu">
+        <table class:tabla={mostrarTabla}>
+            <caption><div class="search-menu-title">
+                Menú de búsqueda
+              </div></caption>
+            <thead>
+                <tr>
+                    <th> Genero </th>
+                    <th> Etnia </th>
+                    <th> Nivel de educación parental </th>
+                    <th> Dieta </th>
+                    <th> Curso de preparación </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input id="genderFilter" bind:value={gender} />
+                    </td>
+                    <td>
+                        <input id="raceEthnicityFilter" bind:value={race_ethnicity} />
+                    </td>
+                    <td>
+                        <input id="parentalEducationFilter" bind:value={parental_level_of_education} />
+                    </td>
+                    <td>
+                        <input id="lunchFilter" bind:value={lunch} />
+                    </td>
+                    <td>
+                        <input id="testPreparationFilter" bind:value={test_preparation_course} />
+                    </td>
+                </tr>
+                <tr>
+                    <th> Nota Matemática </th>
+                    <th> Nota de Lectura </th>
+                    <th> Nota de Redacción </th>
+                    <th> País </th>
+                    <th> Fecha </th>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="mathScoreFilter" bind:value={math_score} />
+                    </td>
+                    <td>
+                        <input id="lectureScoreFilter" bind:value={reading_score} />
+                    </td>
+                    <td>
+                        <input id="writingScoreFilter" bind:value={writing_score} />
+                    </td>
+                    <td>
+                        <input id="countryFilter" bind:value={country} />
+                    </td>
+                    <td>
+                        <input id="dateFilter" bind:value={date} />
+                    </td>
+                </tr>
+                <tr>
+                    <th> Desde la nota matemática </th>
+                    <th> Hasta la nota matemática </th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" id="fromFilter" bind:value={from} />
+                    </td>
+                    <td>
+                        <input type="number" id="toFilter" bind:value={to} />
+                    </td>
+                </tr>
+                <tr>
+                    <button id="search" on:click={getStudents}>Buscar</button>
+                    <button id="erase" on:click={limpiarCampos}>Limpiar búsqueda</button>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+    {/if}
+    
+    {#if filterApplied}
+    <!-- Aquí puedes colocar tu anuncio -->
+    <div>Anuncio: Los datos se han filtrado exitosamente.</div>
+    {/if}
+    
+    <style>
+        /* Estilos para el contenedor principal */
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh; /* Ajusta la altura para ocupar toda la altura visible */
+        }
+      
+        /* Estilos para la tabla */
+        .tabla-container {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+      
+        /* Estilos para el cuadro del texto "Menú de búsqueda" */
+        .search-menu-title {
+          background-color: #02b073;
+          color: white;
+          padding: 20px; /* Aumenta el padding */
+          border-radius: 10px; /* Aumenta el radio del borde */
+          display: inline-block;
+          margin-bottom: 10px;
+          font-size: 20px; /* Aumenta el tamaño de la letra */
+          width: 100%; /* Hace que el cuadro ocupe todo el ancho */
+          text-align: center; /* Centra el texto horizontalmente */
+        }
+        button {
+        background-color:#02b073;
+        color: white;
+        padding: 10px 20px; /* Ajusta el padding según sea necesario */
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px; /* Ajusta el margen entre botones */
+        margin-bottom: 10px; /* Ajusta el margen inferior de los botones */
+      }
+      </style>
+      
     
     
     
