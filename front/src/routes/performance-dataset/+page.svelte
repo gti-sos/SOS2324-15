@@ -10,7 +10,7 @@ let API="/api/v2/students-performance-dataset";
         API="http://localhost:10000/api/v2/students-performance-dataset";
     }
 
-
+let errorMsgTimeout;
 
 let Students = [];
 let errorMsg = "";
@@ -123,21 +123,16 @@ onMount(()=>{
         if (response.status === 404) {
             errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
             Students = []; // Limpiar el arreglo de estudiantes
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            errorMsgTimeout = setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
+
             return;
         }
 
         let data = await response.json();
-
-        // Verificar si la respuesta contiene datos después de aplicar los filtros
-        if (data.length === 0 && filterApplied) {
-            errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
-            
-            Students = []; // Limpiar el arreglo de estudiantes
-            return;
-        } else if (data.length > 0 && filterApplied) {
-            errorMsg = "La búsqueda se ha realizado con éxito.";
-        }
-
 
         // Filtrar por rango de edad si se especifica
         if (from !== "" && to !== "") {
@@ -146,8 +141,25 @@ onMount(()=>{
 
         Students = data;
         console.log(data);
+
+        if (data.length > 0 && filterApplied) {
+            errorMsg = "La búsqueda se ha realizado con éxito.";
+
+            // Mostrar mensaje de éxito
+            msg = "La búsqueda se ha realizado con éxito.";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        }
     } catch (e) {
         errorMsg = e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        errorMsgTimeout = setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
     }
 }
 
@@ -159,7 +171,7 @@ onMount(()=>{
 
 
 
-    async function loadInitialData() {
+async function loadInitialData() {
     try {
         if (Students.length === 0) {
             let response = await fetch(API + '/loadInitialData', {
@@ -169,16 +181,37 @@ onMount(()=>{
             if (response.status === 200) {
                 getStudents();
                 msg = "Datos cargados correctamente";
+                
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
             } else {
                 errorMsg = "code: " + response.status;
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
         } else {
             errorMsg = "La base de datos no está vacía";
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     } catch (e) {
         errorMsg = e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
     }
 }
+
 
 
 async function deleteStudents(n) {
@@ -190,65 +223,112 @@ async function deleteStudents(n) {
         if (response.status === 200) {
             getStudents();
             msg = "Estudiante borrado";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
         } else if (response.status === 404) {
             // Recurso no encontrado
             errorMsg = "El recurso no existe";
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         } else {
             // Otro código de estado
             errorMsg = "Error al eliminar el estudiante: " + response.statusText;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     } catch (e) {
         errorMsg = e.message;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
     }
 }
-
-
-
 
 async function deleteGeneralStudents(){
-            console.log(`Deleting all`);
-    
-            try{
-                let response=await fetch(API+"/",{
-                                    method:"DELETE"
-                                })
-    
-                if(response.status===200){
-                    getStudents();
-                    msg="Borrado general completado";
-                }else{
-                    errorMsg="code: "+response.status;
-                }
-            }catch(e){
-                errorMsg=e;
-            }
+    console.log(`Deleting all`);
+
+    try{
+        let response=await fetch(API+"/",{
+            method:"DELETE"
+        })
+
+        if(response.status===200){
+            getStudents();
+            msg="Borrado general completado";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        }else{
+            errorMsg="code: "+response.status;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
+    }catch(e){
+        errorMsg=e;
 
-
-    async function createStudent(){
-
-try{
-    let response=await fetch(API,{
-                        method:"POST",
-                        headers:{
-                            "Content-Type":"application/json"
-                        },
-                        body:JSON.stringify(newStudent,null,2)
-                    })
-
-    let status=await response.status;
-    console.log(`Creation response status ${status}`);
-    if(status===201){
-        getStudents();
-        msg="Estudiante creado correctamente";
-    }else{
-        errorMsg="code: "+status;
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
     }
-}catch(e){
-    errorMsg=e;
 }
 
+
+
+async function createStudent(){
+    try{
+        let response=await fetch(API,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(newStudent,null,2)
+        });
+
+        let status=await response.status;
+        console.log(`Creation response status ${status}`);
+        if(status===201){
+            getStudents();
+            msg="Estudiante creado correctamente";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        }else{
+            errorMsg="code: "+status;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
+        }
+    }catch(e){
+        errorMsg=e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
 }
+
 
 //ocultamos y mostramos la tabla
 function toggleTabla() {
@@ -272,6 +352,8 @@ function limpiarCampos() {
     calification_average = "";
     date = "";
     getStudents();
+    from = ""; 
+    to = "";
 }
 
 async function nextPage() {
@@ -545,6 +627,7 @@ async function nextPage() {
 <!-- Aquí puedes colocar tu anuncio -->
 <div>Anuncio: Los datos se han filtrado exitosamente.</div>
 {/if}
+
 
 <style>
     /* Estilos para el contenedor principal */
