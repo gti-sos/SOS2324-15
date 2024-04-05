@@ -8,6 +8,7 @@
         API="http://localhost:10000/api/v2/students-sleep-health";
     }
 
+
     let sleep=[];
     let errorMsg="";
     let msg="";
@@ -24,18 +25,142 @@
                     country: 'malaysia', 
                     date: '6/27/2023'};
 
+
+    //offset
+    let currentPage = 0;
+    //limit
+    const pageSize = 10;
+
+    let mostrarTabla = false; 
+    
+    let from = "";
+    let to = ""; 
+
+    let person_id =  ""; 
+    let gender =  "";
+    let age = "";
+    let bachelor_degree = ""; 
+    let quality_of_sleep = "";
+    let physical_activity_level = "";
+    let stress_level = "";
+    let bmi_category = "";
+    let daily_steps = ""; 
+    let sleep_disorder = ""; 
+    let country = "";
+    let date = "";
+
+
+
     onMount(()=>{
         getSleep();
+        mostrarTabla = false;
+        filterApplied = false;
     })
 
-    async function getSleep(){
-        let response=await fetch(API,{
-                            method:"GET"
-                        })
+    let filterApplied = false; // Variable para controlar si se ha aplicado un filtro
 
-        let data=await response.json();
-        sleep=data;
-        console.log(data);
+    async function getSleep(){
+            try {
+            let response;
+            let parametros = `?limit=${pageSize}`;
+            if (currentPage > 0) {
+                const offset = currentPage * pageSize;
+                parametros += `&offset=${offset}`;
+            }
+
+            // Verificamos si se han introducido parámetros de búsqueda
+            if (person_id !== "") {
+                parametros += `&person_id=${person_id}`;
+            }
+            if (gender !== "") {
+                parametros += `&gender=${gender}`;
+            }
+            if (age !== "") {
+                parametros += `&age=${age}`;
+            }
+            if (bachelor_degree !== "") {
+                parametros += `&bachelor_degree=${bachelor_degree}`;
+            }
+            if (quality_of_sleep !== "") {
+                parametros += `&quality_of_sleep=${quality_of_sleep}`;
+            }
+            if (physical_activity_level !== "") {
+                parametros += `&physical_activity_level=${physical_activity_level}`;
+            }
+            if (stress_level !== "") {
+                parametros += `&stress_level=${stress_level}`;
+            }
+            if (bmi_category !== "") {
+                parametros += `&bmi_category=${bmi_category}`;
+            }
+            if (daily_steps !== "") {
+                parametros += `&daily_steps=${daily_steps}`;
+            }
+            if (sleep_disorder !== "") {
+                parametros += `&sleep_disorder=${sleep_disorder}`;
+            }
+            if (country !== "") {
+                parametros += `&country=${country}`;
+            }
+            if (date !== "") {
+                parametros += `&date=${date}`;
+            }
+
+            response = await fetch(API + parametros, {
+                method: "GET",
+            });
+
+            if (response.status === 404) {
+                errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+                sleep = []; // Limpiar el arreglo de estudiantes
+                return;
+            }
+
+            let data = await response.json();
+
+            // Verificar si la respuesta contiene datos después de aplicar los filtros
+            if (data.length === 0 && filterApplied) {
+                errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
+                
+                sleep = []; // Limpiar el arreglo de estudiantes
+                return;
+            } else if (data.length > 0 && filterApplied) {
+                errorMsg = "La búsqueda se ha realizado con éxito.";
+            }
+
+
+            // Filtrar por rango de edad si se especifica
+            if (from !== "" && to !== "") {
+                data = data.filter(sleep => sleep.age >= from && sleep.age <= to);
+            }
+
+            sleep = data;
+            console.log(data);
+        } catch (e) {
+            errorMsg = e;
+        }
+    }
+
+
+    async function loadInitialData() {
+        try {
+            if (sleep.length === 0) {
+                let response = await fetch(API + '/loadInitialData', {
+                    method: 'GET'
+                });
+
+                if (response.status === 200) {
+                    getSleep();
+                    msg = "Datos cargados correctamente";
+                } else {
+                    errorMsg = "code: " + response.status;
+                }
+            } else {
+                errorMsg = "La base de datos no está vacía";
+            }
+        } catch (e) {
+            errorMsg = e;
+        }
     }
 
     async function deleteSleep(id,n){
@@ -57,6 +182,8 @@
         }
     }
 
+
+
     async function deleteGeneralSleep(){
         console.log(`Deleting all`);
 
@@ -75,6 +202,8 @@
             errorMsg=e;
         }
     }
+
+
 
     async function createSleep(){
 
@@ -101,7 +230,59 @@
 
     }
 
+    //ocultamos y mostramos la tabla
+    function toggleTabla() {
+        mostrarTabla = !mostrarTabla;
+    }
+
+
+    // Vaciar todos los campos de la tabla de filtrado
+    function limpiarCampos() {
+        person_id =  ""; 
+        gender =  "";
+        age = "";
+        bachelor_degree = ""; 
+        quality_of_sleep = "";
+        physical_activity_level = "";
+        stress_level = "";
+        bmi_category = "";
+        daily_steps = ""; 
+        sleep_disorder = ""; 
+        country = "";
+        date = "";
+        from ="";
+        to="";
+        getSleep();
+    }
+
+
+    async function nextPage() {
+    if (sleep.length >= pageSize) {
+      currentPage++;
+      await getSleep();
+    } else {
+      errorMsg = "No hay más datos disponibles en la página siguiente.";
+      setTimeout(() => {
+        errorMsg = "";
+      }, 5000);
+    }
+  }
+
+  async function prevPage() {
+    if (currentPage > 0) {
+      currentPage--;
+      await getSleep();
+    } else {
+      errorMsg = "Ya estás en la primera página.";
+      setTimeout(() => {
+        errorMsg = "";
+      }, 5000);
+    }
+  }
+
 </script>
+
+
 
 {#if msg!=""}
 <div>
@@ -219,8 +400,116 @@
     {/each}
     <br>
     <br>
-    <button on:click="{createSleep}">Crear estudiante nuevo </button> <button on:click="{deleteGeneralSleep}">Eliminar lista</button>
+    <button on:click="{createSleep}">Crear estudiante nuevo </button> 
+    <button on:click="{deleteGeneralSleep}">Eliminar lista</button>
+    <button on:click="{loadInitialData}">Cargar datos</button>
+    <button on:click={toggleTabla}>Filtrar</button>
 </ul>     
+
+<div>
+    <button id="pagAv" on:click={prevPage}>Página anterior</button>
+        Página: {currentPage}
+    <button id="pagNe" on:click={nextPage}>Página siguiente</button>
+</div>
+
+{#if mostrarTabla}
+<div class="container">
+<div class="tabla-container">
+    <div class="search-menu">
+    <table class:tabla={mostrarTabla}>
+        <caption><div class="search-menu-title">
+            Menú de búsqueda
+          </div></caption>
+        <thead>
+            <tr>
+                <th> Identificador </th>
+                <th> Género </th>
+                <th> Edad  </th>
+                <th> Grado Universitario </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="number" id="person_idFilter" bind:value={person_id} />
+                </td>
+                <td>
+                    <input id="genderFilter" bind:value={gender} />
+                </td>
+                <td>
+                    <input type="number" id="ageFilter" bind:value={age} />
+                </td>
+                <td>
+                    <input id="bachelor_degreeFilter" bind:value={bachelor_degree} />
+                </td>
+            </tr>
+            <tr>
+                <th> Calidad de sueño </th>
+                <th> Nivel de actividad física </th>
+                <th> Nivel de estrés </th>
+                <th> Masa Corporal </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" id="quality_of_sleepFilter" bind:value={quality_of_sleep} />
+                </td>
+                <td>
+                    <input type="number" id="physical_activity_levelFilter" bind:value={physical_activity_level} />
+                </td>
+                <td>
+                    <input type="number" id="stress_levelFilter" bind:value={stress_level} />
+                </td>
+                <td>
+                    <input id="bmi_categoryFilter" bind:value={bmi_category} />
+                </td>
+            </tr>
+            <tr>
+                <th> Pasos diarios </th>
+                <th> Trastorno del sueño </th>
+                <th> País </th>
+                <th> Fecha de Registro </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" id="daily_stepsFilter" bind:value={daily_steps} />
+                </td>
+                <td>
+                    <input id="sleep_disorderFilter" bind:value={sleep_disorder} />
+                </td>
+                <td>
+                    <input id="countryFilter" bind:value={country} />
+                </td>
+                <td>
+                    <input id="dateFilter" bind:value={date} />
+                </td>
+            </tr>
+            <tr>
+                <th> Desde la edad </th>
+                <th> Hasta la edad </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" id="fromFilter" bind:value={from} />
+                </td>
+                <td>
+                    <input type="number" id="toFilter" bind:value={to} />
+                </td>
+            </tr>
+            <tr>
+                <button id="search" on:click={getSleep}>Buscar</button>
+                <button id="erase" on:click={limpiarCampos}>Limpiar búsqueda</button>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+</div>
+{/if}
+
+{#if filterApplied}
+<!-- Aquí puedes colocar tu anuncio -->
+<div>Anuncio: Los datos se han filtrado exitosamente.</div>
+{/if}
 
 
 
