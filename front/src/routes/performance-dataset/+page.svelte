@@ -76,10 +76,6 @@ onMount(()=>{
         if (country !== "") {
             parametros += `&country=${country}`;
         }
-        // Agregar verificación para from y to
-        if (from !== "" && to !== "") {
-            parametros += `&from=${from}&to=${to}`;
-        }
         if (student_age !== "") {
             parametros += `&student_age=${student_age}`;
         }
@@ -122,12 +118,22 @@ onMount(()=>{
         });
 
         let data = await response.json();
+         // Verificar si la respuesta contiene datos después de aplicar los filtros
+         if (data.length === 0) {
+            errorMsg = "No quedan más datos después de aplicar el filtro.";
+            return;
+        }
+        // Filtrar por rango de edad si se especifica
+        if (from !== "" && to !== "") {
+            data = data.filter(student => student.student_age >= from && student.student_age <= to);
+        }
         Students = data;
         console.log(data);
     } catch (e) {
         errorMsg = e;
     }
 }
+
 
 
 
