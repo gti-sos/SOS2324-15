@@ -314,6 +314,8 @@ async function deleteGeneralStudents(){
 
 
 
+
+
 async function createStudent(){
     try{
         let response=await fetch(API,{

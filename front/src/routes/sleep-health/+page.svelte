@@ -142,6 +142,8 @@
     }
 
 
+
+    
     async function loadInitialData() {
         try {
             if (sleep.length === 0) {
@@ -511,7 +513,45 @@
 <div>Anuncio: Los datos se han filtrado exitosamente.</div>
 {/if}
 
-
+<style>
+    /* Estilos para el contenedor principal */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* Ajusta la altura para ocupar toda la altura visible */
+    }
+  
+    /* Estilos para la tabla */
+    .tabla-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    /* Estilos para el cuadro del texto "Menú de búsqueda" */
+    .search-menu-title {
+      background-color: #02b073;
+      color: white;
+      padding: 20px; /* Aumenta el padding */
+      border-radius: 10px; /* Aumenta el radio del borde */
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 20px; /* Aumenta el tamaño de la letra */
+      width: 100%; /* Hace que el cuadro ocupe todo el ancho */
+      text-align: center; /* Centra el texto horizontalmente */
+    }
+    button {
+    background-color:#02b073;
+    color: white;
+    padding: 10px 20px; /* Ajusta el padding según sea necesario */
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Ajusta el margen entre botones */
+    margin-bottom: 10px; /* Ajusta el margen inferior de los botones */
+  }
+  </style>
+  
 
 
 
