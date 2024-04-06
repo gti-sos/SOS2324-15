@@ -142,8 +142,30 @@ onMount(()=>{
         Students = data;
         console.log(data);
 
+        // Verificar si se han aplicado filtros
+        if (
+            country !== "" ||
+            student_age !== "" ||
+            sex !== "" ||
+            additional_work !== "" ||
+            sports_activity !== "" ||
+            transportation !== "" ||
+            weekly_study_hours !== "" ||
+            reading !== "" ||
+            listening_in_class !== "" ||
+            project_work !== "" ||
+            attendance_percentage !== "" ||
+            calification_average !== "" ||
+            date !== "" ||
+            from !== "" ||
+            to !== ""
+        ) {
+            filterApplied = true;
+        } else {
+            filterApplied = false;
+        }
+
         if (data.length > 0 && filterApplied) {
-            errorMsg = "La búsqueda se ha realizado con éxito.";
 
             // Mostrar mensaje de éxito
             msg = "La búsqueda se ha realizado con éxito.";
@@ -162,6 +184,7 @@ onMount(()=>{
         }, 5000);
     }
 }
+
 
 
 
@@ -623,10 +646,7 @@ async function nextPage() {
 </div>
 {/if}
 
-{#if filterApplied}
-<!-- Aquí puedes colocar tu anuncio -->
-<div>Anuncio: Los datos se han filtrado exitosamente.</div>
-{/if}
+
 
 
 <style>
