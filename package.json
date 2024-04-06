@@ -13,7 +13,6 @@
     "test-e2e":"npx playwright test",
     "test":"npm run test-integration && npm run test-e2e",
     "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`"
-
   },
   "repository": {
     "type": "git",
