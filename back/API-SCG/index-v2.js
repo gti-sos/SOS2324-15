@@ -5,7 +5,7 @@ let data_SCG = datos;
 
 function loadBackendSCG(app,dbSleep){
   // Get sobre api con paginación y filtros
-
+    dbSleep.insert(data_SCG);
     //GET GENERAL 
 
     // Búsqueda de datos con parámetros específicos y paginación
