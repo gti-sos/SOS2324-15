@@ -113,21 +113,16 @@
             if (response.status === 404) {
                 errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
                 sleep = []; // Limpiar el arreglo de estudiantes
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                errorMsgTimeout = setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
+
                 return;
             }
 
             let data = await response.json();
-
-            // Verificar si la respuesta contiene datos después de aplicar los filtros
-            if (data.length === 0 && filterApplied) {
-                errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
-                
-                sleep = []; // Limpiar el arreglo de estudiantes
-                return;
-            } else if (data.length > 0 && filterApplied) {
-                errorMsg = "La búsqueda se ha realizado con éxito.";
-            }
-
 
             // Filtrar por rango de edad si se especifica
             if (from !== "" && to !== "") {
@@ -136,8 +131,48 @@
 
             sleep = data;
             console.log(data);
+
+             // Verificar si se han aplicado filtros
+            if (
+                person_id !== "" ||
+                gender !== "" ||
+                age !== "" ||
+                bachelor_degree !== "" ||
+                quality_of_sleep !== "" ||
+                physical_activity_level !== "" ||
+                stress_level !== "" ||
+                bmi_category !== "" ||
+                daily_steps !== "" ||
+                sleep_disorder !== "" ||
+                country !== "" ||
+                date !== "" ||
+                from !== "" ||
+                to !== ""
+            ) {
+                filterApplied = true;
+            } else {
+                filterApplied = false;
+            }
+
+            if (data.length > 0 && filterApplied) {
+
+                // Mostrar mensaje de éxito
+                msg = "La búsqueda se ha realizado con éxito.";
+
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
+            }
+
+
+
         } catch (e) {
             errorMsg = e;
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            errorMsgTimeout = setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     }
 
@@ -154,33 +189,75 @@
                 if (response.status === 200) {
                     getSleep();
                     msg = "Datos cargados correctamente";
+                    
+                    // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                    setTimeout(() => {
+                        msg = "";
+                    }, 5000);
                 } else {
                     errorMsg = "code: " + response.status;
+
+                    // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                    setTimeout(() => {
+                        errorMsg = "";
+                    }, 5000);
                 }
             } else {
                 errorMsg = "La base de datos no está vacía";
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
         } catch (e) {
             errorMsg = e;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     }
 
-    async function deleteSleep(id,n){
-        console.log(`Deleting student number${id}`);
+    async function deleteSleep(n) {
+        try {
+            let response = await fetch(API + "/" + n, {
+                method: "DELETE"
+            });
 
-        try{
-            let response=await fetch(API+"/"+n,{
-                                method:"DELETE"
-                            })
-
-            if(response.status===200){
+            if (response.status === 200) {
                 getSleep();
-                msg="Estudiante borrado";
-            }else{
-                errorMsg="code: "+response.status;
+                msg = "Estudiante borrado";
+
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
+            } else if (response.status === 404) {
+                // Recurso no encontrado
+                errorMsg = "El recurso no existe";
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
+            } else {
+                // Otro código de estado
+                errorMsg = "Error al eliminar el estudiante: " + response.statusText;
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
-        }catch(e){
-            errorMsg=e;
+        } catch (e) {
+            errorMsg = e.message;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     }
 
@@ -191,45 +268,73 @@
 
         try{
             let response=await fetch(API+"/",{
-                                method:"DELETE"
-                            })
+                method:"DELETE"
+            })
 
             if(response.status===200){
                 getSleep();
                 msg="Borrado general completado";
+
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
             }else{
                 errorMsg="code: "+response.status;
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
         }catch(e){
             errorMsg=e;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
     }
 
 
 
     async function createSleep(){
-
         try{
             let response=await fetch(API,{
-                                method:"POST",
-                                headers:{
-                                    "Content-Type":"application/json"
-                                },
-                                body:JSON.stringify(newSleep,null,2)
-                            })
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(newSleep,null,2)
+            });
 
             let status=await response.status;
             console.log(`Creation response status ${status}`);
             if(status===201){
                 getSleep();
                 msg="Estudiante creado correctamente";
+
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
             }else{
                 errorMsg="code: "+status;
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
         }catch(e){
             errorMsg=e;
-        }
 
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
+        }
     }
 
     //ocultamos y mostramos la tabla
@@ -397,7 +502,7 @@
 
 <ul>
     {#each sleep as sleep_j}
-        <li> <a href="/sleep-health/{sleep_j.country}/{sleep_j.gender}">{sleep_j.country} - {sleep_j.age}</a>  <button on:click="{deleteSleep(sleep_j.person_id,sleep_j.country+"/"+sleep_j.gender)}">Borrar</button> </li>
+        <li> <a href="/sleep-health/{sleep_j.country}/{sleep_j.gender}">{sleep_j.country} - {sleep_j.age}</a>  <button on:click="{deleteSleep(sleep_j.country+"/"+sleep_j.gender)}">Borrar</button> </li>
         
     {/each}
     <br>
