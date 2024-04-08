@@ -10,7 +10,7 @@
             API="http://localhost:10000/api/v2/students-performance-in-exams";
         }
     
-    
+    let errorMsgTimeout;
     
     let Students = [];
     let errorMsg = "";
@@ -108,6 +108,11 @@
             if (response.status === 404) {
                 errorMsg = "No se encontraron datos que coincidan con los filtros especificados.";
                 Students = []; // Limpiar el arreglo de estudiantes
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                errorMsgTimeout = setTimeout(() => {
+                errorMsg = "";
+                }, 5000);
+
                 return;
             }
     
@@ -144,148 +149,216 @@
     
     
     
-        async function loadInitialData() {
-        try {
-            if (Students.length === 0) {
-                let response = await fetch(API + '/loadInitialData', {
-                    method: 'GET'
-                });
-    
-                if (response.status === 200) {
-                    getStudents();
-                    msg = "Datos cargados correctamente";
-                } else {
-                    errorMsg = "code: " + response.status;
-                }
-            } else {
-                errorMsg = "La base de datos no está vacía";
-            }
-        } catch (e) {
-            errorMsg = e;
-        }
-    }
-    
-    
-    async function deleteStudents(n) {
-        try {
-            let response = await fetch(API + "/" + n, {
-                method: "DELETE"
+async function loadInitialData() {
+    try {
+        if (Students.length === 0) {
+            let response = await fetch(API + '/loadInitialData', {
+                method: 'GET'
             });
-    
+
             if (response.status === 200) {
                 getStudents();
-                msg = "Estudiante borrado";
-            } else if (response.status === 404) {
-                // Recurso no encontrado
-                errorMsg = "El recurso no existe";
+                msg = "Datos cargados correctamente";
+                
+                // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+                setTimeout(() => {
+                    msg = "";
+                }, 5000);
             } else {
-                // Otro código de estado
-                errorMsg = "Error al eliminar el estudiante: " + response.statusText;
+                errorMsg = "code: " + response.status;
+
+                // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    errorMsg = "";
+                }, 5000);
             }
-        } catch (e) {
-            errorMsg = e.message;
-        }
-    }
-    
-    
-    
-    
-    async function deleteGeneralStudents(){
-                console.log(`Deleting all`);
-        
-                try{
-                    let response=await fetch(API+"/",{
-                                        method:"DELETE"
-                                    })
-        
-                    if(response.status===200){
-                        getStudents();
-                        msg="Borrado general completado";
-                    }else{
-                        errorMsg="code: "+response.status;
-                    }
-                }catch(e){
-                    errorMsg=e;
-                }
-            }
-    
-    
-    async function createStudent(){
-    
-        try{
-            let response=await fetch(API,{
-                                method:"POST",
-                                headers:{
-                                    "Content-Type":"application/json"
-                                },
-                                body:JSON.stringify(newStudent,null,2)
-                            })
-        
-            let status=await response.status;
-            console.log(`Creation response status ${status}`);
-            if(status===201){
-                getStudents();
-                msg="Estudiante creado correctamente";
-            }else{
-                errorMsg="code: "+status;
-            }
-        }catch(e){
-            errorMsg=e;
-        }
-    
-    }
-    
-    //ocultamos y mostramos la tabla
-    function toggleTabla() {
-        mostrarTabla = !mostrarTabla;
-    }
-    
-    
-    // Vaciar todos los campos de la tabla de filtrado
-    function limpiarCampos() {
-        gender = "";
-        race_ethnicity = "";
-        parental_level_of_education = "";
-        lunch = "";
-        test_preparation_course = "";
-        math_score = "";
-        reading_score = "";
-        writing_score = "";
-        country = "";
-        date = "";
-        from = "";
-        to = "";
-        getStudents();
-    }
-    
-    async function nextPage() {
-        if (Students.length >= pageSize) {
-          currentPage++;
-          await getStudents();
         } else {
-          errorMsg = "No hay más datos disponibles en la página siguiente.";
-          setTimeout(() => {
-            errorMsg = "";
-          }, 5000);
+            errorMsg = "La base de datos no está vacía";
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
-      }
+    } catch (e) {
+        errorMsg = e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
     
-      async function prevPage() {
-        if (currentPage > 0) {
-          currentPage--;
-          await getStudents();
+    
+async function deleteStudents(n) {
+    try {
+        let response = await fetch(API + "/" + n, {
+            method: "DELETE"
+        });
+
+        if (response.status === 200) {
+            getStudents();
+            msg = "Estudiante borrado";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        } else if (response.status === 404) {
+            // Recurso no encontrado
+            errorMsg = "El recurso no existe";
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         } else {
-          errorMsg = "Ya estás en la primera página.";
-          setTimeout(() => {
-            errorMsg = "";
-          }, 5000);
+            // Otro código de estado
+            errorMsg = "Error al eliminar el estudiante: " + response.statusText;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
         }
-      }
+    } catch (e) {
+        errorMsg = e.message;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
     
     
     
     
-    </script>
+async function deleteGeneralStudents(){
+    console.log(`Deleting all`);
+
+    try{
+        let response=await fetch(API+"/",{
+            method:"DELETE"
+        })
+
+        if(response.status===200){
+            getStudents();
+            msg="Borrado general completado";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        }else{
+            errorMsg="code: "+response.status;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
+        }
+    }catch(e){
+        errorMsg=e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
+    
+    
+async function createStudent(){
+    try{
+        let response=await fetch(API,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(newStudent,null,2)
+        });
+
+        let status=await response.status;
+        console.log(`Creation response status ${status}`);
+        if(status===201){
+            getStudents();
+            msg="Estudiante creado correctamente";
+
+            // Iniciar el temporizador para borrar el mensaje de éxito después de 5 segundos
+            setTimeout(() => {
+                msg = "";
+            }, 5000);
+        }else{
+            errorMsg="code: "+status;
+
+            // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+            setTimeout(() => {
+                errorMsg = "";
+            }, 5000);
+        }
+    }catch(e){
+        errorMsg=e;
+
+        // Iniciar el temporizador para borrar el mensaje de error después de 5 segundos
+        setTimeout(() => {
+            errorMsg = "";
+        }, 5000);
+    }
+}
+    
+//ocultamos y mostramos la tabla
+function toggleTabla() {
+    mostrarTabla = !mostrarTabla;
+}
+    
+    
+// Vaciar todos los campos de la tabla de filtrado
+function limpiarCampos() {
+    gender = "";
+    race_ethnicity = "";
+    parental_level_of_education = "";
+    lunch = "";
+    test_preparation_course = "";
+    math_score = "";
+    reading_score = "";
+    writing_score = "";
+    country = "";
+    date = "";
+    from = "";
+    to = "";
+    getStudents();
+}
+    
+async function nextPage() {
+    if (Students.length >= pageSize) {
+        currentPage++;
+        await getStudents();
+    } else {
+        errorMsg = "No hay más datos disponibles en la página siguiente.";
+        setTimeout(() => {
+        errorMsg = "";
+        }, 5000);
+    }
+    }
+
+    async function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        await getStudents();
+    } else {
+        errorMsg = "Ya estás en la primera página.";
+        setTimeout(() => {
+        errorMsg = "";
+        }, 5000);
+    }
+    }
+    
+    
+    
+    
+</script>
     
     {#if msg !== ""}
     <div>
@@ -483,11 +556,6 @@
         </div>
     </div>
     </div>
-    {/if}
-    
-    {#if filterApplied}
-    <!-- Aquí puedes colocar tu anuncio -->
-    <div>Anuncio: Los datos se han filtrado exitosamente.</div>
     {/if}
     
     <style>
