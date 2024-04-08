@@ -12,9 +12,12 @@
   </ul>
 <h2>API's </h2>
 <ul>
-    <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health">Datos del sueño</a> (desarrollado por Sergio Kenzo Cortés González)</li>
-    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-in-exams">Datos de exámenes</a> (desarrollado por Oscar García González)</li>
-    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-dataset">Datos de rendimiento</a> (desarrollado por Marta Fernández Carmona)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-sleep-health">Datos del sueño v1</a> (desarrollado por Sergio Kenzo Cortés González)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-sleep-health">Datos del sueño v2</a> (desarrollado por Sergio Kenzo Cortés González)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-in-exams">Datos de exámenes v1</a> (desarrollado por Oscar García González)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-in-exams">Datos de exámenes v2</a> (desarrollado por Oscar García González)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v1/students-performance-dataset">Datos de rendimiento v1</a> (desarrollado por Marta Fernández Carmona)</li>
+    <li><a href="https://sos2324-15.appspot.com/api/v2/students-performance-dataset">Datos de rendimiento v2</a> (desarrollado por Marta Fernández Carmona)</li>
 </ul>
 <h2>Repositorio Github</h2>
 <a href="https://github.com/gti-sos/SOS2324-15">gti-sos/SOS2324-15</a>
