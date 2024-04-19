@@ -468,5 +468,11 @@ if (!hasSearchParameters || (from !== undefined && to !== undefined) || (from ==
   })
     
 
-  }
+
+  app.get("/data",(req,res)=>{
+    res.send(data_MFC);
+    
+  });
+
+  };
 export {loadBackendMFC};
