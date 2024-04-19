@@ -410,6 +410,12 @@ async function nextPage() {
 
 </script>
 
+
+<div>
+    <a href="performance-dataset/scatter"><button>Ver Gráfica 1</button></a>
+    <a href="performance-dataset/bar"><button>Ver Gráfica 2</button></a>
+</div>
+
 {#if msg !== ""}
 <div>
   <Mensaje tipo="exito" mensaje={msg} />
@@ -423,6 +429,11 @@ async function nextPage() {
   <Mensaje tipo="error" mensaje={errorMsg} />
   {/if}
 </div>
+
+
+
+
+
 {/if}
 <table>
     <thead>
@@ -540,6 +551,8 @@ async function nextPage() {
     <button on:click="{deleteGeneralStudents}">Eliminar lista</button>
     <button on:click="{loadInitialData}">Cargar datos</button>
     <button on:click={toggleTabla}>Filtrar</button>
+    
+
 
 
 </ul>
