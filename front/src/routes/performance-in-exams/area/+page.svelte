@@ -29,13 +29,13 @@
                 type: 'area'
             },
             title: {
-                text: 'Distribución de Estudiantes por Etnia y Rango de nota de lectura'
+                text: 'Distribución de Estudiantes por Etnia y Rango de Nota de Lectura'
             },
             xAxis: {
                 categories: processedData.readingScoreRanges,
                 tickInterval: 1,
                 title: {
-                    text: 'Rango de nota de lectura'
+                    text: 'Rango de Nota de Lectura'
                 }
             },
             yAxis: {
