@@ -56,8 +56,8 @@
                     enabled: true,
                     alpha: 10,
                     beta: 30,
-                    depth: 200, // Ajuste de la profundidad
-                    viewDistance: 100 // Ajuste de la distancia de visualización
+                    depth: 400,
+                    viewDistance: 50
                 }
             },
             title: {
@@ -84,7 +84,7 @@
             },
             tooltip: {
                 formatter: function () {
-                    return '<b>' + this.point.name + '</b><br>' +
+                    return '<b>' + this.point.country + '</b><br>' +
                         'Quality of Sleep: ' + this.point.x + '<br>' +
                         'Average Score: ' + this.point.y + '<br>' +
                         'Study Hours: ' + this.point.z;
@@ -123,7 +123,13 @@
             if (item2 && item3) {
                 mergedData.push({
                     name: country,
-                    data: [[item1.quality_of_sleep, item2.math_score, item3.weekly_study_hours]]
+                    data: [{
+                        x: item1.quality_of_sleep,
+                        y: item2.math_score,
+                        z: item3.weekly_study_hours,
+                        country: item1.country // Agregar el atributo country al punto de datos
+                    }],
+                    type: 'scatter3d'
                 });
             }
         });
@@ -138,4 +144,4 @@
     })
 </script>
 
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="container" style="width:100%; height:600px;"></div>
