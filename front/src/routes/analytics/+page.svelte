@@ -1,16 +1,20 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script> <!-- Módulo 3D -->
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> <!-- Módulo de exportación -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script> <!-- Módulo de accesibilidad -->
+
 </svelte:head>
 
 <script>
     import { onMount } from "svelte";
 
-    //let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
-    let DATAAPI1 = "https://sos2324-15.appspot.com/api/v2/students-sleep-health";
-    //let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
-    let DATAAPI2 = "https://sos2324-15.appspot.com/api/v2/students-performance-in-exams";
-   // let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
-    let DATAAPI3 = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
+    let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
+   // let DATAAPI1 = "https://sos2324-15.appspot.com/api/v2/students-sleep-health";
+    let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
+    //let DATAAPI2 = "https://sos2324-15.appspot.com/api/v2/students-performance-in-exams";
+   let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
+    //let DATAAPI3 = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
 
     async function getData1() {
         try {
@@ -43,13 +47,18 @@
     }
 
     async function fillChart(data1, data2, data3) {
-        // Merge data from all sources
         const mergedData = mergeData(data1, data2, data3);
 
         const chart = Highcharts.chart('container', {
             chart: {
-                type: 'scatter',
-                zoomType: 'xy'
+                type: 'scatter3d',
+                options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    beta: 30,
+                    depth: 200, // Ajuste de la profundidad
+                    viewDistance: 100 // Ajuste de la distancia de visualización
+                }
             },
             title: {
                 text: 'Quality of Sleep vs. Average Score vs. Study Hours by Country'
@@ -68,15 +77,18 @@
                     text: 'Average Score'
                 }
             },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 100,
-                y: 70,
-                floating: true,
-                backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
-                borderWidth: 1
+            zAxis: {
+                title: {
+                    text: 'Study Hours'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.point.name + '</b><br>' +
+                        'Quality of Sleep: ' + this.point.x + '<br>' +
+                        'Average Score: ' + this.point.y + '<br>' +
+                        'Study Hours: ' + this.point.z;
+                }
             },
             plotOptions: {
                 scatter: {
@@ -95,10 +107,6 @@
                                 enabled: false
                             }
                         }
-                    },
-                    tooltip: {
-                        headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.x} Quality of Sleep, {point.y} Average Score, {point.z} Study Hours'
                     }
                 }
             },
@@ -107,31 +115,20 @@
     }
 
     function mergeData(data1, data2, data3) {
-    console.log("Data from API 1:", data1);
-    console.log("Data from API 2:", data2);
-    console.log("Data from API 3:", data3);
-
-    let mergedData = [];
-    data1.forEach(item1 => {
-        const country = item1.country.toLowerCase();
-        let item2 = data2.find(item => item.country.toLowerCase() === country);
-        let item3 = data3.find(item => item.country.toLowerCase() === country);
-        if (item2 && item3) {
-            console.log("Data from API 3 for country", country, ":", item3);
-            mergedData.push({
-                name: country,
-                data: [[item1.quality_of_sleep, item2.math_score, item3.weekly_study_hours]]
-            });
-        }
-    });
-
-    console.log("Merged Data:", mergedData);
-    return mergedData;
-}
-
-
-
-
+        let mergedData = [];
+        data1.forEach(item1 => {
+            const country = item1.country.toLowerCase();
+            let item2 = data2.find(item => item.country.toLowerCase() === country);
+            let item3 = data3.find(item => item.country.toLowerCase() === country);
+            if (item2 && item3) {
+                mergedData.push({
+                    name: country,
+                    data: [[item1.quality_of_sleep, item2.math_score, item3.weekly_study_hours]]
+                });
+            }
+        });
+        return mergedData;
+    }
 
     onMount(async () => {
         const data1 = await getData1();
