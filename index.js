@@ -57,8 +57,8 @@ app.use(handler);
 //Iniciar servicio
 app.listen(PORT,() =>{
     console.log(`Server listening on http://localhost:${PORT}`);
-    console.log(`API Óscar García on http://localhost:${PORT + API_BASE_v1}/students-performance-in-exams`);
-    console.log(`API Marta Fernández on http://localhost:${PORT + API_BASE_v1}/students-performance-dataset`);
-    console.log(`API Sergio Cortés on http://localhost:${PORT + API_BASE_v1}/students-sleep-health`);
+    console.log(`API Óscar García on http://localhost:${PORT + API_BASE_v2}/students-performance-in-exams`);
+    console.log(`API Marta Fernández on http://localhost:${PORT + API_BASE_v2}/students-performance-dataset`);
+    console.log(`API Sergio Cortés on http://localhost:${PORT + API_BASE_v2}/students-sleep-health`);
 });
 console.log(`Server initializing...`);
