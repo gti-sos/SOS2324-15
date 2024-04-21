@@ -8,6 +8,7 @@
         API="http://localhost:10000/api/v2/students-sleep-health";
     }
 
+    let errorMsgTimeout;
 
     let sleep=[];
     let errorMsg="";
@@ -52,15 +53,15 @@
 
 
     onMount(()=>{
-        getSleep();
         mostrarTabla = false;
         filterApplied = false;
+        getSleep();
     })
 
     let filterApplied = false; // Variable para controlar si se ha aplicado un filtro
 
     async function getSleep(){
-            try {
+        try {
             let response;
             let parametros = `?limit=${pageSize}`;
             if (currentPage > 0) {
@@ -391,6 +392,11 @@
 
 
 
+<div>
+    <a href="sleep-health/pie"><button>Ver Gráfica Pie</button></a>
+    <a href="sleep-health/pyramid"><button>Ver Gráfica Pyramid</button></a>
+</div>
+
 {#if msg!=""}
 <div>
     <Mensaje tipo="exito" mensaje={msg} />
@@ -613,10 +619,7 @@
 </div>
 {/if}
 
-{#if filterApplied}
-<!-- Aquí puedes colocar tu anuncio -->
-<div>Anuncio: Los datos se han filtrado exitosamente.</div>
-{/if}
+
 
 <style>
     /* Estilos para el contenedor principal */

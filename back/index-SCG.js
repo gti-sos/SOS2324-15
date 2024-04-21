@@ -4,16 +4,16 @@
 const datos = [
     { person_id: 13, gender: 'Male', age: 25, bachelor_degree: 'Software Engineer', quality_of_sleep: 6, physical_activity_level: 42, stress_level: 6, bmi_category: 'Overweight', daily_steps: 4200, sleep_disorder: 'None', country: 'malaysia', date: '6/27/2023' },
     { person_id: 26, gender: 'Male', age: 18, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'china', date: '07/03/2023' },
-    { person_id: 27, gender: 'Male', age: 19, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'south Africa', date: '6/16/2023' },
+    { person_id: 27, gender: 'Male', age: 19, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'Sleep Apnea', country: 'south Africa', date: '6/16/2023' },
     { person_id: 28, gender: 'Male', age: 22, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'poland', date: '3/26/2023' },
-    { person_id: 29, gender: 'Male', age: 23, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'france', date: '5/24/2023' },
+    { person_id: 29, gender: 'Male', age: 23, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'Insomnia', country: 'france', date: '5/24/2023' },
     { person_id: 30, gender: 'Male', age: 18, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'tajikistan', date: '05/11/2023' },
     { person_id: 31, gender: 'Female', age: 19, bachelor_degree: 'Nurse', quality_of_sleep: 5, physical_activity_level: 35, stress_level: 7, bmi_category: 'Normal Weight', daily_steps: 4100, sleep_disorder: 'Sleep Apnea', country: 'china', date: '05/10/2023' },
     { person_id: 32, gender: 'Female', age: 20, bachelor_degree: 'Nurse', quality_of_sleep: 5, physical_activity_level: 35, stress_level: 7, bmi_category: 'Normal Weight', daily_steps: 4100, sleep_disorder: 'Insomnia', country: 'france', date: '2/15/2023' },
     { person_id: 33, gender: 'Female', age: 22, bachelor_degree: 'Nurse', quality_of_sleep: 8, physical_activity_level: 75, stress_level: 4, bmi_category: 'Normal Weight', daily_steps: 6800, sleep_disorder: 'None', country: 'poland', date: '3/21/2023' },
     { person_id: 34, gender: 'Male', age: 26, bachelor_degree: 'Doctor', quality_of_sleep: 6, physical_activity_level: 30, stress_level: 8, bmi_category: 'Normal', daily_steps: 5000, sleep_disorder: 'None', country: 'croatia', date: '9/17/2023' },
-    { person_id: 35, gender: 'Male', age: 25, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'None', country: 'canada', date: '9/20/2023' },
-    { person_id: 36, gender: 'Male', age: 29, bachelor_degree: 'Doctor', quality_of_sleep: 6, physical_activity_level: 30, stress_level: 8, bmi_category: 'Normal', daily_steps: 5000, sleep_disorder: 'None', country: 'china', date: '1/19/2024' }
+    { person_id: 35, gender: 'Male', age: 25, bachelor_degree: 'Doctor', quality_of_sleep: 7, physical_activity_level: 75, stress_level: 6, bmi_category: 'Normal', daily_steps: 8000, sleep_disorder: 'Sleep Apnea', country: 'canada', date: '9/20/2023' },
+    { person_id: 36, gender: 'Male', age: 29, bachelor_degree: 'Doctor', quality_of_sleep: 6, physical_activity_level: 30, stress_level: 8, bmi_category: 'Normal', daily_steps: 5000, sleep_disorder: 'Sleep Apnea', country: 'china', date: '1/19/2024' }
   ];
   
   export default datos;
