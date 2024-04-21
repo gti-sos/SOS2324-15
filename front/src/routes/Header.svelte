@@ -2,6 +2,7 @@
     <nav>
         <ul>
             <li><a href="/" class="nav-link">Inicio</a></li>
+            <li><a href="/analytics" class="nav-link">Grafica conjunta</a></li>
             <li><a href="/sleep-health" class="nav-link">Rendimiento del Sueño Estudiantes</a></li>
             <li><a href="/performance-in-exams" class="nav-link">Rendimiento en Exámenes Estudiantes</a></li>
             <li><a href="/performance-dataset" class="nav-link">Rendimiento de Estudiantes</a></li>
