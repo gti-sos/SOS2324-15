@@ -9,12 +9,12 @@
 <script>
     import { onMount } from "svelte";
 
-    let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
-   // let DATAAPI1 = "https://sos2324-15.appspot.com/api/v2/students-sleep-health";
-    let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
-    //let DATAAPI2 = "https://sos2324-15.appspot.com/api/v2/students-performance-in-exams";
-   let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
-    //let DATAAPI3 = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
+    //let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
+    let DATAAPI1 = "https://sos2324-15.appspot.com/api/v2/students-sleep-health";
+    //let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
+    let DATAAPI2 = "https://sos2324-15.appspot.com/api/v2/students-performance-in-exams";
+   //let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
+    let DATAAPI3 = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
 
     async function getData1() {
         try {
