@@ -8,7 +8,7 @@
 <script>
     import { onMount } from "svelte";
 
-    let DATAAPI="https://sos2324-15.appspot.com//api/v2/students-performance-dataset";
+    let DATAAPI="https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
     
 
     async function getData() {

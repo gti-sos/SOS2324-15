@@ -468,7 +468,7 @@ if (!hasSearchParameters || (from !== undefined && to !== undefined) || (from ==
   })
     
 
-
+//mejor he cogido los datos de la api subida
   app.get("/data",(req,res)=>{
     res.send(data_MFC);
     
