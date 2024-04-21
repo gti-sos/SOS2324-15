@@ -5,9 +5,12 @@
 <script>
     import { onMount } from "svelte";
 
-    let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
-    let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
-    let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
+    //let DATAAPI1 = "http://localhost:10000/api/v2/students-sleep-health";
+    let DATAAPI1 = "https://sos2324-15.appspot.com/api/v2/students-sleep-health";
+    //let DATAAPI2 = "http://localhost:10000/api/v2/students-performance-in-exams";
+    let DATAAPI2 = "https://sos2324-15.appspot.com/api/v2/students-performance-in-exams";
+   // let DATAAPI3 = "http://localhost:10000/api/v2/students-performance-dataset";
+    let DATAAPI3 = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
 
     async function getData1() {
         try {
@@ -104,19 +107,30 @@
     }
 
     function mergeData(data1, data2, data3) {
+    console.log("Data from API 1:", data1);
+    console.log("Data from API 2:", data2);
+    console.log("Data from API 3:", data3);
+
     let mergedData = [];
     data1.forEach(item1 => {
-        let item2 = data2.find(item => item.country === item1.country);
-        let item3 = data3.find(item => item.country === item1.country);
+        const country = item1.country.toLowerCase();
+        let item2 = data2.find(item => item.country.toLowerCase() === country);
+        let item3 = data3.find(item => item.country.toLowerCase() === country);
         if (item2 && item3) {
+            console.log("Data from API 3 for country", country, ":", item3);
             mergedData.push({
-                name: item1.country,
-                data: [[item1.quality_of_sleep, item2.calification_average, item3.weekly_study_hours]]
+                name: country,
+                data: [[item1.quality_of_sleep, item2.math_score, item3.weekly_study_hours]]
             });
         }
     });
+
+    console.log("Merged Data:", mergedData);
     return mergedData;
 }
+
+
+
 
 
     onMount(async () => {
