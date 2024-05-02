@@ -414,6 +414,7 @@ async function nextPage() {
 <div>
     <a href="performance-dataset/scatter"><button>Ver Gráfica 1</button></a>
     <a href="performance-dataset/bar"><button>Ver Gráfica 2</button></a>
+    <a href="performance-dataset/d3js"><button>Ver Gráfica 3</button></a>
 </div>
 
 {#if msg !== ""}
