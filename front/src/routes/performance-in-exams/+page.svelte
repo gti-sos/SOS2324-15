@@ -358,8 +358,9 @@ async function nextPage() {
 </script>
 
 <div>
-    <a href="performance-in-exams/column"><button>Ver Gráfica 1</button></a>
-    <a href="performance-in-exams/area"><button>Ver Gráfica 2</button></a>
+    <a href="performance-in-exams/column"><button>Ver Gráfica Column</button></a>
+    <a href="performance-in-exams/area"><button>Ver Gráfica Area</button></a>
+    <a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts</button></a>
 </div>
     
     {#if msg !== ""}
