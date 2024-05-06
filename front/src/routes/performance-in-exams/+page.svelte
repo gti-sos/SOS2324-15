@@ -360,7 +360,7 @@ async function nextPage() {
 <div>
     <a href="performance-in-exams/column"><button>Ver Gráfica Column</button></a>
     <a href="performance-in-exams/area"><button>Ver Gráfica Area</button></a>
-    <a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts</button></a>
+    <a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts (API de compañero de SOS)</button></a>
 </div>
     
     {#if msg !== ""}
