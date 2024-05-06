@@ -361,6 +361,7 @@ async function nextPage() {
     <a href="performance-in-exams/column"><button>Ver Gráfica Column</button></a>
     <a href="performance-in-exams/area"><button>Ver Gráfica Area</button></a>
     <a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts (API de compañero de SOS)</button></a>
+    <a href="performance-in-exams/chartist"><button>Ver Gráfica Chartist (API Streaming Availability de rapidapi)</button></a>
 </div>
     
     {#if msg !== ""}
