@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import dataStore from "nedb";
 import cors from "cors";
+import request from "request";
 //Svelte
 import {handler} from "./front/build/handler.js";
 
@@ -9,6 +10,7 @@ import {loadBackendOGG} from './back/API-OGG/index-v2.js';
 import {loadBackendSCG} from './back/API-SCG/index-v2.js';
 
 import {loadBackendMFC} from './back/API-MFC/index-v2.js';
+
 
 let app = express();
 app.use(cors());
@@ -50,6 +52,12 @@ loadBackendOGG(app, dbExams);
 loadBackendMFC(app, dbStudents);
 //Llamar a la api de Sergio Cortés 
 loadBackendSCG(app, dbSleep);
+
+app.use("/proxyMFC", function(req,res){
+    var url= "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
+    console.log('piped:' + req.url);
+    req.pipe(request(url)).pipe(res);
+});
 
 app.use(handler);
 

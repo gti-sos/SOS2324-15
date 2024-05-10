@@ -1,6 +1,5 @@
-
 <svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </svelte:head>
 
 <script>
@@ -46,8 +45,10 @@
                 return null;
             }
             const population = populationResponse.population;
-            const calificationPercentage = (student.calification_average / 5) * 100; // Convertir la calificación a porcentaje
-            const populationPercentage = (population / populationData[student.country].population) * 100;
+            const calificationAverage = student.calification_average;
+            const calificationPercentage = (calificationAverage / 5) * 100; // Convertir la calificación a porcentaje
+            const populationPercentage = population;
+
 
             return {
                 country: student.country,
@@ -62,32 +63,77 @@
         fillChart(filteredData);
     }
 
-
     function fillChart(data) {
-        Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Calificación promedio de estudiantes vs. Población por país'
-            },
-            xAxis: {
-                categories: data.map(item => item.country)
-            },
-            yAxis: [{
-                min: 0,
-                title: {
-                    text: 'Porcentaje'
-                }
-            }],
-            series: [{
-                name: 'Calificación Promedio',
-                data: data.map(item => item.calificationPercentage)
-            }, {
-                name: 'Población',
-                data: data.map(item => item.populationPercentage)
-            }]
-        });
+        const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+        const width = 800 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        const svg = d3.select("#container")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        const x = d3.scaleBand()
+            .domain(data.map(d => d.country))
+            .range([0, width])
+            .padding(0.1);
+
+        const y1 = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.calificationPercentage)])
+            .range([height, 0]);
+
+        const y2 = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.populationPercentage)])
+            .range([height, 0]);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .call(d3.axisLeft(y1))
+            .append("text")
+            .attr("fill", "#000")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-5.1em")
+            .attr("text-anchor", "end")
+            .text("Calificación Promedio (%)");
+
+        svg.append("g")
+            .attr("transform", "translate(" + width + " ,0)")
+            .call(d3.axisRight(y2))
+            .append("text")
+            .attr("fill", "#000")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-5.1em")
+            .attr("text-anchor", "end")
+            .text("Población (%)");
+
+        svg.selectAll(".bar1")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar1")
+            .attr("x", d => x(d.country))
+            .attr("y", d => y1(d.calificationPercentage))
+            .attr("width", x.bandwidth() / 2)
+            .attr("height", d => height - y1(d.calificationPercentage))
+            .style("fill", "steelblue");
+
+        svg.selectAll(".bar2")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar2")
+            .attr("x", d => x(d.country) + x.bandwidth() / 2)
+            .attr("y", d => y2(d.populationPercentage))
+            .attr("width", x.bandwidth() / 2)
+            .attr("height", d => height - y2(d.populationPercentage))
+            .style("fill", "orange");
     }
 
     onMount(async () => {
