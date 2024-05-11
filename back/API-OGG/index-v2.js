@@ -3,9 +3,12 @@ const API_BASE="/api/v2/students-performance-in-exams";
 import datos from "../index-OGG.js";
 let data_OGG= datos;
 
+console.log("A");
+
 function loadBackendOGG(app,dbExams){
 
       dbExams.insert(data_OGG);
+
 
       //GET GENERAL 
       app.get(API_BASE + "/", (req, res) => {
@@ -17,6 +20,7 @@ function loadBackendOGG(app,dbExams){
       
         let query = {};
       
+
         // Verifica si hay parámetros 'from' y 'to' para math_score
         if (from !== undefined && to !== undefined) {
           const fromMathScore = parseInt(from);
