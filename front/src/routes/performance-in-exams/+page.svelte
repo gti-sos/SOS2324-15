@@ -365,6 +365,7 @@ async function nextPage() {
     <a href="performance-in-exams/chartist-bar"><button>Ver Gráfica Chartist - Bar (API Worldwide National rapidapi)</button></a>
     <a href="performance-in-exams/echarts-tree"><button>Ver Gráfica Echarts - Tree (API Virtual Number rapidapi)</button></a>
     <a href="performance-in-exams/echarts-scatter"><button>Ver Gráfica Echarts - Scatter (API OpenCritic rapidapi)</button></a>
+    <a href="performance-in-exams/echarts-bar"><button>Ver Gráfica Echarts - Bar (API Cryptocurrency News)</button></a>
 </div>
     
     {#if msg !== ""}

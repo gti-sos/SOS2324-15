@@ -18,10 +18,10 @@
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '8a2c80dd91msh64b38b25bf27192p195e18jsnceff42e30ed3',
+                'X-RapidAPI-Key': '51e8c5d9f4mshf0f3df44f4104cep1ace94jsn2a5b158fba16',
                 'X-RapidAPI-Host': 'worldwide-national-holidays.p.rapidapi.com'
             }
-        };
+        };  
 
         try {
             const response = await fetch(url, options);

@@ -65,6 +65,12 @@ app.use("/proxyKenzo", function(req,res){
     req.pipe(request(url)).pipe(res);
 });
 
+app.use("/proxyOGG", function(req,res){
+    var url= "https://sos2324-11.appspot.com/api/v2/structural-payment-data";
+    console.log('piped:' + req.url);
+    req.pipe(request(url)).pipe(res);
+});
+
 app.use(handler);
 
 

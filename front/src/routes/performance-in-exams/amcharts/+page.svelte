@@ -11,7 +11,7 @@
     import { onMount } from "svelte";
     let dataAvailable = false;
 
-    let DATAAPI = "https://sos2324-11.appspot.com/api/v2/structural-payment-data";
+    let DATAAPI = "https://sos2324-15.appspot.com/proxyOGG";
 
     async function getData() {
         try {
