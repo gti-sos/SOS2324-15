@@ -53,10 +53,23 @@ loadBackendMFC(app, dbStudents);
 //Llamar a la api de Sergio Cortés 
 loadBackendSCG(app, dbSleep);
 
-app.use("/proxyMFC", function(req,res){
-    var url= "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
-    console.log('piped:' + req.url);
-    req.pipe(request(url)).pipe(res);
+app.use("/proxyMFC", async function(req,res){
+    const url = 'https://yh-finance.p.rapidapi.com/auto-complete?q=tesla&region=US';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
+		'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}
 });
 
 app.use("/proxyKenzo", function(req,res){

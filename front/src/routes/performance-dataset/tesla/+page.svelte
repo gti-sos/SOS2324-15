@@ -5,28 +5,35 @@
 <script>
     import { onMount } from "svelte";
 
+   
+
+    let DATAAPI = "/ProxyMFC";
+    if(dev){
+        DATAAPI = "http://localhost:10000/ProxyMFC";
+        
+    }
+
     let dataAvailable = false;
 
-    let fetchData = async () => {
-        const region = document.getElementById('region').value;
-        const url = `https://yh-finance.p.rapidapi.com/auto-complete?q=tesla&region=${region}`;
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
-                'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com'
-            }
-        };
-
+    async function fetchData() {
         try {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            console.log(result);
+            const res = await fetch(`${DATAAPI}?region=${region}`);
+            const data = await res.json();
+            console.log(`Data received:`, data);
+            updateChart(data);
+        } catch (error) {
+            console.error(`Error fetching data:`, error);
+        }
+    }
 
-            const quotes = result.quotes;
-            const data = quotes.map(quote => ({ name: quote.symbol, score: quote.score }));
+    let region = "US"; // Default region
 
-            // Destruir el gráfico existente si existe
+    async function updateChart(data) {
+        try {
+            const quotes = data.quotes;
+            const chartData = quotes.map(quote => ({ name: quote.symbol, score: quote.score }));
+
+            // Destroy existing chart if exists
             if (window.myChart) {
                 window.myChart.destroy();
             }
@@ -35,10 +42,10 @@
             window.myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data.map(d => d.name),
+                    labels: chartData.map(d => d.name),
                     datasets: [{
                         label: 'Score',
-                        data: data.map(d => d.score),
+                        data: chartData.map(d => d.score),
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
@@ -67,7 +74,7 @@
     }
 
     onMount(async () => {
-        // Puedes cargar datos adicionales aquí si es necesario
+        await fetchData(); // Fetch data on component mount
         dataAvailable = true;
     });
 </script>
@@ -80,7 +87,7 @@
 
 <div>
     <label for="region">Select a Region:</label>
-    <select id="region">
+    <select id="region" bind:value={region}>
         <option value="US">United States</option>
         <option value="BR">Brazil</option>
         <option value="AU">Australia</option>

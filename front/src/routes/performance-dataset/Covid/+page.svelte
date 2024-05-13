@@ -13,8 +13,7 @@
     });
 
     async function fetchData() {
-        const selectedCountry = "World"; // País por defecto
-        
+        const selectedCountry = document.getElementById('countrySelect').value;
 
         try {
             const response = await fetch(`https://covid-19-tracking.p.rapidapi.com/v1`, {
@@ -111,14 +110,14 @@
         // Formatear el número con comas y asegurarse de que siempre tenga dos decimales
         return number.toLocaleString(undefined, { minimumFractionDigits: 0 });
     }
+
+    // Función para actualizar los datos al hacer clic en el botón
+    function updateData() {
+        fetchData();
+    }
 </script>
 
 <style>
-    .ct-chart {
-        width: 100%;
-        height: 350px;
-        margin-bottom: 20px;
-    }
 
     h3 {
         text-align: center;
@@ -139,6 +138,9 @@
     <option value="India">China</option>
     <!-- Agregar más países aquí -->
 </select>
+
+<!-- Botón para actualizar los datos -->
+<button on:click={updateData}>Buscar</button>
 
 <!-- Contenedor para la gráfica -->
 <div id="chartContainer"></div>
