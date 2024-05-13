@@ -5,7 +5,7 @@
 <script>
     import { onMount } from "svelte";
 
-    let DATAAPI = "https://sos2324-16.appspot.com/api/v2/stats-volleyball";
+    let DATAAPI = "https://sos2324-15.appspot.com/proxyKenzo";
 
     async function getData() {
         try {
