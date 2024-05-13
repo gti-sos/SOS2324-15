@@ -59,6 +59,12 @@ app.use("/proxyMFC", function(req,res){
     req.pipe(request(url)).pipe(res);
 });
 
+app.use("/proxyKenzo", function(req,res){
+    var url= "https://sos2324-16.appspot.com/api/v2/stats-volleyball";
+    console.log('piped:' + req.url);
+    req.pipe(request(url)).pipe(res);
+});
+
 app.use(handler);
 
 
