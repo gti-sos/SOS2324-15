@@ -392,15 +392,15 @@
 
 
 
-<div>
+<!-- <div>
     <a href="sleep-health/pie"><button>Highcharts Pie</button></a>
     <a href="sleep-health/pyramid"><button>Highcharts Pyramid</button></a>
     <a href="sleep-health/zingchart-hbar"><button>Zingchart Hbar (API sos)</button></a>
-    <!-- <a href="sleep-health/zingchart-drilldown"><button>Zingchart Drilldown (API externa)</button></a>
-    <a href="sleep-health/d3js-scatter"><button>D3js Scatter (API externa)</button></a> -->
+    <a href="sleep-health/zingchart-drilldown"><button>Zingchart Drilldown (API externa)</button></a>
+    <a href="sleep-health/d3js-scatter"><button>D3js Scatter (API externa)</button></a> 
     <a href="sleep-health/d3js-bubble"><button>D3js Bubble (API externa integrada)</button></a>
 
-</div>
+</div> -->
 
 {#if msg!=""}
 <div>
