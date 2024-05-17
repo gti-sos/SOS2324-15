@@ -31,10 +31,14 @@
 <h1>Oscar García González</h1>
 <h2>Usos</h2>
 <ul>
-    
-</ul>
-<h2>Integraciones</h2>
-<ul>
+    <li><a href="performance-in-exams/highcharts-column"><button>Ver Gráfica Highcharts Column</button></a></li>
+    <li><a href="performance-in-exams/highcharts-area"><button>Ver Gráfica Highcharts Area</button></a></li>
+    <li><a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts (API de compañero de SOS)</button></a></li>
+    <li><a href="performance-in-exams/chartist-pie"><button>Ver Gráfica Chartist - Pie (API Streaming Availability rapidapi)</button></a></li>
+    <li><a href="performance-in-exams/chartist-bar"><button>Ver Gráfica Chartist - Bar (API Worldwide National rapidapi)</button></a></li>
+    <li><a href="performance-in-exams/echarts-tree"><button>Ver Gráfica Echarts - Tree (API Virtual Number rapidapi)</button></a></li>
+    <li><a href="performance-in-exams/echarts-scatter"><button>Ver Gráfica Echarts - Scatter (API OpenCritic rapidapi)</button></a></li>
+    <li><a href="performance-in-exams/echarts-bar"><button>Ver Gráfica Echarts - Bar (API Cryptocurrency News)</button></a></li>
     
 </ul>
 

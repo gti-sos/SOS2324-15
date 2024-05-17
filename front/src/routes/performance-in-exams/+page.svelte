@@ -356,17 +356,6 @@ async function nextPage() {
     }
     
 </script>
-
-<div>
-    <a href="performance-in-exams/highcharts-column"><button>Ver Gráfica Column</button></a>
-    <a href="performance-in-exams/highcharts-area"><button>Ver Gráfica Area</button></a>
-    <a href="performance-in-exams/amcharts"><button>Ver Gráfica Amcharts (API de compañero de SOS)</button></a>
-    <a href="performance-in-exams/chartist-pie"><button>Ver Gráfica Chartist - Pie (API Streaming Availability rapidapi)</button></a>
-    <a href="performance-in-exams/chartist-bar"><button>Ver Gráfica Chartist - Bar (API Worldwide National rapidapi)</button></a>
-    <a href="performance-in-exams/echarts-tree"><button>Ver Gráfica Echarts - Tree (API Virtual Number rapidapi)</button></a>
-    <a href="performance-in-exams/echarts-scatter"><button>Ver Gráfica Echarts - Scatter (API OpenCritic rapidapi)</button></a>
-    <a href="performance-in-exams/echarts-bar"><button>Ver Gráfica Echarts - Bar (API Cryptocurrency News)</button></a>
-</div>
     
     {#if msg !== ""}
     <div>
