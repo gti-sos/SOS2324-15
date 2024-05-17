@@ -6,8 +6,8 @@
     import { onMount } from "svelte";
 
    
-    let DATAAPI = "http://localhost:10000/ProxyMFC";
-   // let DATAAPI = "https://sos2324-15.appspot.com/proxyKenzo";
+    //let DATAAPI = "http://localhost:10000/ProxyMFC";
+    let DATAAPI = "https://sos2324-15.appspot.com/ProxyMFC";
 
     let dataAvailable = false;
 
