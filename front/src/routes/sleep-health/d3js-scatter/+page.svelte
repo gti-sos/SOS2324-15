@@ -1,128 +1,95 @@
 <svelte:head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico de Área con D3.js</title>
-    <!-- Incluye la biblioteca D3.js -->
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </svelte:head>
 
 <script>
     import { onMount } from "svelte";
 
-    const DATAAPI = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
-
-    onMount(() => {
-        fetchData();
-    });
+    const API_URL = 'https://job-salary-data.p.rapidapi.com/job-salary?job_title=nodejs%20developer&location=new%20york%2C%20usa&radius=200';
+    const API_HEADERS = {
+        'X-RapidAPI-Key': '5521785c1amshf4a2f48314b1a49p12527bjsn35d8a0deed98',
+    'X-RapidAPI-Host': 'job-salary-data.p.rapidapi.com'
+    };
 
     async function fetchData() {
         try {
-            const res = await fetch(DATAAPI);
-            const data = await res.json();
-            createChart(data);
+            const response = await fetch(API_URL, { headers: API_HEADERS });
+            const data = await response.json();
+            createChart(data.data);
         } catch (error) {
-            console.log(`Error fetching data: ${error}`);
+            console.error('Error fetching data:', error);
         }
     }
 
     function createChart(data) {
-        const avgCalificationByCountryAndSex = d3.rollups(
-            data,
-            v => d3.mean(v, d => d.calification_average),
-            d => d.country,
-            d => d.sex
-        );
+        const width = 600;
+        const height = 400;
+        const margin = { top: 40, right: 20, bottom: 80, left: 100 }; // Ajuste del margen izquierdo
 
-        const dataset = Array.from(avgCalificationByCountryAndSex, ([country, values]) => ({
-            country,
-            male: values.find(d => d[0].toLowerCase() === "male")?.[1] || 0,
-            female: values.find(d => d[0].toLowerCase() === "female")?.[1] || 0
-        }));
+        // Encontrar el valor máximo para los salarios mínimos y máximos
+        const maxSalary = d3.max(data, d => d.max_salary);
+        const minSalary = d3.min(data.filter(d => d.min_salary > 0), d => d.min_salary);
 
         const svg = d3.select("#chart-container")
             .append("svg")
-            .attr("width", 800)
-            .attr("height", 600);
+            .attr("width", width)
+            .attr("height", height);
 
-        const xScale = d3.scaleBand()
-            .domain(dataset.map(d => d.country))
-            .range([50, 750])
-            .padding(0.1);
+        const maxDomain = Math.max(maxSalary, minSalary);
 
-        const yScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset, d => Math.max(d.male, d.female))])
-            .nice()
-            .range([550, 50]);
+        const x = d3.scaleLinear()
+            .domain([0, maxDomain])
+            .range([margin.left, width - margin.right]);
 
-        const area = d3.area()
-            .x(d => xScale(d.country) + xScale.bandwidth() / 2)
-            .y0(d => yScale(d.male))
-            .y1(d => yScale(d.female));
-
-        svg.selectAll(".male-area")
-            .data([dataset.filter(d => d.male > 0)])
-            .join("path")
-            .attr("class", "male-area")
-            .attr("d", d => area(d))
-            .attr("fill", "steelblue")
-            .attr("opacity", 0.6);
-
-        svg.selectAll(".female-area")
-            .data([dataset.filter(d => d.female > 0)])
-            .join("path")
-            .attr("class", "female-area")
-            .attr("d", d => area(d))
-            .attr("fill", "salmon")
-            .attr("opacity", 0.6);
-
-        const xAxis = d3.axisBottom(xScale);
-        const yAxis = d3.axisLeft(yScale);
+        const y = d3.scaleLinear()
+            .domain([0, maxDomain])
+            .range([height - margin.bottom, margin.top]);
 
         svg.append("g")
-            .attr("transform", "translate(0, 550)")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("transform", "translate(50, 0)")
-            .call(yAxis);
-
-        svg.append("text")
-            .attr("x", 400)
-            .attr("y", 590)
-            .text("País");
-
-        svg.append("text")
-            .attr("x", -300)
-            .attr("y", 10)
-            .attr("transform", "rotate(-90)")
-            .text("Promedio de Calificación");
-
-        const legend = svg.append("g")
-            .attr("class", "legend")
-            .attr("transform", "translate(700,50)");
-
-        const legendData = ["Masculino", "Femenino"];
-        const legendColors = ["steelblue", "salmon"];
-
-        legend.selectAll("rect")
-            .data(legendData)
-            .enter()
-            .append("rect")
-            .attr("x", 0)
-            .attr("y", (d, i) => i * 20)
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("fill", (d, i) => legendColors[i]);
-
-        legend.selectAll("text")
-            .data(legendData)
-            .enter()
+            .attr("transform", `translate(0, ${height - margin.bottom})`)
+            .call(d3.axisBottom(x))
             .append("text")
-            .attr("x", 15)
-            .attr("y", (d, i) => i * 20 + 9)
-            .text(d => d);
+            .attr("x", width / 2)
+            .attr("y", margin.bottom / 1.5)
+            .attr("fill", "black")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "middle")
+            .text("Max Salary");
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left}, 0)`)
+            .call(d3.axisLeft(y))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", -margin.left / 2)
+            .attr("dy", "1em") // Ajuste vertical
+            .attr("fill", "black")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "middle")
+            .text("Min Salary");
+
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => x(d.max_salary))
+            .attr("cy", d => y(d.min_salary))
+            .attr("r", 5)
+            .style("fill", "steelblue");
+
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.top / 2)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("font-weight", "bold")
+            .text("Salary Scatter Plot");
     }
+
+    onMount(() => {
+        fetchData();
+    });
 </script>
 
-<!-- Contenedor para el gráfico -->
 <div id="chart-container"></div>

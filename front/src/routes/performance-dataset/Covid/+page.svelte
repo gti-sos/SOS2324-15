@@ -14,25 +14,29 @@
 
     async function fetchData() {
         const selectedCountry = document.getElementById('countrySelect').value;
+        const url = `https://covid-19-tracking.p.rapidapi.com/v1/${selectedCountry.toLowerCase()}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
+                'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com'
+            }
+        };
 
         try {
-            const response = await fetch(`https://covid-19-tracking.p.rapidapi.com/v1`, {
-                method: 'GET',
-                headers: {
-                    'X-RapidAPI-Key': "c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22",
-                    'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com'
-                }
-            });
-            const data = await response.json();
-            countryData = data.find(d => d.Country_text === selectedCountry);
-            if (countryData) {
-                dataAvailable = true;
-                updateChart(countryData);
-            } else {
-                console.error("Data for selected country not found.");
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
+
+            const result = await response.json();
+            console.log("Parsed JSON data:", result);
+
+            countryData = result;
+            dataAvailable = true;
+            updateChart(countryData);
         } catch (error) {
-            console.error(error);
+            console.error("Fetch error:", error);
         }
     }
 
@@ -118,7 +122,6 @@
 </script>
 
 <style>
-
     h3 {
         text-align: center;
     }
@@ -127,15 +130,15 @@
 <br>
 <h3>COVID-19 Data</h3>
 <select id="countrySelect">
-    <option value="World">World</option>
-    <option value="USA">USA</option>
-    <option value="France">France</option>
-    <option value="Germany">Germany</option>
-    <option value="Russia">Russia</option>
-    <option value="Spain">Spain</option>
-    <option value="Finland">Finland</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="India">China</option>
+    <option value="world">World</option>
+    <option value="usa">USA</option>
+    <option value="france">France</option>
+    <option value="germany">Germany</option>
+    <option value="russia">Russia</option>
+    <option value="spain">Spain</option>
+    <option value="finland">Finland</option>
+    <option value="bulgaria">Bulgaria</option>
+    <option value="china">China</option>
     <!-- Agregar más países aquí -->
 </select>
 
