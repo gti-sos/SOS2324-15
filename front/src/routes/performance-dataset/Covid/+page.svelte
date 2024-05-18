@@ -18,7 +18,7 @@
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
+                'X-RapidAPI-Key': 'bb72de2ab2mshe618cbc704dd147p19ad8cjsnf39d149f3e42',
                 'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com'
             }
         };
@@ -29,10 +29,7 @@
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
 
-            const result = await response.json();
-            console.log("Parsed JSON data:", result);
-
-            countryData = result;
+            countryData = await response.json();
             dataAvailable = true;
             updateChart(countryData);
         } catch (error) {
