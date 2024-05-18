@@ -5,7 +5,7 @@
         <iframe
             width="560"
             height="315"
-            src="https://youtu.be/HbRGhzDMFFM"
+            src="https://www.youtube.com/embed/HbRGhzDMFFM"
             title="Vídeo SOS - Marta Fernández Carmona"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -20,14 +20,16 @@
     
     <br />
     <div class="video-container">
-        <iframe width="560" 
-         height="315" 
-         src="link"
-         title="Vídeo SOS - Oscar García González" 
-         frameborder="0" 
-         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-         referrerpolicy="strict-origin-when-cross-origin" 
-         allowfullscreen></iframe>
+        <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+            title="Vídeo SOS - Oscar García González" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen
+        ></iframe>
     </div>
 
     <br />
@@ -36,15 +38,16 @@
 
     <br />
     <div class="video-container">
-        <iframe width="560" 
-        height="315"
-        src="https://www.youtube.com/embed/zZmAlXItNJU?si=2QDFJ3JbCkUHwvgk" 
-        title="Vídeo SOS - Sergio Kenzo Cortes González" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-    </iframe>
+        <iframe 
+            width="560" 
+            height="315"
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+            title="Vídeo SOS - Sergio Kenzo Cortes González" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
     </div>
     
 </div>
@@ -76,6 +79,4 @@
     h2 {
         margin-top: 20px;
     }
-
-    
 </style>
