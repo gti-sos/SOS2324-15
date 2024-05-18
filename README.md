@@ -20,3 +20,6 @@
   - [https://sos2324-15.appspot.com/api/v1/students-sleep-health/docs] v1 (developed by Sergio Kenzo Cortes González) 
   - [https://sos2324-15.appspot.com/api/v2/students-sleep-health/docs] v2 (developed by Sergio Kenzo Cortes González)
  
+**Soporte Docker**
+  - Lanzar la imagen del proyecto en el puerto 10000: “docker run -p 10000:10000 -d sergiokenz0/sos2324-15”
+
