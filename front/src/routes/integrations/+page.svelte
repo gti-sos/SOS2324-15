@@ -6,7 +6,7 @@
   <li><a href="performance-dataset/d3js"><button> Widget D3.js area </button></a></li>
   <li><a href="performance-dataset/Covid"><button> Widget D3.js Covid (Api externa)</button></a></li>
   <li><a href="performance-dataset/tesla"><button> Widget charts Tesla (Api externa)</button></a></li>
-  <li><a href="performance-dataset/Covid"><button> Widget highchart Hearthstone (Api externa)</button></a></li>
+  <li><a href="performance-dataset/Hearthstone"><button> Widget highchart Hearthstone (Api externa)</button></a></li>
     
 </ul>
 <h2>Integraciones</h2>
