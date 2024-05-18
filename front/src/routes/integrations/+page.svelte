@@ -11,7 +11,7 @@
 </ul>
 <h2>Integraciones</h2>
 <ul>
-  <li><a href="performance-dataset/compañero"><button>D3.js  (Api sos)</button></a></li>
+  <li><a href="performance-dataset/compañero"><button>charts radar (Api sos G22)</button></a></li>
   <li><a href="performance-dataset/combinacion"><button>D3.js bar (Api externa)</button></a></li> 
 </ul>
 

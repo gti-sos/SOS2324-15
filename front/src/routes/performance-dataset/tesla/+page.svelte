@@ -7,7 +7,7 @@
 
    
     //let DATAAPI = "http://localhost:10000/ProxyMFC";
-    let DATAAPI = "https://sos2324-15.appspot.com/ProxyMFC";
+    let DATAAPI = "https://sos2324-15.appspot.com/proxyMFC";
 
     let dataAvailable = false;
 

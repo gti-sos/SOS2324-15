@@ -53,23 +53,25 @@ loadBackendMFC(app, dbStudents);
 //Llamar a la api de Sergio Cortés 
 loadBackendSCG(app, dbSleep);
 
-app.use("/proxyMFC", async function(req,res){
-    const url = 'https://yh-finance.p.rapidapi.com/auto-complete?q=tesla&region=US';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
-		'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com'
-	}
-};
+app.use("/proxyMFC", async function(req, res) {
+    const region = req.query.region || 'US'; // Obtén la región de los parámetros de la solicitud, por defecto a 'US'
+    const url = `https://yh-finance.p.rapidapi.com/auto-complete?q=tesla&region=${region}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'c8c5805be4msh51b2331d0f2ac40p14efb1jsn56f9898c3d22',
+            'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com'
+        }
+    };
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.json();
-	res.send(result);
-} catch (error) {
-	console.error(error);
-}
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching data from API');
+    }
 });
 
 app.use("/proxyKenzo", function(req,res){
