@@ -32,8 +32,8 @@
 </ul>
 <h2>Videos</h2>
 <ul>
-    <li><a href="https://youtu.be/HbRGhzDMFFM">Sergio Kenzo Cortés González</a> (Video students-sleep-health)</li>
-    <li><a href="https://youtu.be/HbRGhzDMFFM">Oscar García González</a> (Video students-performance-in-exams)</li>
+    <li><a href="https://youtu.be/pqWuqkI7ELU">Sergio Kenzo Cortés González</a> (Video students-sleep-health)</li>
+    <li><a href="https://youtu.be/VyxonFbtKYE">Oscar García González</a> (Video students-performance-in-exams)</li>
     <li><a href="https://youtu.be/HbRGhzDMFFM">Marta Fernández Carmona</a> (Video students-performance-dataset)</li>
 </ul>
 <style>
