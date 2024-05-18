@@ -1,6 +1,9 @@
 <h1>Marta Fernández Carmona</h1>
 <h2>Usos</h2>
 <ul>
+  <li><a href="performance-dataset/bar"><button> Widget Highcharts bar </button></a></li>
+  <li><a href="performance-dataset/scatter"><button> Widget Highcharts scatter </button></a></li>
+  <li><a href="performance-dataset/d3js"><button> Widget D3.js area </button></a></li>
   <li><a href="performance-dataset/Covid"><button> Widget D3.js Covid (Api externa)</button></a></li>
   <li><a href="performance-dataset/tesla"><button> Widget charts Tesla (Api externa)</button></a></li>
   <li><a href="performance-dataset/Covid"><button> Widget highchart Hearthstone (Api externa)</button></a></li>
@@ -9,7 +12,7 @@
 <h2>Integraciones</h2>
 <ul>
   <li><a href="performance-dataset/compañero"><button>D3.js  (Api sos)</button></a></li>
-  <li><a href="performance-dataset/combinacion"><button>D3.js (Api externa)</button></a></li> 
+  <li><a href="performance-dataset/combinacion"><button>D3.js bar (Api externa)</button></a></li> 
 </ul>
 
 
