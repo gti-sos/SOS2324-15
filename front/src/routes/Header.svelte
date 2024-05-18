@@ -7,6 +7,7 @@
             <li><a href="/sleep-health" class="nav-link">Rendimiento del Sueño Estudiantes</a></li>
             <li><a href="/performance-in-exams" class="nav-link">Rendimiento en Exámenes Estudiantes</a></li>
             <li><a href="/performance-dataset" class="nav-link">Rendimiento de Estudiantes</a></li>
+            <li><a href="/about" class="nav-link">Videos</a></li>
         </ul>
     </nav>
 </header>
