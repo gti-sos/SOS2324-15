@@ -1,94 +1,113 @@
 <svelte:head>
+    <!-- Cargamos la biblioteca Highcharts desde su CDN -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- Cargamos el módulo de exportación de Highcharts para permitir la exportación de gráficos -->
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <!-- Cargamos el módulo de exportación de datos de Highcharts para exportar los datos del gráfico -->
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
 </svelte:head>
 
 <script>
+    // Importamos onMount de Svelte para ejecutar código cuando el componente se monta
     import { onMount } from "svelte";
 
-    let DATAAPI="https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
+    // Definimos la URL de la API de datos
+    let DATAAPI = "https://sos2324-15.appspot.com/api/v2/students-performance-dataset";
 
+    // Función para obtener los datos de la API
     async function getData() {
         try {
+            // Realizamos una solicitud fetch a la API
             const res = await fetch(DATAAPI);
+            // Convertimos la respuesta en un objeto JSON
             const data = await res.json();
+            // Llamamos a la función createChart pasando los datos obtenidos
             createChart(data);
         } catch (error) {
+            // En caso de error, lo mostramos en la consola
             console.log(`Error fetching data: ${error}`);
         }
     }
 
+    // Función para crear el gráfico utilizando Highcharts
     function createChart(data) {
-        // Procesar los datos para contar la cantidad de estudiantes por país y rango de edad
+        // Procesamos los datos para contar la cantidad de estudiantes por país y rango de edad
         const processedData = processData(data);
 
-        // Crear el gráfico de barras apiladas
+        // Creamos el gráfico de barras apiladas con Highcharts
         const chart = Highcharts.chart('container', {
             chart: {
-                type: 'bar'
+                type: 'bar' // Tipo de gráfico: barra
             },
             title: {
-                text: 'Distribución de Estudiantes por País y Rango de Edad'
+                text: 'Distribución de Estudiantes por País y Rango de Edad' // Título del gráfico
             },
             xAxis: {
-                categories: processedData.ageRanges,
-                tickInterval: 1, // Establecer el intervalo de los ticks del eje x a 1
+                categories: processedData.ageRanges, // Categorías del eje X (rangos de edad)
+                tickInterval: 1, // Establecemos el intervalo de los ticks del eje X a 1
                 title: {
-                    text: 'Rango de edad'
+                    text: 'Rango de edad' // Título del eje X
                 }
             },
             yAxis: {
-                min: 0,
+                min: 0, // Valor mínimo del eje Y
                 title: {
-                    text: 'Cantidad de Estudiantes'
+                    text: 'Cantidad de Estudiantes' // Título del eje Y
                 }
             },
             legend: {
-                reversed: true
+                reversed: true // Invertimos el orden de la leyenda
             },
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+                    stacking: 'normal' // Configuramos las series para apilarlas
                 }
             },
-            series: processedData.series
+            series: processedData.series // Datos de las series procesadas
         });
     }
 
+    // Función para procesar los datos obtenidos de la API
     function processData(data) {
-        // Definir los rangos de edad
+        // Definimos los rangos de edad
         const ageRanges = ['0-10', '11-20', '21-30', '31-40', '41-50', '51+'];
 
-        // Inicializar contadores por país y rango de edad
+        // Inicializamos un objeto para contar los estudiantes por país y rango de edad
         const countsByCountryAndAgeRange = {};
 
-        // Contar la cantidad de estudiantes por país y rango de edad
+        // Recorremos cada estudiante en los datos obtenidos
         data.forEach(student => {
-            const country = student.country;
-            const age = student.student_age;
-            const ageRange = getAgeRange(age);
+            const country = student.country; // Obtenemos el país del estudiante
+            const age = student.student_age; // Obtenemos la edad del estudiante
+            const ageRange = getAgeRange(age); // Obtenemos el rango de edad del estudiante
+
+            // Si no existe el país en el objeto, lo inicializamos
             if (!countsByCountryAndAgeRange[country]) {
                 countsByCountryAndAgeRange[country] = {};
             }
+
+            // Si no existe el rango de edad en el país, lo inicializamos
             if (!countsByCountryAndAgeRange[country][ageRange]) {
                 countsByCountryAndAgeRange[country][ageRange] = 0;
             }
+
+            // Incrementamos el contador de estudiantes para el país y rango de edad
             countsByCountryAndAgeRange[country][ageRange]++;
         });
 
-        // Procesar los datos en el formato esperado por Highcharts
+        // Procesamos los datos en el formato esperado por Highcharts
         const series = Object.keys(countsByCountryAndAgeRange).map(country => ({
-            name: country,
-            data: ageRanges.map(range => countsByCountryAndAgeRange[country][range] || 0)
+            name: country, // Nombre del país
+            data: ageRanges.map(range => countsByCountryAndAgeRange[country][range] || 0) // Datos de estudiantes por rango de edad
         }));
 
         return {
-            ageRanges,
-            series
+            ageRanges, // Rangos de edad
+            series // Series de datos
         };
     }
 
+    // Función para obtener el rango de edad basado en la edad del estudiante
     function getAgeRange(age) {
         if (age <= 10) {
             return '0-10';
@@ -105,9 +124,11 @@
         }
     }
 
+    // Ejecutamos la función getData cuando el componente se monta
     onMount(() => {
         getData();
-    })
+    });
 </script>
 
+<!-- Contenedor del gráfico -->
 <div id="container" style="width: 100%; height: 400px;"></div>

@@ -1,20 +1,29 @@
 <svelte:head>
+    <!-- Cargamos la biblioteca D3.js desde un CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </svelte:head>
 
 <script>
+    // Importamos onMount de Svelte para ejecutar código cuando el componente se monta
     import { onMount } from "svelte";
 
+    // Indicador de disponibilidad de datos
     let dataAvailable = false;
+    // Objeto para almacenar los datos del país seleccionado
     let countryData = {};
 
+    // Ejecutamos la función fetchData cuando el componente se monta
     onMount(() => {
         fetchData();
     });
 
+    // Función asíncrona para obtener los datos del país seleccionado
     async function fetchData() {
+        // Obtenemos el valor del país seleccionado en el elemento select
         const selectedCountry = document.getElementById('countrySelect').value;
+        // Construimos la URL para la API de datos COVID-19
         const url = `https://covid-19-tracking.p.rapidapi.com/v1/${selectedCountry.toLowerCase()}`;
+        // Opciones para la solicitud fetch
         const options = {
             method: 'GET',
             headers: {
@@ -24,19 +33,25 @@
         };
 
         try {
+            // Realizamos la solicitud fetch a la API
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
 
+            // Convertimos la respuesta en objeto JSON
             countryData = await response.json();
+            // Indicamos que los datos están disponibles
             dataAvailable = true;
+            // Actualizamos la gráfica con los datos obtenidos
             updateChart(countryData);
         } catch (error) {
+            // En caso de error, lo mostramos en la consola
             console.error("Fetch error:", error);
         }
     }
 
+    // Función para actualizar la gráfica con los datos proporcionados
     function updateChart(countryData) {
         // Seleccionar el elemento contenedor de la gráfica
         var chartContainer = d3.select("#chartContainer");
@@ -56,29 +71,35 @@
         var height = 400;
         var radius = Math.min(width, height) / 2;
 
+        // Definir la escala de colores para las secciones de la gráfica
         var color = d3.scaleOrdinal()
             .domain(data.map(function (d) { return d.label; }))
             .range(["#1f77b4", "#ff7f0e", "#2ca02c"]); // Cambiar colores aquí
 
+        // Definir los arcos de la gráfica
         var arc = d3.arc()
             .outerRadius(radius - 10)
             .innerRadius(0);
 
+        // Definir la función de pie para los datos
         var pie = d3.pie()
             .sort(null)
             .value(function (d) { return d.value; });
 
+        // Crear el elemento SVG donde se dibujará la gráfica
         var svg = chartContainer.append("svg")
             .attr("width", width)
             .attr("height", height)
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+        // Crear los elementos g para cada sección de la gráfica
         var g = svg.selectAll(".arc")
             .data(pie(data))
             .enter().append("g")
             .attr("class", "arc");
 
+        // Dibujar los arcos en la gráfica
         g.append("path")
             .attr("d", arc)
             .style("fill", function (d) { return color(d.data.label); });
@@ -124,8 +145,11 @@
     }
 </style>
 
+<!-- Encabezado de la página -->
 <br>
 <h3>COVID-19 Data</h3>
+
+<!-- Selección de país -->
 <select id="countrySelect">
     <option value="world">World</option>
     <option value="usa">USA</option>
