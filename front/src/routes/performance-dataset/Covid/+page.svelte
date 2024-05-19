@@ -22,7 +22,7 @@
         // Obtenemos el valor del país seleccionado en el elemento select
         const selectedCountry = document.getElementById('countrySelect').value;
         // Construimos la URL para la API de datos COVID-19
-        const url = `https://covid-19-tracking.p.rapidapi.com/v1/${selectedCountry.toLowerCase()}`;
+        const url = ``;https://covid-19-tracking.p.rapidapi.com/v1/${selectedCountry.toLowerCase()}
         // Opciones para la solicitud fetch
         const options = {
             method: 'GET',
