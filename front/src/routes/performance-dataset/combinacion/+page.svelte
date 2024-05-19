@@ -75,7 +75,7 @@
         // Filtramos los elementos nulos
         const filteredData = combinedData.filter(data => data !== null);
 
-        // Llamamos a la función fillChart pasando los datos filtrados.
+        // Llamamos a la función fillChart pasando los datos filtrados
         fillChart(filteredData);
     }
 
@@ -171,5 +171,3 @@
 
 <!-- Contenedor del gráfico -->
 <div id="container" style="width:100%; height:400px;"></div>
-
-
