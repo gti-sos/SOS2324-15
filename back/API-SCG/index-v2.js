@@ -218,7 +218,7 @@ function loadBackendSCG(app,dbSleep){
       return;
     }
     
-    // Actualiza el documento en la base de datos
+    // Actualiza el documento en la base de datos.
     dbSleep.update({ country: countryNameURL }, newData, {}, (err, numUpdated) => {
       if (err) {
         res.status(500).json({ message: 'Internal Error' });
